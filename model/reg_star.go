@@ -25,14 +25,14 @@ func (rs RegStar) States(startId string) ([]State, string, error) {
 		IsEnd: false,
 		Moves: []Move{
 			{
-				IsEpsilon: true,
-				Input:     "",
-				MoveTo:    contentStart.String(),
+				MType:  Epsilon,
+				Input:  "",
+				MoveTo: contentStart.String(),
 			},
 			{
-				IsEpsilon: true,
-				Input:     "",
-				MoveTo:    cout,
+				MType:  Epsilon,
+				Input:  "",
+				MoveTo: cout,
 			},
 		},
 	}
@@ -41,14 +41,14 @@ func (rs RegStar) States(startId string) ([]State, string, error) {
 		IsEnd: false,
 		Moves: []Move{
 			{
-				IsEpsilon: true,
-				Input:     "",
-				MoveTo:    contentStart.String(),
+				MType:  Epsilon,
+				Input:  "",
+				MoveTo: contentStart.String(),
 			},
 			{
-				IsEpsilon: true,
-				Input:     "",
-				MoveTo:    nextId.String(),
+				MType:  Epsilon,
+				Input:  "",
+				MoveTo: nextId.String(),
 			},
 		},
 	}

@@ -2,10 +2,11 @@ package model
 
 // 各状態から行える操作を示す
 type Move struct {
-	IsEpsilon bool
-	Input     string
-	MoveTo    string
-	CInst     CaptureInstr
+	MType    MoveType
+	Input    string
+	MoveTo   string
+	CInst    CaptureInstr
+	RefIndex int
 }
 
 // Capturing Groupへの操作を示す
@@ -22,4 +23,13 @@ const (
 	Keep MemInst = iota
 	Close
 	Open
+)
+
+// Moveの種別
+type MoveType int
+
+const (
+	Epsilon MoveType = iota
+	Consumption
+	Ref
 )

@@ -22,9 +22,9 @@ func (rs RegString) States(startId string) ([]State, string, error) {
 		nextId = rawId.String()
 		moves := []Move{
 			{
-				IsEpsilon: false,
-				Input:     string(c),
-				MoveTo:    nextId,
+				MType:  Consumption,
+				Input:  string(c),
+				MoveTo: nextId,
 			},
 		}
 		states = append(states, State{

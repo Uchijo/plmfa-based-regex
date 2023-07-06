@@ -23,14 +23,14 @@ func (ru RegUnion) States(startId string) ([]State, string, error) {
 		IsEnd: false,
 		Moves: []Move{
 			{
-				IsEpsilon: true,
-				MoveTo:    leftStart.String(),
-				Input:     "",
+				MType:  Epsilon,
+				MoveTo: leftStart.String(),
+				Input:  "",
 			},
 			{
-				IsEpsilon: true,
-				MoveTo:    rightStart.String(),
-				Input:     "",
+				MType:  Epsilon,
+				MoveTo: rightStart.String(),
+				Input:  "",
 			},
 		},
 	}
@@ -49,9 +49,9 @@ func (ru RegUnion) States(startId string) ([]State, string, error) {
 		IsEnd: false,
 		Moves: []Move{
 			{
-				IsEpsilon: true,
-				Input:     "",
-				MoveTo:    goalUUID.String(),
+				MType:  Epsilon,
+				Input:  "",
+				MoveTo: goalUUID.String(),
 			},
 		},
 	}
@@ -60,9 +60,9 @@ func (ru RegUnion) States(startId string) ([]State, string, error) {
 		IsEnd: false,
 		Moves: []Move{
 			{
-				IsEpsilon: true,
-				Input:     "",
-				MoveTo:    leftGoal,
+				MType:  Epsilon,
+				Input:  "",
+				MoveTo: leftGoal,
 			},
 		},
 	}
