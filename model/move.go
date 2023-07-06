@@ -6,11 +6,18 @@ type Move struct {
 	Input    string
 	MoveTo   string
 	CInst    CaptureInstr
+	PLInst   PosMemInstr
 	RefIndex int
 }
 
 // Capturing Groupへの操作を示す
 type CaptureInstr struct {
+	Inst     MemInst
+	MemIndex int
+}
+
+// Positive Lookahead Memoryへの操作を示す
+type PosMemInstr struct {
 	Inst     MemInst
 	MemIndex int
 }
