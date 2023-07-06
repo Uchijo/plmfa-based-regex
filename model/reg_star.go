@@ -7,7 +7,7 @@ type RegStar struct {
 	Content RegExp
 }
 
-func (rs RegStar) ToStates(startId string) ([]State, string, error) {
+func (rs RegStar) States(startId string) ([]State, string, error) {
 	nextId, err := uuid.NewRandom()
 	if err != nil {
 		panic("uuid generation error.")
@@ -16,23 +16,23 @@ func (rs RegStar) ToStates(startId string) ([]State, string, error) {
 	if err != nil {
 		panic("uuid generation error.")
 	}
-	cs, cout, err := rs.Content.ToStates(contentStart.String())
+	cs, cout, err := rs.Content.States(contentStart.String())
 	if err != nil {
 		return nil, "", err
 	}
 	entry := State{
-		Id: startId,
+		Id:    startId,
 		IsEnd: false,
 		Moves: []Move{
 			{
 				IsEpsilon: true,
-				Input: "",
-				MoveTo: contentStart.String(),
+				Input:     "",
+				MoveTo:    contentStart.String(),
 			},
 			{
 				IsEpsilon: true,
-				Input: "",
-				MoveTo: cout,
+				Input:     "",
+				MoveTo:    cout,
 			},
 		},
 	}
@@ -42,13 +42,13 @@ func (rs RegStar) ToStates(startId string) ([]State, string, error) {
 		Moves: []Move{
 			{
 				IsEpsilon: true,
-				Input: "",
-				MoveTo: contentStart.String(),
+				Input:     "",
+				MoveTo:    contentStart.String(),
 			},
 			{
 				IsEpsilon: true,
-				Input: "",
-				MoveTo: nextId.String(),
+				Input:     "",
+				MoveTo:    nextId.String(),
 			},
 		},
 	}

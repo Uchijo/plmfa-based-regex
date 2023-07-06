@@ -18,7 +18,7 @@ func TestRegUnion(t *testing.T) {
 
 	for _, v := range tests {
 		t.Run(v.name, func(t *testing.T) {
-			states, out, err := v.input.ToStates("hoge")
+			states, out, err := v.input.States("hoge")
 
 			if out == "" {
 				t.Errorf("output id was empty")
@@ -28,8 +28,8 @@ func TestRegUnion(t *testing.T) {
 				t.Errorf("something went wrong; error reported.\n")
 			}
 
-			l, _, _ := v.input.Left.ToStates("hoge")
-			r, _, _ := v.input.Left.ToStates("hoge")
+			l, _, _ := v.input.Left.States("hoge")
+			r, _, _ := v.input.Left.States("hoge")
 			expectedStLen := len(l) + len(r) + 3
 			if expectedStLen != len(states) {
 				t.Errorf("expected to get %v states, but got %v\n", expectedStLen, len(states))

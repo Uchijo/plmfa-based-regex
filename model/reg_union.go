@@ -10,7 +10,7 @@ type RegUnion struct {
 	Right RegExp
 }
 
-func (ru RegUnion) ToStates(startId string) ([]State, string, error) {
+func (ru RegUnion) States(startId string) ([]State, string, error) {
 	if ru.Left == nil || ru.Right == nil {
 		panic("invalid regex.")
 	}
@@ -37,9 +37,9 @@ func (ru RegUnion) ToStates(startId string) ([]State, string, error) {
 	states = append(states, start)
 
 	// TODO: エラー処理ちゃんとする
-	leftStates, leftGoal, _ := ru.Left.ToStates(leftStart.String())
+	leftStates, leftGoal, _ := ru.Left.States(leftStart.String())
 	states = append(states, leftStates...)
-	rightStates, rightGoal, _ := ru.Right.ToStates(rightStart.String())
+	rightStates, rightGoal, _ := ru.Right.States(rightStart.String())
 	states = append(states, rightStates...)
 
 	goalUUID, _ := uuid.NewRandom()
@@ -56,13 +56,13 @@ func (ru RegUnion) ToStates(startId string) ([]State, string, error) {
 		},
 	}
 	rightGoalState := State{
-		Id: rightGoal,
+		Id:    rightGoal,
 		IsEnd: false,
 		Moves: []Move{
 			{
 				IsEpsilon: true,
-				Input: "",
-				MoveTo: leftGoal,
+				Input:     "",
+				MoveTo:    leftGoal,
 			},
 		},
 	}

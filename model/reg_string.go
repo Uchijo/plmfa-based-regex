@@ -9,7 +9,7 @@ type RegString struct {
 	Content string
 }
 
-func (rs RegString) ToStates(startId string) ([]State, string, error) {
+func (rs RegString) States(startId string) ([]State, string, error) {
 	states := []State{}
 
 	var currentId, nextId string

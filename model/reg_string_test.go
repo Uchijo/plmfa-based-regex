@@ -26,7 +26,7 @@ func TestRegStringToStates(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			rs := RegString{Content: tt.input}
-			states, output, err := rs.ToStates("hoge")
+			states, output, err := rs.States("hoge")
 			if err != nil {
 				t.Error("error found after ToStates\n")
 			}

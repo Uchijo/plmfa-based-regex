@@ -5,7 +5,7 @@ type RegApp struct {
 	Contents []RegExp
 }
 
-func (ra RegApp) ToStates(startId string) ([]State, string, error) {
+func (ra RegApp) States(startId string) ([]State, string, error) {
 	// 空の連接の場合何もせずに終わり
 	if len(ra.Contents) == 0 {
 		return []State{}, startId, nil
@@ -14,7 +14,7 @@ func (ra RegApp) ToStates(startId string) ([]State, string, error) {
 	states := []State{}
 	currentStart := startId
 	for _, v := range ra.Contents {
-		stFragment, currentEnd, err := v.ToStates(currentStart)
+		stFragment, currentEnd, err := v.States(currentStart)
 		if err != nil {
 			panic("something went wrong!")
 		}
