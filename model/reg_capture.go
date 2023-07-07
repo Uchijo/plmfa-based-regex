@@ -17,7 +17,7 @@ func (rc RegCapture) States(startId string) ([]State, string, error) {
 		Id: startId,
 		Moves: []Move{
 			{
-				MType: Mem,
+				MType: CapMem,
 				Input:     "",
 				MoveTo:    contentSId.String(),
 				CInst: CaptureInstr{
@@ -37,7 +37,7 @@ func (rc RegCapture) States(startId string) ([]State, string, error) {
 		IsEnd: false,
 		Moves: []Move{
 			{
-				MType: Mem,
+				MType: CapMem,
 				Input:     "",
 				MoveTo:    exitId.String(),
 				CInst: CaptureInstr{
