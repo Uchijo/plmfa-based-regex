@@ -37,6 +37,7 @@ type MoveType int
 
 const (
 	Epsilon MoveType = iota
+	Mem
 	Consumption
 	Ref
 )
