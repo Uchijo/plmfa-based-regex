@@ -10,13 +10,13 @@ type Move struct {
 	RefIndex int
 }
 
-// Capturing Groupへの操作を示す
+// Capturing Groupへの操作
 type CaptureInstr struct {
 	Inst     MemInst
 	MemIndex int
 }
 
-// Positive Lookahead Memoryへの操作を示す
+// Positive Lookahead Memoryへの操作
 type PosMemInstr struct {
 	Inst     MemInst
 	MemIndex int
@@ -32,7 +32,7 @@ const (
 	Open
 )
 
-// Moveの種別
+// Moveの種別を示すenum
 type MoveType int
 
 const (
