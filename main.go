@@ -8,16 +8,21 @@ import (
 )
 
 func main() {
-	fmt.Println("hello, world")
-
-	hoge := InputBuffer{Input: "hoge"}
-	fmt.Printf("can consume ho: %v\n", hoge.CanConsume("ho"))
-	hoge.Consume("ho")
-	fmt.Printf("input: %v", hoge.Input)
+	regex := model.RegStar{
+		Content: model.RegString{
+			Content: "hoge",
+		},
+	}
+	states, start, _ := model.CreateCompleteStates(regex)
+	input := InputBuffer{
+		Input: "hoge",
+	}
+	matched := search(states, input, start)
+	fmt.Printf("input: %v, match: %v", input.Input, matched)
 }
 
 // search returns true if plmfa accepts input
-func search(st model.StateList, input, currentId string) bool {
+func search(st model.StateList, input InputBuffer, currentId string) bool {
 	// fixme: エラー処理直す
 	curState, _ := st.StateById(currentId)
 
@@ -27,13 +32,13 @@ func search(st model.StateList, input, currentId string) bool {
 	}
 
 	// 終状態 & 入力文字がない -> マッチ成功
-	if curState.IsEnd && len(input) == 0 {
+	if curState.IsEnd && input.Len() == 0 {
 		return true
 	}
 
 	// 入力文字がない & イプシロンでたどり着けるゴールがある -> マッチ
 	goalReachable := searchEps(st, currentId)
-	if goalReachable && len(input) == 0 {
+	if goalReachable && input.Len() == 0 {
 		return true
 	}
 
@@ -46,8 +51,9 @@ func search(st model.StateList, input, currentId string) bool {
 			}
 
 		case model.Consumption:
-			if len(input) >= 1 && input[:1] == v.Input {
-				hasGoal := search(st, input[1:], v.MoveTo)
+			if input.CanConsume(v.Input) {
+				input.Consume(v.Input)
+				hasGoal := search(st, input, v.MoveTo)
 				if hasGoal {
 					return true
 				}
@@ -56,7 +62,6 @@ func search(st model.StateList, input, currentId string) bool {
 		case model.PosMem:
 		case model.CapMem:
 		case model.Ref:
-			// hasGoal := search(st, )
 		}
 	}
 
@@ -85,22 +90,24 @@ type InputBuffer struct {
 	Input string
 }
 
+func (ib InputBuffer) Len() int {
+	return len(ib.Input)
+}
+
 func (ib InputBuffer) CanConsume(matcher string) bool {
 	prefixLen := len(matcher)
 	inputLen := len(ib.Input)
-	fmt.Printf("pl: %v, il: %v\n", prefixLen, inputLen)
 	if inputLen < prefixLen {
 		return false
 	}
-	prefix := ib.Input[prefixLen:]
-	fmt.Printf("prefix: %v, matcher: %v\n", prefix, matcher)
+	prefix := ib.Input[:prefixLen]
 	return prefix == matcher
 }
 
 func (ib *InputBuffer) Consume(matcher string) error {
 	if !ib.CanConsume(matcher) {
-		return errors.New("cannot consume.")
+		return errors.New("cannot consume")
 	}
-	ib.Input = ib.Input[:len(matcher)]
+	ib.Input = ib.Input[len(matcher):]
 	return nil
 }
