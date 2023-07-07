@@ -1,26 +1,13 @@
 package main
 
 import (
-	"errors"
 	"fmt"
 
+	"github.com/Uchijo/plmfa-based-regex/eval"
 	"github.com/Uchijo/plmfa-based-regex/model"
 )
 
 func main() {
-	// regex := model.RegApp{
-	// 	Contents: []model.RegExp{
-	// 		model.RegPosLa{
-	// 			Content: model.RegString{
-	// 				Content: "h",
-	// 			},
-	// 			MemIndex: 1,
-	// 		},
-	// 		model.RegString{
-	// 			Content: "h",
-	// 		},
-	// 	},
-	// }
 	regex :=
 		model.RegApp{
 			Contents: []model.RegExp{
@@ -46,7 +33,7 @@ func main() {
 			},
 		}
 	states, start, _ := model.CreateCompleteStates(regex)
-	input := InputBuffer{
+	input := eval.InputBuffer{
 		Input: "g",
 	}
 
@@ -54,12 +41,12 @@ func main() {
 		fmt.Printf("%+v\n", v)
 	}
 
-	matched := search(states, input, start, PosMemoryList{})
+	matched := search(states, input, start, eval.PosMemoryList{})
 	fmt.Printf("input: %v, match: %v", input.Input, matched)
 }
 
 // search returns true if plmfa accepts input
-func search(st model.StateList, input InputBuffer, currentId string, posMem PosMemoryList) bool {
+func search(st model.StateList, input eval.InputBuffer, currentId string, posMem eval.PosMemoryList) bool {
 	fmt.Printf("buffer:%v , memory: %+v\n", input.Input, posMem)
 	// fixme: エラー処理直す
 	curState, _ := st.StateById(currentId)
@@ -105,7 +92,7 @@ func search(st model.StateList, input InputBuffer, currentId string, posMem PosM
 				if hasGoal {
 					return true
 				}
-			} else {
+			} else if v.PLInst.Inst == model.Close {
 				closed, memContent := posMem.ClosedMem(v.PLInst.MemIndex)
 				appended, _ := input.Appended(memContent)
 				hasGoal := search(st, appended, v.MoveTo, closed)
@@ -138,94 +125,4 @@ func searchEps(st model.StateList, currentId string) bool {
 	}
 
 	return false
-}
-
-type InputBuffer struct {
-	Input string
-}
-
-func (ib InputBuffer) Len() int {
-	return len(ib.Input)
-}
-
-func (ib InputBuffer) CanConsume(matcher string) bool {
-	prefixLen := len(matcher)
-	inputLen := len(ib.Input)
-	if inputLen < prefixLen {
-		return false
-	}
-	prefix := ib.Input[:prefixLen]
-	return prefix == matcher
-}
-
-func (ib InputBuffer) Consumed(matcher string) (InputBuffer, error) {
-	if !ib.CanConsume(matcher) {
-		return InputBuffer{}, errors.New("cannot consume")
-	}
-	ib.Input = ib.Input[len(matcher):]
-	return ib, nil
-}
-
-func (ib InputBuffer) Appended(prefix string) (InputBuffer, error) {
-	ib.Input = prefix + ib.Input
-	return ib, nil
-}
-
-type PosMemoryList []PosMemory
-
-// Append appends given suffix to opened memory
-// it doesn't change closed memory
-func (pml PosMemoryList) Appended(suffix string) PosMemoryList {
-	for i, v := range pml {
-		pml[i] = v.appended(suffix)
-	}
-	return pml
-}
-
-// ChangeStatus changes status of specified memory
-// if memory not found, it creates memory that satisfies given status
-func (pml PosMemoryList) OpenedMem(index int) PosMemoryList {
-	for i, v := range pml {
-		if v.Index == index {
-			pml[i].IsOpen = true
-			return pml
-		}
-	}
-	pml = append(
-		pml,
-		PosMemory{
-			Index:   index,
-			IsOpen:  true,
-			Content: "",
-		},
-	)
-	return pml
-}
-
-// CloseMem closes specified memory, clean ups that memory and return content of memory
-func (pml PosMemoryList) ClosedMem(index int) (PosMemoryList, string) {
-	for i, v := range pml {
-		if v.Index == index {
-			content := v.Content
-			pml[i].Content = ""
-			pml[i].IsOpen = false
-
-			return pml, content
-		}
-	}
-	return pml, ""
-}
-
-type PosMemory struct {
-	Index   int
-	Content string
-	IsOpen  bool
-}
-
-// append appends given suffix to memory if memory is opened
-func (pm PosMemory) appended(suffix string) PosMemory {
-	if pm.IsOpen {
-		pm.Content = pm.Content + suffix
-	}
-	return pm
 }
