@@ -14,7 +14,7 @@ type RegExp interface {
 //
 // States creates slice of States, but it doesn't include end state.
 // This function takes [re] as argument and creates goal-included slice of States with it.
-func CreateCompleteStates(re RegExp) ([]State, string, error) {
+func CreateCompleteStates(re RegExp) (StateList, string, error) {
 	startUuid, err := uuid.NewRandom()
 	if err != nil {
 		panic("uuid generation error")
@@ -31,5 +31,5 @@ func CreateCompleteStates(re RegExp) ([]State, string, error) {
 	}
 	states = append(states, endState)
 
-	return states, startUuid.String(), nil
+	return StateList{states: states}, startUuid.String(), nil
 }
