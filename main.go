@@ -19,12 +19,12 @@ func main() {
 			model.RegString{
 				Content: "b",
 			},
-			// model.RegPosLa{
-			// 	Content: model.RegString{
-			// 		Content: "aaaaa",
-			// 	},
-			// 	MemIndex: 1,
-			// },
+			model.RegPosLa{
+				Content: model.RegString{
+					Content: "aaaaa",
+				},
+				MemIndex: 1,
+			},
 			model.RegCapRef{
 				MemIndex: 1,
 			},
@@ -33,7 +33,7 @@ func main() {
 
 	states, start, _ := model.CreateCompleteStates(regex)
 	input := eval.InputBuffer{
-		Input: "aba",
+		Input: "aaaaabaaaaa",
 	}
 
 	fmt.Printf("start: %v\n", start)
