@@ -13,20 +13,18 @@ func main() {
 			model.RegCapture{
 				MemoryIndex: 1,
 				Content: model.RegStar{
-					Content: model.RegString{
-						Content: "a",
-					},
+					Content: model.RegArb{},
 				},
 			},
 			model.RegString{
 				Content: "b",
 			},
-			model.RegPosLa{
-				Content: model.RegString{
-					Content: "aaaaa",
-				},
-				MemIndex: 1,
-			},
+			// model.RegPosLa{
+			// 	Content: model.RegString{
+			// 		Content: "aaaaa",
+			// 	},
+			// 	MemIndex: 1,
+			// },
 			model.RegCapRef{
 				MemIndex: 1,
 			},
@@ -35,10 +33,15 @@ func main() {
 
 	states, start, _ := model.CreateCompleteStates(regex)
 	input := eval.InputBuffer{
-		Input: "aaaaabaaaaa",
+		Input: "aba",
 	}
 
-	matched := search(states, input, start, eval.PosMemoryList{}, eval.CapMemoryList{})
+	fmt.Printf("start: %v\n", start)
+	for _, v := range states.States() {
+		fmt.Printf("%+v\n", v)
+	}
+
+	matched := search(states, input, start, eval.PosMemoryList{}, eval.CapMemoryList{}, 0)
 	fmt.Printf("input: %v, match: %v", input.Input, matched)
 }
 
@@ -49,8 +52,12 @@ func search(
 	currentId string,
 	posMem eval.PosMemoryList,
 	capMem eval.CapMemoryList,
+	depth int,
 ) bool {
-	fmt.Printf("buffer:%v , pos_memory: %+v, cap_memory: %+v\n", input.Input, posMem, capMem)
+	for i := 0; i < depth; i++ {
+		fmt.Printf("  ")
+	}
+	fmt.Printf("buffer: %v, state: %v, pos_memory: %+v, cap_memory: %+v\n", input.Input, currentId, posMem, capMem)
 	// fixme: エラー処理直す
 	curState, _ := st.StateById(currentId)
 
@@ -73,7 +80,7 @@ func search(
 	for _, v := range curState.Moves {
 		switch v.MType {
 		case model.Epsilon:
-			hasGoal := search(st, input, v.MoveTo, posMem, capMem)
+			hasGoal := search(st, input, v.MoveTo, posMem, capMem, depth+1)
 			if hasGoal {
 				return true
 			}
@@ -83,7 +90,7 @@ func search(
 				consumed, _ := input.Consumed(v.Input)
 				appendedPos := posMem.Appended(v.Input)
 				appendedCap := capMem.Appended(v.Input)
-				hasGoal := search(st, consumed, v.MoveTo, appendedPos, appendedCap)
+				hasGoal := search(st, consumed, v.MoveTo, appendedPos, appendedCap, depth+1)
 				if hasGoal {
 					return true
 				}
@@ -92,14 +99,14 @@ func search(
 		case model.PosMem:
 			if v.PLInst.Inst == model.Open {
 				opened := posMem.OpenedMem(v.PLInst.MemIndex)
-				hasGoal := search(st, input, v.MoveTo, opened, capMem)
+				hasGoal := search(st, input, v.MoveTo, opened, capMem, depth+1)
 				if hasGoal {
 					return true
 				}
 			} else if v.PLInst.Inst == model.Close {
 				closed, memContent := posMem.ClosedMem(v.PLInst.MemIndex)
 				appended, _ := input.Appended(memContent)
-				hasGoal := search(st, appended, v.MoveTo, closed, capMem)
+				hasGoal := search(st, appended, v.MoveTo, closed, capMem, depth+1)
 				if hasGoal {
 					return true
 				}
@@ -108,13 +115,13 @@ func search(
 		case model.CapMem:
 			if v.CInst.Inst == model.Open {
 				opened := capMem.OpenedMem(v.CInst.MemIndex)
-				hasGoal := search(st, input, v.MoveTo, posMem, opened)
+				hasGoal := search(st, input, v.MoveTo, posMem, opened, depth+1)
 				if hasGoal {
 					return true
 				}
 			} else if v.CInst.Inst == model.Close {
 				closed := capMem.ClosedMem(v.CInst.MemIndex)
-				hasGoal := search(st, input, v.MoveTo, posMem, closed)
+				hasGoal := search(st, input, v.MoveTo, posMem, closed, depth+1)
 				if hasGoal {
 					return true
 				}
@@ -126,7 +133,19 @@ func search(
 				consumed, _ := input.Consumed(mem)
 				appendedPos := posMem.Appended(v.Input)
 				appendedCap := capMem.Appended(v.Input)
-				hasGoal := search(st, consumed, v.MoveTo, appendedPos, appendedCap)
+				hasGoal := search(st, consumed, v.MoveTo, appendedPos, appendedCap, depth+1)
+				if hasGoal {
+					return true
+				}
+			}
+
+		case model.ArbitraryConsumption:
+			if input.Len() >= 1 {
+				toConsume := input.Input[:1]
+				consumed, _ := input.Consumed(toConsume)
+				appendedPos := posMem.Appended(toConsume)
+				appendedCap := capMem.Appended(toConsume)
+				hasGoal := search(st, consumed, v.MoveTo, appendedPos, appendedCap, depth+1)
 				if hasGoal {
 					return true
 				}
@@ -134,6 +153,10 @@ func search(
 		}
 	}
 
+	for i := 0; i < depth; i++ {
+		fmt.Printf("  ")
+	}
+	fmt.Println("backtrack!")
 	return false
 }
 

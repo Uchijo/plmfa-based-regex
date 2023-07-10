@@ -6,46 +6,49 @@ type PosMemoryList []PosMemory
 // it doesn't modify closed memory.
 // returns modified copy and original data will be left unmodified.
 func (pml PosMemoryList) Appended(suffix string) PosMemoryList {
-	for i, v := range pml {
-		pml[i] = v.appended(suffix)
+	copy := append([]PosMemory{}, pml...)
+	for i, v := range copy {
+		copy[i] = v.appended(suffix)
 	}
-	return pml
+	return copy
 }
 
 // OpenedMem changes status of specified memory.
 // if memory not found, it creates memory that satisfies given status.
 // original data is unmodified, and modified copy will be returned.
 func (pml PosMemoryList) OpenedMem(index int) PosMemoryList {
-	for i, v := range pml {
+	copy := append([]PosMemory{}, pml...)
+	for i, v := range copy {
 		if v.Index == index {
-			pml[i].IsOpen = true
-			return pml
+			copy[i].IsOpen = true
+			return copy
 		}
 	}
-	pml = append(
-		pml,
+	copy = append(
+		copy,
 		PosMemory{
 			Index:   index,
 			IsOpen:  true,
 			Content: "",
 		},
 	)
-	return pml
+	return copy
 }
 
 // ClosedMem closes specified memory, clean ups that memory and return content of memory.
 // it doesn't change original content and returns modified copy.
 func (pml PosMemoryList) ClosedMem(index int) (PosMemoryList, string) {
-	for i, v := range pml {
+	copy := append([]PosMemory{}, pml...)
+	for i, v := range copy {
 		if v.Index == index {
 			content := v.Content
-			pml[i].Content = ""
-			pml[i].IsOpen = false
+			copy[i].Content = ""
+			copy[i].IsOpen = false
 
-			return pml, content
+			return copy, content
 		}
 	}
-	return pml, ""
+	return copy, ""
 }
 
 type PosMemory struct {

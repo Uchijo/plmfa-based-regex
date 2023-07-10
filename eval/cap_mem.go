@@ -13,38 +13,41 @@ func (cml CapMemoryList) Content(index int) string {
 }
 
 func (cml CapMemoryList) OpenedMem(index int) CapMemoryList {
-	for i, v := range cml {
+	copy := append([]CapMemory{}, cml...)
+	for i, v := range copy {
 		if v.Index == index {
-			cml[i].IsOpen = true
-			cml[i].Content = ""
-			return cml
+			copy[i].IsOpen = true
+			copy[i].Content = ""
+			return copy
 		}
 	}
-	cml = append(cml,
+	copy = append(copy,
 		CapMemory{
 			Index:   index,
 			IsOpen:  true,
 			Content: "",
 		},
 	)
-	return cml
+	return copy
 }
 
 func (cml CapMemoryList) ClosedMem(index int) CapMemoryList {
-	for i, v := range cml {
+	copy := append([]CapMemory{}, cml...)
+	for i, v := range copy {
 		if v.Index == index {
-			cml[i].IsOpen = false
-			return cml
+			copy[i].IsOpen = false
+			return copy
 		}
 	}
-	return cml
+	return copy
 }
 
 func (cml CapMemoryList) Appended(suffix string) CapMemoryList {
-	for i, v := range cml {
-		cml[i] = v.appended(suffix)
+	copy := append([]CapMemory{}, cml...)
+	for i, v := range copy {
+		copy[i] = v.appended(suffix)
 	}
-	return cml
+	return copy
 }
 
 type CapMemory struct {

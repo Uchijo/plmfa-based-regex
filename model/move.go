@@ -41,4 +41,5 @@ const (
 	CapMem
 	Consumption
 	Ref
+	ArbitraryConsumption
 )
