@@ -21,6 +21,12 @@ func main() {
 			model.RegString{
 				Content: "b",
 			},
+			model.RegPosLa{
+				Content: model.RegString{
+					Content: "aaaaa",
+				},
+				MemIndex: 1,
+			},
 			model.RegCapRef{
 				MemIndex: 1,
 			},
@@ -29,7 +35,7 @@ func main() {
 
 	states, start, _ := model.CreateCompleteStates(regex)
 	input := eval.InputBuffer{
-		Input: "aaabaaa",
+		Input: "aaaaabaaaaa",
 	}
 
 	matched := search(states, input, start, eval.PosMemoryList{}, eval.CapMemoryList{})
