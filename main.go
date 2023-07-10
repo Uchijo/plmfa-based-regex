@@ -8,46 +8,46 @@ import (
 )
 
 func main() {
-	regex :=
-		model.RegApp{
-			Contents: []model.RegExp{
-				model.RegPosLa{
-					Content: model.RegUnion{
-						Left: model.RegString{
-							Content: "g",
-						},
-						Right: model.RegString{
-							Content: "h",
-						},
-					},
-					MemIndex: 1,
-				},
-				model.RegUnion{
-					Left: model.RegString{
-						Content: "h",
-					},
-					Right: model.RegString{
-						Content: "g",
+	regex := model.RegApp{
+		Contents: []model.RegExp{
+			model.RegCapture{
+				MemoryIndex: 1,
+				Content: model.RegStar{
+					Content: model.RegString{
+						Content: "a",
 					},
 				},
 			},
-		}
+			model.RegString{
+				Content: "b",
+			},
+			model.RegCapRef{
+				MemIndex: 1,
+			},
+		},
+	}
 	states, start, _ := model.CreateCompleteStates(regex)
 	input := eval.InputBuffer{
-		Input: "g",
+		Input: "aaabaaa",
 	}
 
 	for _, v := range states.States() {
 		fmt.Printf("%+v\n", v)
 	}
 
-	matched := search(states, input, start, eval.PosMemoryList{})
+	matched := search(states, input, start, eval.PosMemoryList{}, eval.CapMemoryList{})
 	fmt.Printf("input: %v, match: %v", input.Input, matched)
 }
 
 // search returns true if plmfa accepts input
-func search(st model.StateList, input eval.InputBuffer, currentId string, posMem eval.PosMemoryList) bool {
-	fmt.Printf("buffer:%v , memory: %+v\n", input.Input, posMem)
+func search(
+	st model.StateList,
+	input eval.InputBuffer,
+	currentId string,
+	posMem eval.PosMemoryList,
+	capMem eval.CapMemoryList,
+) bool {
+	fmt.Printf("buffer:%v , pos_memory: %+v, cap_memory: %+v\n", input.Input, posMem, capMem)
 	// fixme: エラー処理直す
 	curState, _ := st.StateById(currentId)
 
@@ -70,7 +70,7 @@ func search(st model.StateList, input eval.InputBuffer, currentId string, posMem
 	for _, v := range curState.Moves {
 		switch v.MType {
 		case model.Epsilon:
-			hasGoal := search(st, input, v.MoveTo, posMem)
+			hasGoal := search(st, input, v.MoveTo, posMem, capMem)
 			if hasGoal {
 				return true
 			}
@@ -78,8 +78,9 @@ func search(st model.StateList, input eval.InputBuffer, currentId string, posMem
 		case model.Consumption:
 			if input.CanConsume(v.Input) {
 				consumed, _ := input.Consumed(v.Input)
-				appended := posMem.Appended(v.Input)
-				hasGoal := search(st, consumed, v.MoveTo, appended)
+				appendedPos := posMem.Appended(v.Input)
+				appendedCap := capMem.Appended(v.Input)
+				hasGoal := search(st, consumed, v.MoveTo, appendedPos, appendedCap)
 				if hasGoal {
 					return true
 				}
@@ -88,21 +89,45 @@ func search(st model.StateList, input eval.InputBuffer, currentId string, posMem
 		case model.PosMem:
 			if v.PLInst.Inst == model.Open {
 				opened := posMem.OpenedMem(v.PLInst.MemIndex)
-				hasGoal := search(st, input, v.MoveTo, opened)
+				hasGoal := search(st, input, v.MoveTo, opened, capMem)
 				if hasGoal {
 					return true
 				}
 			} else if v.PLInst.Inst == model.Close {
 				closed, memContent := posMem.ClosedMem(v.PLInst.MemIndex)
 				appended, _ := input.Appended(memContent)
-				hasGoal := search(st, appended, v.MoveTo, closed)
+				hasGoal := search(st, appended, v.MoveTo, closed, capMem)
 				if hasGoal {
 					return true
 				}
 			}
 
 		case model.CapMem:
+			if v.CInst.Inst == model.Open {
+				opened := capMem.OpenedMem(v.CInst.MemIndex)
+				hasGoal := search(st, input, v.MoveTo, posMem, opened)
+				if hasGoal {
+					return true
+				}
+			} else if v.CInst.Inst == model.Close {
+				closed := capMem.ClosedMem(v.CInst.MemIndex)
+				hasGoal := search(st, input, v.MoveTo, posMem, closed)
+				if hasGoal {
+					return true
+				}
+			}
+
 		case model.Ref:
+			mem := capMem.Content(v.RefIndex)
+			if input.CanConsume(mem) {
+				consumed, _ := input.Consumed(mem)
+				appendedPos := posMem.Appended(v.Input)
+				appendedCap := capMem.Appended(v.Input)
+				hasGoal := search(st, consumed, v.MoveTo, appendedPos, appendedCap)
+				if hasGoal {
+					return true
+				}
+			}
 		}
 	}
 

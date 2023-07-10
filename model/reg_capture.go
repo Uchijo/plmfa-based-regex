@@ -14,19 +14,19 @@ func (rc RegCapture) States(startId string) ([]State, string, error) {
 	// fixme: エラー処理直す
 	contentSId, _ := uuid.NewRandom()
 	entryState := State{
-		Id: startId,
+		Id:    startId,
+		IsEnd: false,
 		Moves: []Move{
 			{
-				MType: CapMem,
-				Input:     "",
-				MoveTo:    contentSId.String(),
+				MType:  CapMem,
+				Input:  "",
+				MoveTo: contentSId.String(),
 				CInst: CaptureInstr{
 					Inst:     Open,
 					MemIndex: rc.MemoryIndex,
 				},
 			},
 		},
-		IsEnd: false,
 	}
 
 	cs, endId, _ := rc.Content.States(contentSId.String())
@@ -37,9 +37,9 @@ func (rc RegCapture) States(startId string) ([]State, string, error) {
 		IsEnd: false,
 		Moves: []Move{
 			{
-				MType: CapMem,
-				Input:     "",
-				MoveTo:    exitId.String(),
+				MType:  CapMem,
+				Input:  "",
+				MoveTo: exitId.String(),
 				CInst: CaptureInstr{
 					Inst:     Close,
 					MemIndex: rc.MemoryIndex,
