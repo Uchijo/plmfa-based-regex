@@ -26,13 +26,10 @@ func main() {
 			},
 		},
 	}
+
 	states, start, _ := model.CreateCompleteStates(regex)
 	input := eval.InputBuffer{
 		Input: "aaabaaa",
-	}
-
-	for _, v := range states.States() {
-		fmt.Printf("%+v\n", v)
 	}
 
 	matched := search(states, input, start, eval.PosMemoryList{}, eval.CapMemoryList{})
