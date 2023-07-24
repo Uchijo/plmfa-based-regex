@@ -2,4 +2,9 @@ module github.com/Uchijo/plmfa-based-regex
 
 go 1.19
 
-require github.com/google/uuid v1.3.0 // indirect
+require (
+	github.com/antlr4-go/antlr/v4 v4.13.0
+	github.com/google/uuid v1.3.0
+)
+
+require golang.org/x/exp v0.0.0-20230515195305-f3d0a9c9a5cc // indirect

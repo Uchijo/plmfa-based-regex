@@ -5,44 +5,56 @@ import (
 
 	"github.com/Uchijo/plmfa-based-regex/eval"
 	"github.com/Uchijo/plmfa-based-regex/model"
+	"github.com/Uchijo/plmfa-based-regex/parser"
+	"github.com/antlr4-go/antlr/v4"
 )
 
 func main() {
-	regex := model.RegApp{
-		Contents: []model.RegExp{
-			model.RegCapture{
-				MemoryIndex: 1,
-				Content: model.RegStar{
-					Content: model.RegArb{},
-				},
-			},
-			model.RegString{
-				Content: "b",
-			},
-			model.RegPosLa{
-				Content: model.RegString{
-					Content: "aaaaa",
-				},
-				MemIndex: 1,
-			},
-			model.RegCapRef{
-				MemIndex: 1,
-			},
-		},
-	}
+	is := antlr.NewInputStream("a*(ab|b)")
+	lexer := parser.NewregexLexer(is)
+	stream := antlr.NewCommonTokenStream(lexer, antlr.TokenDefaultChannel)
 
-	states, start, _ := model.CreateCompleteStates(regex)
-	input := eval.InputBuffer{
-		Input: "aaaaabaaaaa",
-	}
+	p := parser.NewregexParser(stream)
+	p.BuildParseTrees = true
+	tree := p.Root()
+	tree.Accept(&parser.RegexBuilder{})
+	fmt.Printf("%+v\n", tree)
 
-	fmt.Printf("start: %v\n", start)
-	for _, v := range states.States() {
-		fmt.Printf("%+v\n", v)
-	}
+	// regex := model.RegApp{
+	// 	Contents: []model.RegExp{
+	// 		model.RegCapture{
+	// 			MemoryIndex: 1,
+	// 			Content: model.RegStar{
+	// 				Content: model.RegArb{},
+	// 			},
+	// 		},
+	// 		model.RegString{
+	// 			Content: "b",
+	// 		},
+	// 		model.RegPosLa{
+	// 			Content: model.RegString{
+	// 				Content: "aaaaa",
+	// 			},
+	// 			MemIndex: 1,
+	// 		},
+	// 		model.RegCapRef{
+	// 			MemIndex: 1,
+	// 		},
+	// 	},
+	// }
 
-	matched := search(states, input, start, eval.PosMemoryList{}, eval.CapMemoryList{}, 0)
-	fmt.Printf("input: %v, match: %v", input.Input, matched)
+	// states, start, _ := model.CreateCompleteStates(regex)
+	// input := eval.InputBuffer{
+	// 	Input: "aaaaabaaaaa",
+	// }
+
+	// fmt.Printf("start: %v\n", start)
+	// for _, v := range states.States() {
+	// 	fmt.Printf("%+v\n", v)
+	// }
+
+	// matched := search(states, input, start, eval.PosMemoryList{}, eval.CapMemoryList{}, 0)
+	// fmt.Printf("input: %v, match: %v", input.Input, matched)
 }
 
 var logs = []eval.Log{}
