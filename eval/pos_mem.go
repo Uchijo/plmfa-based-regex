@@ -51,6 +51,17 @@ func (pml PosMemoryList) ClosedMem(index int) (PosMemoryList, string) {
 	return copy, ""
 }
 
+func (pml PosMemoryList) Alike(subject PosMemoryList) bool {
+	for i := range pml {
+		if pml[i].alike(subject[i]) {
+			continue
+		} else {
+			return false
+		}
+	}
+	return true
+}
+
 type PosMemory struct {
 	Index   int
 	Content string
@@ -63,4 +74,8 @@ func (pm PosMemory) appended(suffix string) PosMemory {
 		pm.Content = pm.Content + suffix
 	}
 	return pm
+}
+
+func (pm PosMemory) alike(subject PosMemory) bool {
+	return pm.IsOpen == subject.IsOpen && pm.Index == subject.Index && pm.Content == subject.Content
 }

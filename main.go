@@ -45,6 +45,17 @@ func main() {
 	fmt.Printf("input: %v, match: %v", input.Input, matched)
 }
 
+var logs = []eval.Log{}
+
+func isInLoop(log eval.Log) bool {
+	for _, v := range logs {
+		if v.Alike(log) {
+			return true
+		}
+	}
+	return false
+}
+
 // search returns true if plmfa accepts input
 func search(
 	st model.StateList,
@@ -54,6 +65,18 @@ func search(
 	capMem eval.CapMemoryList,
 	depth int,
 ) bool {
+	// 無限ループ検知
+	currentLog := eval.Log{
+		Input: input.Input,
+		CurrentId: currentId,
+		PositiveMemory: posMem,
+		CaptureMemory: capMem,
+	}
+	if isInLoop(currentLog) {
+		return false
+	}
+	logs = append(logs, currentLog)
+
 	for i := 0; i < depth; i++ {
 		fmt.Printf("  ")
 	}

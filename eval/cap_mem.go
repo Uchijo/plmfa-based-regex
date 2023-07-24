@@ -50,6 +50,17 @@ func (cml CapMemoryList) Appended(suffix string) CapMemoryList {
 	return copy
 }
 
+func (cml CapMemoryList) Alike(subject CapMemoryList) bool {
+	for i := range cml {
+		if cml[i].alike(subject[i]) {
+			continue
+		} else {
+			return false
+		}
+	}
+	return true
+}
+
 type CapMemory struct {
 	Index   int
 	Content string
@@ -61,4 +72,8 @@ func (cm CapMemory) appended(suffix string) CapMemory {
 		cm.Content = cm.Content + suffix
 	}
 	return cm
+}
+
+func (cm CapMemory) alike(subject CapMemory) bool {
+	return cm.IsOpen == subject.IsOpen && cm.Index == subject.Index && cm.Content == subject.Content
 }
