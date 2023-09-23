@@ -10,15 +10,17 @@ import (
 )
 
 func main() {
-	is := antlr.NewInputStream("a*(ab|b)")
+	is := antlr.NewInputStream("aaaaa|b*")
 	lexer := parser.NewregexLexer(is)
 	stream := antlr.NewCommonTokenStream(lexer, antlr.TokenDefaultChannel)
 
 	p := parser.NewregexParser(stream)
 	p.BuildParseTrees = true
 	tree := p.Root()
-	tree.Accept(&parser.RegexBuilder{})
-	fmt.Printf("%+v\n", tree)
+	hoge := tree.Accept(&parser.RegexBuilder{})
+	fmt.Printf("%+v\n", hoge)
+
+	//(.*)1b(?=aaaaa)\1
 
 	// regex := model.RegApp{
 	// 	Contents: []model.RegExp{
