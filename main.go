@@ -11,7 +11,7 @@ import (
 )
 
 func main() {
-	is := antlr.NewInputStream("aaa|a|a|b")
+	is := antlr.NewInputStream("a*")
 	lexer := gen.NewPCRELexer(is)
 	stream := antlr.NewCommonTokenStream(lexer, antlr.TokenDefaultChannel)
 

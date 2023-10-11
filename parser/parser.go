@@ -67,7 +67,7 @@ func (rb *RegexBuilder) VisitAnycrlf(ctx *gen.AnycrlfContext) interface{} {
 }
 
 func (rb *RegexBuilder) VisitAtom(ctx *gen.AtomContext) interface{} {
-	return nil
+	return model.RegString{Content: "a"}
 }
 
 func (rb *RegexBuilder) VisitAtomic_group(ctx *gen.Atomic_groupContext) interface{} {
@@ -151,11 +151,28 @@ func (rb *RegexBuilder) VisitDigits(ctx *gen.DigitsContext) interface{} {
 }
 
 func (rb *RegexBuilder) VisitElement(ctx *gen.ElementContext) interface{} {
-	return nil
+	atom := ctx.Atom().Accept(rb).(model.RegExp)
+	quant := ctx.Quantifier()
+	if quant != nil {
+		quant.Accept(rb)
+		return model.RegStar{Content: atom}
+	}
+	return atom
 }
 
 func (rb *RegexBuilder) VisitExpr(ctx *gen.ExprContext) interface{} {
-	return model.RegString{Content: "a"}
+	all := ctx.AllElement()
+
+	// 1個のみの場合そのまま返す
+	if len(all) == 1 {
+		return all[0].Accept(rb).(model.RegExp)
+	}
+
+	result := []model.RegExp{}
+	for _, v := range all {
+		result = append(result, v.Accept(rb).(model.RegExp))
+	}
+	return model.RegApp{Contents: result}
 }
 
 func (rb *RegexBuilder) VisitFail(ctx *gen.FailContext) interface{} {
@@ -235,6 +252,9 @@ func (rb *RegexBuilder) VisitPrune(ctx *gen.PruneContext) interface{} {
 }
 
 func (rb *RegexBuilder) VisitQuantifier(ctx *gen.QuantifierContext) interface{} {
+	if ctx.GetText() != "*" {
+		panic("this regex engine doesn't support quantifier except *.")
+	}
 	return nil
 }
 
