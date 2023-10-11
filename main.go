@@ -3,61 +3,30 @@ package main
 import (
 	"fmt"
 
+	"github.com/antlr4-go/antlr/v4"
 	"github.com/uchijo/plmfa-based-regex/eval"
 	"github.com/uchijo/plmfa-based-regex/model"
-	gen "github.com/uchijo/plmfa-based-regex/parser/gen"
 	"github.com/uchijo/plmfa-based-regex/parser"
-	"github.com/antlr4-go/antlr/v4"
+	gen "github.com/uchijo/plmfa-based-regex/parser/gen"
 )
 
 func main() {
-	is := antlr.NewInputStream("(a|b)*\\1")
+	is := antlr.NewInputStream("(.*)b(?=aaaaa)\\0")
 	lexer := gen.NewPCRELexer(is)
 	stream := antlr.NewCommonTokenStream(lexer, antlr.TokenDefaultChannel)
 
 	p := gen.NewPCREParser(stream)
 	p.BuildParseTrees = true
 	tree := p.Pcre()
-	hoge := tree.Accept(&parser.RegexBuilder{})
-	fmt.Printf("%+v\n", hoge)
+	regex := tree.Accept(&parser.RegexBuilder{}).(model.RegExp)
 
-	//(.*)1b(?=aaaaa)\1
+	states, start, _ := model.CreateCompleteStates(regex)
+	input := eval.InputBuffer{
+		Input: "aaaaabaaaaa",
+	}
 
-	// regex := model.RegApp{
-	// 	Contents: []model.RegExp{
-	// 		model.RegCapture{
-	// 			MemoryIndex: 1,
-	// 			Content: model.RegStar{
-	// 				Content: model.RegArb{},
-	// 			},
-	// 		},
-	// 		model.RegString{
-	// 			Content: "b",
-	// 		},
-	// 		model.RegPosLa{
-	// 			Content: model.RegString{
-	// 				Content: "aaaaa",
-	// 			},
-	// 			MemIndex: 1,
-	// 		},
-	// 		model.RegCapRef{
-	// 			MemIndex: 1,
-	// 		},
-	// 	},
-	// }
-
-	// states, start, _ := model.CreateCompleteStates(regex)
-	// input := eval.InputBuffer{
-	// 	Input: "aaaaabaaaaa",
-	// }
-
-	// fmt.Printf("start: %v\n", start)
-	// for _, v := range states.States() {
-	// 	fmt.Printf("%+v\n", v)
-	// }
-
-	// matched := search(states, input, start, eval.PosMemoryList{}, eval.CapMemoryList{}, 0)
-	// fmt.Printf("input: %v, match: %v", input.Input, matched)
+	matched := search(states, input, start, eval.PosMemoryList{}, eval.CapMemoryList{}, 0)
+	fmt.Printf("input: %v, match: %v", input.Input, matched)
 }
 
 var logs = []eval.Log{}
@@ -82,10 +51,10 @@ func search(
 ) bool {
 	// 無限ループ検知
 	currentLog := eval.Log{
-		Input: input.Input,
-		CurrentId: currentId,
+		Input:          input.Input,
+		CurrentId:      currentId,
 		PositiveMemory: posMem,
-		CaptureMemory: capMem,
+		CaptureMemory:  capMem,
 	}
 	if isInLoop(currentLog) {
 		return false
@@ -93,9 +62,9 @@ func search(
 	logs = append(logs, currentLog)
 
 	for i := 0; i < depth; i++ {
-		fmt.Printf("  ")
+		// fmt.Printf("  ")
 	}
-	fmt.Printf("buffer: %v, state: %v, pos_memory: %+v, cap_memory: %+v\n", input.Input, currentId, posMem, capMem)
+	// fmt.Printf("buffer: %v, state: %v, pos_memory: %+v, cap_memory: %+v\n", input.Input, currentId, posMem, capMem)
 	// fixme: エラー処理直す
 	curState, _ := st.StateById(currentId)
 
@@ -192,9 +161,9 @@ func search(
 	}
 
 	for i := 0; i < depth; i++ {
-		fmt.Printf("  ")
+		// fmt.Printf("  ")
 	}
-	fmt.Println("backtrack!")
+	// fmt.Println("backtrack!")
 	return false
 }
 
