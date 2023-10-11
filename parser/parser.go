@@ -1,7 +1,8 @@
 package parser
 
 import (
-	"fmt"
+	"strconv"
+	"strings"
 
 	"github.com/uchijo/plmfa-based-regex/model"
 	gen "github.com/uchijo/plmfa-based-regex/parser/gen"
@@ -12,7 +13,6 @@ type RegexBuilder struct {
 }
 
 func (rb *RegexBuilder) VisitPcre(ctx *gen.PcreContext) interface{} {
-	fmt.Println("visiting pcre.")
 	result := ctx.Alternation().Accept(rb)
 	return result
 }
@@ -24,7 +24,6 @@ func (rb *RegexBuilder) VisitAccept_(ctx *gen.Accept_Context) interface{} {
 func (rb *RegexBuilder) VisitAlternation(ctx *gen.AlternationContext) interface{} {
 	exprs := ctx.AllExpr()
 	exprsLen := len(exprs)
-	fmt.Printf("length: %v\n", exprsLen)
 
 	// ブランチなし
 	if exprsLen == 1 {
@@ -66,8 +65,34 @@ func (rb *RegexBuilder) VisitAnycrlf(ctx *gen.AnycrlfContext) interface{} {
 	return nil
 }
 
+var captureIndex = 0
+
 func (rb *RegexBuilder) VisitAtom(ctx *gen.AtomContext) interface{} {
-	return model.RegString{Content: "a"}
+	if capture := ctx.Capture(); capture != nil {
+		inside := capture.Accept(rb).(model.RegExp)
+		retval := model.RegCapture{Content: inside, MemoryIndex: captureIndex}
+		captureIndex++
+		return retval
+	}
+	if lookaround := ctx.Lookaround(); lookaround != nil {
+		return lookaround.Accept(rb).(model.RegExp)
+	}
+	if ch := ctx.Character(); ch != nil {
+		return ch.Accept(rb).(model.RegExp)
+	}
+	if cht := ctx.Character_type(); cht != nil {
+		return cht.Accept(rb).(model.RegExp)
+	}
+	if lt := ctx.Letter(); lt != nil {
+		return lt.Accept(rb).(model.RegExp)
+	}
+	if dg := ctx.Digit(); dg != nil {
+		return dg.Accept(rb).(model.RegExp)
+	}
+	// if chc := ctx.Character_class(); chc != nil {
+	// 	return chc.Accept(rb).(model.RegExp)
+	// }
+	panic("parse error. cannot parse " + ctx.GetText())
 }
 
 func (rb *RegexBuilder) VisitAtomic_group(ctx *gen.Atomic_groupContext) interface{} {
@@ -95,11 +120,26 @@ func (rb *RegexBuilder) VisitCallout(ctx *gen.CalloutContext) interface{} {
 }
 
 func (rb *RegexBuilder) VisitCapture(ctx *gen.CaptureContext) interface{} {
-	return nil
+	return ctx.Alternation().Accept(rb).(model.RegExp)
 }
 
 func (rb *RegexBuilder) VisitCharacter(ctx *gen.CharacterContext) interface{} {
-	return nil
+	txt := ctx.GetText()
+	if txt[:1] == "\\" {
+		digitList := []string{}
+		for _, v := range ctx.AllDigit() {
+			digitList = append(digitList, v.GetText())
+		}
+		digits, err := strconv.Atoi(strings.Join(digitList, ""))
+		if err != nil {
+			panic("parse error.")
+		}
+
+		return model.RegCapRef{
+			MemIndex: digits,
+		}
+	}
+	panic("cannot parse " + txt)
 }
 
 func (rb *RegexBuilder) VisitCharacter_class(ctx *gen.Character_classContext) interface{} {
@@ -119,7 +159,11 @@ func (rb *RegexBuilder) VisitCharacter_class_range_atom(ctx *gen.Character_class
 }
 
 func (rb *RegexBuilder) VisitCharacter_type(ctx *gen.Character_typeContext) interface{} {
-	return nil
+	txt := ctx.GetText()
+	if txt == "." {
+		return model.RegArb{}
+	}
+	panic("cannot parse " + txt)
 }
 
 func (rb *RegexBuilder) VisitComment(ctx *gen.CommentContext) interface{} {
@@ -143,7 +187,7 @@ func (rb *RegexBuilder) VisitCrlf(ctx *gen.CrlfContext) interface{} {
 }
 
 func (rb *RegexBuilder) VisitDigit(ctx *gen.DigitContext) interface{} {
-	return nil
+	return model.RegString{Content: ctx.GetText()}
 }
 
 func (rb *RegexBuilder) VisitDigits(ctx *gen.DigitsContext) interface{} {
@@ -184,11 +228,11 @@ func (rb *RegexBuilder) VisitHex(ctx *gen.HexContext) interface{} {
 }
 
 func (rb *RegexBuilder) VisitLetter(ctx *gen.LetterContext) interface{} {
-	return nil
+	return model.RegString{Content: ctx.GetText()}
 }
 
 func (rb *RegexBuilder) VisitLetters(ctx *gen.LettersContext) interface{} {
-	return nil
+	return model.RegString{Content: ctx.GetText()}
 }
 
 func (rb *RegexBuilder) VisitLf(ctx *gen.LfContext) interface{} {
@@ -203,8 +247,17 @@ func (rb *RegexBuilder) VisitLimit_recursion(ctx *gen.Limit_recursionContext) in
 	return nil
 }
 
+var memIndex = 0
+
 func (rb *RegexBuilder) VisitLookaround(ctx *gen.LookaroundContext) interface{} {
-	return nil
+	str := ctx.GetText()
+	if str[:3] != "(?=" {
+		panic("lookaround except lookahead is not supported in this regex engine.")
+	}
+	content := ctx.Alternation().Accept(rb).(model.RegExp)
+	retval := model.RegPosLa{Content: content, MemIndex: memIndex}
+	memIndex += 1
+	return retval
 }
 
 func (rb *RegexBuilder) VisitMark(ctx *gen.MarkContext) interface{} {
