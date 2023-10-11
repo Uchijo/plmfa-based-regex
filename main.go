@@ -1,7 +1,9 @@
 package main
 
 import (
+	"encoding/json"
 	"fmt"
+	"os"
 
 	"github.com/antlr4-go/antlr/v4"
 	"github.com/uchijo/plmfa-based-regex/eval"
@@ -10,8 +12,24 @@ import (
 	gen "github.com/uchijo/plmfa-based-regex/parser/gen"
 )
 
+type Output struct {
+	Match bool   `json:"match"`
+	Regex string `json:"regex"`
+	Input string `json:"input"`
+}
+
+type Args struct {
+	input string
+	regex string
+}
+
 func main() {
-	is := antlr.NewInputStream("(.*)b(?=aaaaa)\\0")
+	args := Args{
+		input: os.Args[1],
+		regex: os.Args[2],
+	}
+
+	is := antlr.NewInputStream(args.regex)
 	lexer := gen.NewPCRELexer(is)
 	stream := antlr.NewCommonTokenStream(lexer, antlr.TokenDefaultChannel)
 
@@ -22,11 +40,17 @@ func main() {
 
 	states, start, _ := model.CreateCompleteStates(regex)
 	input := eval.InputBuffer{
-		Input: "aaaaabaaaaa",
+		Input: args.input,
 	}
 
 	matched := search(states, input, start, eval.PosMemoryList{}, eval.CapMemoryList{}, 0)
-	fmt.Printf("input: %v, match: %v", input.Input, matched)
+	result := Output{
+		Match: matched,
+		Input: args.input,
+		Regex: args.regex,
+	}
+	byteText, _ := json.Marshal(result)
+	fmt.Println(string(byteText))
 }
 
 var logs = []eval.Log{}

@@ -17,6 +17,10 @@ tasks:
     cmds:
       - rm -rf .antlr
       - rm -rf gen/*
+  cmd-test:
+    cmds:
+      - go run main.go "a" "a|b|c"
+      - go run main.go "aaaaabaaaaa" "(.*)b(?=aaaaa)\\0"
   
   # internals
   antlr4-cmd:
