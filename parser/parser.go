@@ -3,6 +3,7 @@ package parser
 import (
 	"fmt"
 
+	"github.com/uchijo/plmfa-based-regex/model"
 	gen "github.com/uchijo/plmfa-based-regex/parser/gen"
 )
 
@@ -12,7 +13,8 @@ type RegexBuilder struct {
 
 func (rb *RegexBuilder) VisitPcre(ctx *gen.PcreContext) interface{} {
 	fmt.Println("visiting pcre.")
-	return "aaa"
+	result := ctx.Alternation().Accept(rb)
+	return result
 }
 
 func (rb *RegexBuilder) VisitAccept_(ctx *gen.Accept_Context) interface{} {
@@ -20,7 +22,36 @@ func (rb *RegexBuilder) VisitAccept_(ctx *gen.Accept_Context) interface{} {
 }
 
 func (rb *RegexBuilder) VisitAlternation(ctx *gen.AlternationContext) interface{} {
-	return nil
+	exprs := ctx.AllExpr()
+	exprsLen := len(exprs)
+	fmt.Printf("length: %v\n", exprsLen)
+
+	// ブランチなし
+	if exprsLen == 1 {
+		return exprs[0].Accept(rb)
+	}
+
+	root := model.RegUnion{
+		Left: exprs[0].Accept(rb).(model.RegExp),
+	}
+	for i, v := range exprs {
+		// 1個目は入れてある
+		if i == 0 {
+			continue
+		}
+
+		root.Right = v.Accept(rb).(model.RegExp)
+
+		// 最後の場合、そのまま返す
+		if i+1 == exprsLen {
+			break
+		}
+
+		root = model.RegUnion{
+			Left: root,
+		}
+	}
+	return root
 }
 
 func (rb *RegexBuilder) VisitAnchor(ctx *gen.AnchorContext) interface{} {
@@ -124,7 +155,7 @@ func (rb *RegexBuilder) VisitElement(ctx *gen.ElementContext) interface{} {
 }
 
 func (rb *RegexBuilder) VisitExpr(ctx *gen.ExprContext) interface{} {
-	return nil
+	return model.RegString{Content: "a"}
 }
 
 func (rb *RegexBuilder) VisitFail(ctx *gen.FailContext) interface{} {
