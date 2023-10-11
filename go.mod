@@ -1,4 +1,4 @@
-module github.com/Uchijo/plmfa-based-regex
+module github.com/uchijo/plmfa-based-regex
 
 go 1.19
 

@@ -1,0 +1,31 @@
+# https://taskfile.dev
+
+version: '3'
+
+tasks:
+  default:
+    cmds:
+      - task -a
+    silent: true
+  gen-parser:
+    cmds:
+      - task: antlr4-cmd
+        vars:
+          ARGS: -Dlanguage=Go -visitor -o gen *.g4
+  clean-parser:
+    dir: parser/
+    cmds:
+      - rm -rf .antlr
+      - rm -rf gen/*
+  
+  # internals
+  antlr4-cmd:
+    dir: parser
+    internal: true
+    cmds:
+      - java -Xmx500M -cp "/usr/local/lib/antlr-4.13.1-complete.jar:$CLASSPATH" org.antlr.v4.Tool {{.ARGS}}
+  grun-cmd:
+    internal: true
+    cmds:
+      - java -Xmx500M -cp "/usr/local/lib/antlr-4.13.1-complete.jar:$CLASSPATH" org.antlr.v4.gui.TestRig {{.ARGS}}
+    

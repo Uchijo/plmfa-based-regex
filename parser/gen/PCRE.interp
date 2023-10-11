@@ -233,7 +233,7 @@ limit_match
 limit_recursion
 bsr_anycrlf
 bsr_unicode
-accept
+accept_
 fail
 mark
 commit

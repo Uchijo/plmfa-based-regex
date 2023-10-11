@@ -31,11 +31,7 @@
  * Based on http://www.pcre.org/pcre.txt
  * (REVISION Last updated: 14 June 2021)
  */
-parser grammar PCREParser;
-
-options {
-  tokenVocab=PCRELexer;
-}
+grammar PCRE;
 
 pcre
  :  alternation? EOF
@@ -169,7 +165,7 @@ option_setting_flag
  ;
 
 backtracking_control
- : '(' '*' ( accept
+ : '(' '*' ( accept_
            | fail
            | mark? ':' name
            | commit
@@ -318,10 +314,135 @@ limit_match : 'L' 'I' 'M' 'I' 'T' '_' 'M' 'A' 'T' 'C' 'H';
 limit_recursion : 'L' 'I' 'M' 'I' 'T' '_' 'R' 'E' 'C' 'U' 'R' 'S' 'I' 'O' 'N';
 bsr_anycrlf : 'B' 'S' 'R' '_' 'A' 'N' 'Y' 'C' 'R' 'L' 'F';
 bsr_unicode : 'B' 'S' 'R' '_' 'U' 'N' 'I' 'C' 'O' 'D' 'E';
-accept : 'A' 'C' 'C' 'E' 'P' 'T';
+accept_ : 'A' 'C' 'C' 'E' 'P' 'T';
 fail : 'F' ( 'A' 'I' 'L' )?;
 mark : 'M' 'A' 'R' 'K';
 commit : 'C' 'O' 'M' 'M' 'I' 'T';
 prune : 'P' 'R' 'U' 'N' 'E';
 skip : 'S' 'K' 'I' 'P';
 then : 'T' 'H' 'E' 'N';
+
+/// \      general escape character with several uses
+BSlash : '\\';
+
+/// $      assert end of string (or line, in multiline mode)
+Dollar : '$';
+
+/// .      match any character except newline (by default)
+Dot : '.';
+
+/// [      start character class definition
+OBrack : '[';
+
+/// ^      assert start of string (or line, in multiline mode)
+Caret : '^';
+
+/// |      start of alternative branch
+Pipe : '|';
+
+/// ?      extends the meaning of (, also 0 or 1 quantifier.txt, also quantifier.txt minimizer
+QMark : '?';
+
+/// *      0 or more quantifier.txt
+Star : '*';
+
+/// +      1 or more quantifier.txt, also "possessive quantifier.txt"
+Plus : '+';
+
+/// {      start min/max quantifier.txt
+OBrace : '{';
+
+CBrace : '}';
+
+/// (      start subpattern
+OPar : '(';
+
+/// )      end subpattern
+CPar : ')';
+
+/// ]      terminates the character class
+CBrack : ']';
+
+OPosixBrack : '[:';
+CPosixBrack : ':]';
+
+Comma : ',';
+Dash : '-';
+UScore : '_';
+Eq : '=';
+Amp : '&';
+Lt : '<';
+Gt : '>';
+Quote : '\'';
+Col : ':';
+Hash : '#';
+Excl : '!';
+
+Au : 'A';
+Bu : 'B';
+Cu : 'C';
+Du : 'D';
+Eu : 'E';
+Fu : 'F';
+Gu : 'G';
+Hu : 'H';
+Iu : 'I';
+Ju : 'J';
+Ku : 'K';
+Lu : 'L';
+Mu : 'M';
+Nu : 'N';
+Ou : 'O';
+Pu : 'P';
+Qu : 'Q';
+Ru : 'R';
+Su : 'S';
+Tu : 'T';
+Uu : 'U';
+Vu : 'V';
+Wu : 'W';
+Xu : 'X';
+Yu : 'Y';
+Zu : 'Z';
+
+Al : 'a';
+Bl : 'b';
+Cl : 'c';
+Dl : 'd';
+El : 'e';
+Fl : 'f';
+Gl : 'g';
+Hl : 'h';
+Il : 'i';
+Jl : 'j';
+Kl : 'k';
+Ll : 'l';
+Ml : 'm';
+Nl : 'n';
+Ol : 'o';
+Pl : 'p';
+Ql : 'q';
+Rl : 'r';
+Sl : 's';
+Tl : 't';
+Ul : 'u';
+Vl : 'v';
+Wl : 'w';
+Xl : 'x';
+Yl : 'y';
+Zl : 'z';
+
+D0 : '0';
+D1 : '1';
+D2 : '2';
+D3 : '3';
+D4 : '4';
+D5 : '5';
+D6 : '6';
+D7 : '7';
+D8 : '8';
+D9 : '9';
+
+OTHER
+ : .
+ ;

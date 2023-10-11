@@ -3,20 +3,21 @@ package main
 import (
 	"fmt"
 
-	"github.com/Uchijo/plmfa-based-regex/eval"
-	"github.com/Uchijo/plmfa-based-regex/model"
-	"github.com/Uchijo/plmfa-based-regex/parser"
+	"github.com/uchijo/plmfa-based-regex/eval"
+	"github.com/uchijo/plmfa-based-regex/model"
+	gen "github.com/uchijo/plmfa-based-regex/parser/gen"
+	"github.com/uchijo/plmfa-based-regex/parser"
 	"github.com/antlr4-go/antlr/v4"
 )
 
 func main() {
 	is := antlr.NewInputStream("aaaaa|b*")
-	lexer := parser.NewregexLexer(is)
+	lexer := gen.NewPCRELexer(is)
 	stream := antlr.NewCommonTokenStream(lexer, antlr.TokenDefaultChannel)
 
-	p := parser.NewregexParser(stream)
+	p := gen.NewPCREParser(stream)
 	p.BuildParseTrees = true
-	tree := p.Root()
+	tree := p.Pcre()
 	hoge := tree.Accept(&parser.RegexBuilder{})
 	fmt.Printf("%+v\n", hoge)
 
