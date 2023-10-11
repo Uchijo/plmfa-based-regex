@@ -1,11 +1,232 @@
 package parser
 
-import gen "github.com/uchijo/plmfa-based-regex/parser/gen"
+import (
+	"fmt"
 
-type RegexBuilder struct {}
+	gen "github.com/uchijo/plmfa-based-regex/parser/gen"
+)
 
-var _ gen.BasePCREVisitor = (*RegexBuilder)(nil)
+type RegexBuilder struct {
+	*gen.BasePCREVisitor
+}
 
-func (rb *RegexBuilder) VisitPcre(ctx gen.PcreContext) interface {} {
-	return ctx.Alternation().Accept(rb)
+func (rb *RegexBuilder) VisitPcre(ctx *gen.PcreContext) interface{} {
+	fmt.Println("visiting pcre.")
+	return "aaa"
+}
+
+func (rb *RegexBuilder) VisitAccept_(ctx *gen.Accept_Context) interface{} {
+	return nil
+}
+
+func (rb *RegexBuilder) VisitAlternation(ctx *gen.AlternationContext) interface{} {
+	return nil
+}
+
+func (rb *RegexBuilder) VisitAnchor(ctx *gen.AnchorContext) interface{} {
+	return nil
+}
+
+func (rb *RegexBuilder) VisitAny(ctx *gen.AnyContext) interface{} {
+	return nil
+}
+
+func (rb *RegexBuilder) VisitAnycrlf(ctx *gen.AnycrlfContext) interface{} {
+	return nil
+}
+
+func (rb *RegexBuilder) VisitAtom(ctx *gen.AtomContext) interface{} {
+	return nil
+}
+
+func (rb *RegexBuilder) VisitAtomic_group(ctx *gen.Atomic_groupContext) interface{} {
+	return nil
+}
+
+func (rb *RegexBuilder) VisitBackreferenceContext(ctx *gen.BackreferenceContext) interface{} {
+	return nil
+}
+
+func (rb *RegexBuilder) VisitBacktracking_control(ctx *gen.Backtracking_controlContext) interface{} {
+	return nil
+}
+
+func (rb *RegexBuilder) VisitBsr_anycrlf(ctx *gen.Bsr_anycrlfContext) interface{} {
+	return nil
+}
+
+func (rb *RegexBuilder) VisitBsr_unicode(ctx *gen.Bsr_unicodeContext) interface{} {
+	return nil
+}
+
+func (rb *RegexBuilder) VisitCallout(ctx *gen.CalloutContext) interface{} {
+	return nil
+}
+
+func (rb *RegexBuilder) VisitCapture(ctx *gen.CaptureContext) interface{} {
+	return nil
+}
+
+func (rb *RegexBuilder) VisitCharacter(ctx *gen.CharacterContext) interface{} {
+	return nil
+}
+
+func (rb *RegexBuilder) VisitCharacter_class(ctx *gen.Character_classContext) interface{} {
+	return nil
+}
+
+func (rb *RegexBuilder) VisitCharacter_class_atom(ctx *gen.Character_class_atomContext) interface{} {
+	return nil
+}
+
+func (rb *RegexBuilder) VisitCharacter_class_range(ctx *gen.Character_class_rangeContext) interface{} {
+	return nil
+}
+
+func (rb *RegexBuilder) VisitCharacter_class_range_atom(ctx *gen.Character_class_range_atomContext) interface{} {
+	return nil
+}
+
+func (rb *RegexBuilder) VisitCharacter_type(ctx *gen.Character_typeContext) interface{} {
+	return nil
+}
+
+func (rb *RegexBuilder) VisitComment(ctx *gen.CommentContext) interface{} {
+	return nil
+}
+
+func (rb *RegexBuilder) VisitCommit(ctx *gen.CommitContext) interface{} {
+	return nil
+}
+
+func (rb *RegexBuilder) VisitConditional_pattern(ctx *gen.Conditional_patternContext) interface{} {
+	return nil
+}
+
+func (rb *RegexBuilder) VisitCr(ctx *gen.CrContext) interface{} {
+	return nil
+}
+
+func (rb *RegexBuilder) VisitCrlf(ctx *gen.CrlfContext) interface{} {
+	return nil
+}
+
+func (rb *RegexBuilder) VisitDigit(ctx *gen.DigitContext) interface{} {
+	return nil
+}
+
+func (rb *RegexBuilder) VisitDigits(ctx *gen.DigitsContext) interface{} {
+	return nil
+}
+
+func (rb *RegexBuilder) VisitElement(ctx *gen.ElementContext) interface{} {
+	return nil
+}
+
+func (rb *RegexBuilder) VisitExpr(ctx *gen.ExprContext) interface{} {
+	return nil
+}
+
+func (rb *RegexBuilder) VisitFail(ctx *gen.FailContext) interface{} {
+	return nil
+}
+
+func (rb *RegexBuilder) VisitHex(ctx *gen.HexContext) interface{} {
+	return nil
+}
+
+func (rb *RegexBuilder) VisitLetter(ctx *gen.LetterContext) interface{} {
+	return nil
+}
+
+func (rb *RegexBuilder) VisitLetters(ctx *gen.LettersContext) interface{} {
+	return nil
+}
+
+func (rb *RegexBuilder) VisitLf(ctx *gen.LfContext) interface{} {
+	return nil
+}
+
+func (rb *RegexBuilder) VisitLimit_match(ctx *gen.Limit_matchContext) interface{} {
+	return nil
+}
+
+func (rb *RegexBuilder) VisitLimit_recursion(ctx *gen.Limit_recursionContext) interface{} {
+	return nil
+}
+
+func (rb *RegexBuilder) VisitLookaround(ctx *gen.LookaroundContext) interface{} {
+	return nil
+}
+
+func (rb *RegexBuilder) VisitMark(ctx *gen.MarkContext) interface{} {
+	return nil
+}
+
+func (rb *RegexBuilder) VisitMatch_point_reset(ctx *gen.Match_point_resetContext) interface{} {
+	return nil
+}
+
+func (rb *RegexBuilder) VisitName(ctx *gen.NameContext) interface{} {
+	return nil
+}
+
+func (rb *RegexBuilder) VisitNewline_conventions(ctx *gen.Newline_conventionsContext) interface{} {
+	return nil
+}
+
+func (rb *RegexBuilder) VisitNo_auto_possess(ctx *gen.No_auto_possessContext) interface{} {
+	return nil
+}
+
+func (rb *RegexBuilder) VisitNo_start_opt(ctx *gen.No_start_optContext) interface{} {
+	return nil
+}
+
+func (rb *RegexBuilder) VisitOption_setting(ctx *gen.Option_settingContext) interface{} {
+	return nil
+}
+
+func (rb *RegexBuilder) VisitOption_setting_flag(ctx *gen.Option_setting_flagContext) interface{} {
+	return nil
+}
+
+func (rb *RegexBuilder) VisitOther(ctx *gen.OtherContext) interface{} {
+	return nil
+}
+
+func (rb *RegexBuilder) VisitPosix_character_class(ctx *gen.Posix_character_classContext) interface{} {
+	return nil
+}
+
+func (rb *RegexBuilder) VisitPrune(ctx *gen.PruneContext) interface{} {
+	return nil
+}
+
+func (rb *RegexBuilder) VisitQuantifier(ctx *gen.QuantifierContext) interface{} {
+	return nil
+}
+
+func (rb *RegexBuilder) VisitQuoting(ctx *gen.QuotingContext) interface{} {
+	return nil
+}
+
+func (rb *RegexBuilder) VisitSkip(ctx *gen.SkipContext) interface{} {
+	return nil
+}
+
+func (rb *RegexBuilder) VisitSubroutine_reference(ctx *gen.Subroutine_referenceContext) interface{} {
+	return nil
+}
+
+func (rb *RegexBuilder) VisitThen(ctx *gen.ThenContext) interface{} {
+	return nil
+}
+
+func (rb *RegexBuilder) VisitUcp(ctx *gen.UcpContext) interface{} {
+	return nil
+}
+
+func (rb *RegexBuilder) VisitUtf(ctx *gen.UtfContext) interface{} {
+	return nil
 }
