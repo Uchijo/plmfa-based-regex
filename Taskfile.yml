@@ -20,7 +20,7 @@ tasks:
   cmd-test:
     cmds:
       - go run main.go "a" "a|b|c"
-      - go run main.go "aaaaabaaaaa" "(.*)b(?=aaaaa)\\0"
+      - go run main.go "aaaaabaaaaa" "(.*)b(?=aaaaa)\\1"
   
   # internals
   antlr4-cmd:

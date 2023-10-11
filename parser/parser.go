@@ -65,7 +65,7 @@ func (rb *RegexBuilder) VisitAnycrlf(ctx *gen.AnycrlfContext) interface{} {
 	return nil
 }
 
-var captureIndex = 0
+var captureIndex = 1
 
 func (rb *RegexBuilder) VisitAtom(ctx *gen.AtomContext) interface{} {
 	if capture := ctx.Capture(); capture != nil {
