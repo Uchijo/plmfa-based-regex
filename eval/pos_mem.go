@@ -52,6 +52,9 @@ func (pml PosMemoryList) ClosedMem(index int) (PosMemoryList, string) {
 }
 
 func (pml PosMemoryList) Alike(subject PosMemoryList) bool {
+	if len(pml) != len(subject) {
+		return false
+	}
 	for i := range pml {
 		if pml[i].alike(subject[i]) {
 			continue
