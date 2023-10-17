@@ -1,6 +1,8 @@
 package eval
 
 import (
+	"fmt"
+
 	"github.com/uchijo/plmfa-based-regex/model"
 )
 
@@ -15,10 +17,10 @@ func isInLoop(log Log) bool {
 	return false
 }
 
-func Search(states model.StateList, input InputBuffer, start string, eSem bool) bool {
+func Search(states model.StateList, input InputBuffer, start string, eSem bool, showLog bool) bool {
 	// ログ初期化
 	logs = []Log{}
-	return search(states, input, start, PosMemoryList{}, CapMemoryList{}, 0, eSem)
+	return search(states, input, start, PosMemoryList{}, CapMemoryList{}, 0, eSem, showLog)
 }
 
 // search returns true if plmfa accepts input
@@ -30,6 +32,7 @@ func search(
 	capMem CapMemoryList,
 	depth int,
 	epsilonSem bool,
+	showLog bool,
 ) bool {
 	// 無限ループ検知
 	currentLog := Log{
@@ -43,10 +46,12 @@ func search(
 	}
 	logs = append(logs, currentLog)
 
-	for i := 0; i < depth; i++ {
-		// fmt.Printf("  ")
+	if showLog {
+		for i := 0; i < depth; i++ {
+			fmt.Printf("  ")
+		}
+		fmt.Printf("buffer: %v, state: %v, pos_memory: %+v, cap_memory: %+v\n", input.Input, currentId, posMem, capMem)
 	}
-	// fmt.Printf("buffer: %v, state: %v, pos_memory: %+v, cap_memory: %+v\n", input.Input, currentId, posMem, capMem)
 	// fixme: エラー処理直す
 	curState, _ := st.StateById(currentId)
 
@@ -69,7 +74,7 @@ func search(
 	for _, v := range curState.Moves {
 		switch v.MType {
 		case model.Epsilon:
-			hasGoal := search(st, input, v.MoveTo, posMem, capMem, depth+1, epsilonSem)
+			hasGoal := search(st, input, v.MoveTo, posMem, capMem, depth+1, epsilonSem, showLog)
 			if hasGoal {
 				return true
 			}
@@ -79,7 +84,7 @@ func search(
 				consumed, _ := input.Consumed(v.Input)
 				appendedPos := posMem.Appended(v.Input)
 				appendedCap := capMem.Appended(v.Input)
-				hasGoal := search(st, consumed, v.MoveTo, appendedPos, appendedCap, depth+1, epsilonSem)
+				hasGoal := search(st, consumed, v.MoveTo, appendedPos, appendedCap, depth+1, epsilonSem, showLog)
 				if hasGoal {
 					return true
 				}
@@ -88,14 +93,14 @@ func search(
 		case model.PosMem:
 			if v.PLInst.Inst == model.Open {
 				opened := posMem.OpenedMem(v.PLInst.MemIndex)
-				hasGoal := search(st, input, v.MoveTo, opened, capMem, depth+1, epsilonSem)
+				hasGoal := search(st, input, v.MoveTo, opened, capMem, depth+1, epsilonSem, showLog)
 				if hasGoal {
 					return true
 				}
 			} else if v.PLInst.Inst == model.Close {
 				closed, memContent := posMem.ClosedMem(v.PLInst.MemIndex)
 				appended, _ := input.Appended(memContent)
-				hasGoal := search(st, appended, v.MoveTo, closed, capMem, depth+1, epsilonSem)
+				hasGoal := search(st, appended, v.MoveTo, closed, capMem, depth+1, epsilonSem, showLog)
 				if hasGoal {
 					return true
 				}
@@ -104,13 +109,13 @@ func search(
 		case model.CapMem:
 			if v.CInst.Inst == model.Open {
 				opened := capMem.OpenedMem(v.CInst.MemIndex)
-				hasGoal := search(st, input, v.MoveTo, posMem, opened, depth+1, epsilonSem)
+				hasGoal := search(st, input, v.MoveTo, posMem, opened, depth+1, epsilonSem, showLog)
 				if hasGoal {
 					return true
 				}
 			} else if v.CInst.Inst == model.Close {
 				closed := capMem.ClosedMem(v.CInst.MemIndex)
-				hasGoal := search(st, input, v.MoveTo, posMem, closed, depth+1, epsilonSem)
+				hasGoal := search(st, input, v.MoveTo, posMem, closed, depth+1, epsilonSem, showLog)
 				if hasGoal {
 					return true
 				}
@@ -122,7 +127,7 @@ func search(
 				consumed, _ := input.Consumed(mem)
 				appendedPos := posMem.Appended(v.Input)
 				appendedCap := capMem.Appended(v.Input)
-				hasGoal := search(st, consumed, v.MoveTo, appendedPos, appendedCap, depth+1, epsilonSem)
+				hasGoal := search(st, consumed, v.MoveTo, appendedPos, appendedCap, depth+1, epsilonSem, showLog)
 				if hasGoal {
 					return true
 				}
@@ -134,7 +139,7 @@ func search(
 				consumed, _ := input.Consumed(toConsume)
 				appendedPos := posMem.Appended(toConsume)
 				appendedCap := capMem.Appended(toConsume)
-				hasGoal := search(st, consumed, v.MoveTo, appendedPos, appendedCap, depth+1, epsilonSem)
+				hasGoal := search(st, consumed, v.MoveTo, appendedPos, appendedCap, depth+1, epsilonSem, showLog)
 				if hasGoal {
 					return true
 				}
@@ -142,10 +147,12 @@ func search(
 		}
 	}
 
-	for i := 0; i < depth; i++ {
-		// fmt.Printf("  ")
+	if showLog {
+		for i := 0; i < depth; i++ {
+			fmt.Printf("  ")
+		}
+		fmt.Println("backtrack!")
 	}
-	// fmt.Println("backtrack!")
 	return false
 }
 

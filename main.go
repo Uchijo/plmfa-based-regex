@@ -24,11 +24,13 @@ type Args struct {
 	regex     string
 	eSem      bool
 	noRecover bool
+	showLog   bool
 }
 
 func main() {
 	var epsilonSemantics = flag.Bool("e", false, "use epsilon semantics")
 	var noRecover = flag.Bool("noRecover", false, "doesnt recover from panic when true")
+	var showLog = flag.Bool("showLog", false, "show log on matching")
 	flag.Parse()
 	rawArgs := flag.Args()
 	args := Args{
@@ -36,6 +38,7 @@ func main() {
 		regex:     rawArgs[1],
 		eSem:      *epsilonSemantics,
 		noRecover: *noRecover,
+		showLog:   *showLog,
 	}
 
 	defer func() {
@@ -65,7 +68,7 @@ func main() {
 		Input: args.input,
 	}
 
-	matched := eval.Search(states, input, start, args.eSem)
+	matched := eval.Search(states, input, start, args.eSem, args.showLog)
 	result := Output{
 		Match: matched,
 		Error: false,

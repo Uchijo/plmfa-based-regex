@@ -192,7 +192,7 @@ func TestSearch(t *testing.T) {
 				Input: td.input,
 			}
 
-			matched := Search(states, input, start, td.useEpsilonSem)
+			matched := Search(states, input, start, td.useEpsilonSem, false)
 			if matched != td.output {
 				t.Errorf("expected result is %v, but got %v", td.output, matched)
 			}
