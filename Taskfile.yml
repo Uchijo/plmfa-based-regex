@@ -20,9 +20,10 @@ tasks:
   cmd-test:
     cmds:
       - go run main.go "a" "a|b|c"
-      - go run main.go "aaaaabaaaaa" "(.*)b(?=aaaaa)\\1"
-      - go run main.go "aacaa" "(?=(a*b*))aac\\1"
-      - go run main.go  -e true "aaa" "\\1aaa"
+      - go run main.go "aaaaabaaaaa" "(.*)b(?=aaaaa)\1"
+      - go run main.go "aacaa" "(?=(a*b*))aac\1"
+      - go run main.go -e=true "aaa" "\1aaa"
+      - go run main.go "aaa" "\1aaa"
   
   # internals
   antlr4-cmd:

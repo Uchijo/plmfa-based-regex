@@ -14,6 +14,7 @@ import (
 
 type Output struct {
 	Match bool   `json:"match"`
+	Error bool   `json:"error"`
 	Regex string `json:"regex"`
 	Input string `json:"input"`
 }
@@ -25,6 +26,16 @@ type Args struct {
 }
 
 func main() {
+	defer func() {
+		if r := recover(); r != nil {
+			result := Output{
+				Error: true,
+			}
+			byteText, _ := json.Marshal(result)
+			fmt.Println(string(byteText))
+		}
+	}()
+
 	var b = flag.Bool("e", false, "use epsilon semantics")
 	flag.Parse()
 	rawArgs := flag.Args()
@@ -51,6 +62,7 @@ func main() {
 	matched := search(states, input, start, eval.PosMemoryList{}, eval.CapMemoryList{}, 0, args.eSem)
 	result := Output{
 		Match: matched,
+		Error: false,
 		Input: args.input,
 		Regex: args.regex,
 	}
