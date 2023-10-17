@@ -198,8 +198,12 @@ func (rb *RegexBuilder) VisitElement(ctx *gen.ElementContext) interface{} {
 	atom := ctx.Atom().Accept(rb).(model.RegExp)
 	quant := ctx.Quantifier()
 	if quant != nil {
-		quant.Accept(rb)
-		return model.RegStar{Content: atom}
+		container, ok := quant.Accept(rb).(model.RegQuantifier)
+		if !ok {
+			panic("parse error in quantifier")
+		}
+		container.Content = atom
+		return container
 	}
 	return atom
 }
@@ -305,10 +309,57 @@ func (rb *RegexBuilder) VisitPrune(ctx *gen.PruneContext) interface{} {
 }
 
 func (rb *RegexBuilder) VisitQuantifier(ctx *gen.QuantifierContext) interface{} {
-	if ctx.GetText() != "*" {
-		panic("this regex engine doesn't support quantifier except *.")
+	q := ctx.GetText()
+
+	// ?, *, + を処理
+	switch q {
+	case "*":
+		// RegStarでも良いけどこっちのほうが呼び出し元でキャストしやすい
+		return model.RegQuantifier{
+			Min: 0,
+			Max: 0,
+		}
+	case "+":
+		return model.RegQuantifier{
+			Min: 1,
+			Max: 0,
+		}
+	case "?":
+		return model.RegQuantifier{
+			Min: 0,
+			Max: 1,
+		}
 	}
-	return nil
+
+	// {n[,m]}を処理
+	from, err := strconv.Atoi(ctx.GetFrom().GetText())
+	if err != nil {
+		panic("parse error in quantifier of form {n[,m]}")
+	}
+	// , を含まない場合
+	if !strings.Contains(q, ",") {
+		return model.RegQuantifier{
+			Min: from,
+			Max: from,
+		}
+	}
+	// , を含む場合、mが含まれるかでさらに分岐
+	rawTo := ctx.GetTo()
+	if rawTo != nil { // m含む
+		to, err := strconv.Atoi(rawTo.GetText())
+		if err != nil {
+			panic("parse error in quantifier of form {n[,m]}")
+		}
+		return model.RegQuantifier{
+			Min: from,
+			Max: to,
+		}
+	} else { // m含まない
+		return model.RegQuantifier{
+			Min: from,
+			Max: 0, // 0にセットする=上限なしと同義
+		}
+	}
 }
 
 func (rb *RegexBuilder) VisitQuoting(ctx *gen.QuotingContext) interface{} {

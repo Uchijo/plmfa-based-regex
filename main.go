@@ -20,13 +20,28 @@ type Output struct {
 }
 
 type Args struct {
-	input string
-	regex string
-	eSem  bool
+	input     string
+	regex     string
+	eSem      bool
+	noRecover bool
 }
 
 func main() {
+	var epsilonSemantics = flag.Bool("e", false, "use epsilon semantics")
+	var noRecover = flag.Bool("noRecover", false, "doesnt recover from panic when true")
+	flag.Parse()
+	rawArgs := flag.Args()
+	args := Args{
+		input:     rawArgs[0],
+		regex:     rawArgs[1],
+		eSem:      *epsilonSemantics,
+		noRecover: *noRecover,
+	}
+
 	defer func() {
+		if args.noRecover {
+			return
+		}
 		if r := recover(); r != nil {
 			result := Output{
 				Error: true,
@@ -35,15 +50,6 @@ func main() {
 			fmt.Println(string(byteText))
 		}
 	}()
-
-	var b = flag.Bool("e", false, "use epsilon semantics")
-	flag.Parse()
-	rawArgs := flag.Args()
-	args := Args{
-		input: rawArgs[0],
-		regex: rawArgs[1],
-		eSem:  *b,
-	}
 
 	is := antlr.NewInputStream(args.regex)
 	lexer := gen.NewPCRELexer(is)

@@ -1,5 +1,7 @@
 package model
 
+import "fmt"
+
 type RegQuantifier struct {
 	RegExp
 	Content RegExp
@@ -12,8 +14,9 @@ type RegQuantifier struct {
 }
 
 func (rq RegQuantifier) States(startId string) ([]State, string, error) {
-	if rq.Max < rq.Min || rq.Max < 0 || rq.Min < 0 {
-		panic("invalid quantifier specified.")
+	if rq.Max < 0 || rq.Min < 0 || (rq.Max != 0 && rq.Min > rq.Max) {
+		message := fmt.Sprintf("invalid quantifier specified; Min: %v, Max: %v", rq.Min, rq.Max)
+		panic(message)
 	}
 
 	// 上限なし、下限なしは * と同じ
