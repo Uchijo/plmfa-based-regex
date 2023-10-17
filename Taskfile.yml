@@ -17,13 +17,30 @@ tasks:
     cmds:
       - rm -rf .antlr
       - rm -rf gen/*
-  cmd-test:
+  test:
     cmds:
       - go run main.go "a" "a|b|c"
       - go run main.go "aaaaabaaaaa" "(.*)b(?=aaaaa)\1"
       - go run main.go "aacaa" "(?=(a*b*))aac\1"
       - go run main.go -e=true "aaa" "\1aaa"
       - go run main.go "aaa" "\1aaa"
+      - go run main.go "aaaaaa" "a*"
+      - go run main.go "" "a*"
+      - go run main.go "b" "a*"
+      - go run main.go "a" "a+"
+      - go run main.go "aaa" "a+"
+      - go run main.go "" "a+"
+      - go run main.go "" "a{3}"
+      - go run main.go "aaa" "a{3}"
+      - go run main.go "aaaaa" "a{3}"
+      - go run main.go "aa" "a{3,}"
+      - go run main.go "aaa" "a{3,}"
+      - go run main.go "aaaaa" "a{3,}"
+      - go run main.go "a" "a{2,4}"
+      - go run main.go "aa" "a{2,4}"
+      - go run main.go "aaa" "a{2,4}"
+      - go run main.go "aaaa" "a{2,4}"
+      - go run main.go "aaaaa" "a{2,4}"
   
   # internals
   antlr4-cmd:
