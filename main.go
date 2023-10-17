@@ -2,8 +2,8 @@ package main
 
 import (
 	"encoding/json"
+	"flag"
 	"fmt"
-	"os"
 
 	"github.com/antlr4-go/antlr/v4"
 	"github.com/uchijo/plmfa-based-regex/eval"
@@ -21,12 +21,16 @@ type Output struct {
 type Args struct {
 	input string
 	regex string
+	eSem  bool
 }
 
 func main() {
+	flag.Parse()
+	rawArgs := flag.Args()
 	args := Args{
-		input: os.Args[1],
-		regex: os.Args[2],
+		input: rawArgs[0],
+		regex: rawArgs[1],
+		eSem:  *flag.Bool("epsilon", false, "use epsilon semantics"),
 	}
 
 	is := antlr.NewInputStream(args.regex)
@@ -43,7 +47,7 @@ func main() {
 		Input: args.input,
 	}
 
-	matched := search(states, input, start, eval.PosMemoryList{}, eval.CapMemoryList{}, 0)
+	matched := search(states, input, start, eval.PosMemoryList{}, eval.CapMemoryList{}, 0, args.eSem)
 	result := Output{
 		Match: matched,
 		Input: args.input,
@@ -72,6 +76,7 @@ func search(
 	posMem eval.PosMemoryList,
 	capMem eval.CapMemoryList,
 	depth int,
+	epsilonSem bool,
 ) bool {
 	// 無限ループ検知
 	currentLog := eval.Log{
@@ -111,7 +116,7 @@ func search(
 	for _, v := range curState.Moves {
 		switch v.MType {
 		case model.Epsilon:
-			hasGoal := search(st, input, v.MoveTo, posMem, capMem, depth+1)
+			hasGoal := search(st, input, v.MoveTo, posMem, capMem, depth+1, epsilonSem)
 			if hasGoal {
 				return true
 			}
@@ -121,7 +126,7 @@ func search(
 				consumed, _ := input.Consumed(v.Input)
 				appendedPos := posMem.Appended(v.Input)
 				appendedCap := capMem.Appended(v.Input)
-				hasGoal := search(st, consumed, v.MoveTo, appendedPos, appendedCap, depth+1)
+				hasGoal := search(st, consumed, v.MoveTo, appendedPos, appendedCap, depth+1, epsilonSem)
 				if hasGoal {
 					return true
 				}
@@ -130,14 +135,14 @@ func search(
 		case model.PosMem:
 			if v.PLInst.Inst == model.Open {
 				opened := posMem.OpenedMem(v.PLInst.MemIndex)
-				hasGoal := search(st, input, v.MoveTo, opened, capMem, depth+1)
+				hasGoal := search(st, input, v.MoveTo, opened, capMem, depth+1, epsilonSem)
 				if hasGoal {
 					return true
 				}
 			} else if v.PLInst.Inst == model.Close {
 				closed, memContent := posMem.ClosedMem(v.PLInst.MemIndex)
 				appended, _ := input.Appended(memContent)
-				hasGoal := search(st, appended, v.MoveTo, closed, capMem, depth+1)
+				hasGoal := search(st, appended, v.MoveTo, closed, capMem, depth+1, epsilonSem)
 				if hasGoal {
 					return true
 				}
@@ -146,25 +151,25 @@ func search(
 		case model.CapMem:
 			if v.CInst.Inst == model.Open {
 				opened := capMem.OpenedMem(v.CInst.MemIndex)
-				hasGoal := search(st, input, v.MoveTo, posMem, opened, depth+1)
+				hasGoal := search(st, input, v.MoveTo, posMem, opened, depth+1, epsilonSem)
 				if hasGoal {
 					return true
 				}
 			} else if v.CInst.Inst == model.Close {
 				closed := capMem.ClosedMem(v.CInst.MemIndex)
-				hasGoal := search(st, input, v.MoveTo, posMem, closed, depth+1)
+				hasGoal := search(st, input, v.MoveTo, posMem, closed, depth+1, epsilonSem)
 				if hasGoal {
 					return true
 				}
 			}
 
 		case model.Ref:
-			mem := capMem.Content(v.RefIndex)
+			mem := capMem.Content(v.RefIndex, epsilonSem)
 			if input.CanConsume(mem) {
 				consumed, _ := input.Consumed(mem)
 				appendedPos := posMem.Appended(v.Input)
 				appendedCap := capMem.Appended(v.Input)
-				hasGoal := search(st, consumed, v.MoveTo, appendedPos, appendedCap, depth+1)
+				hasGoal := search(st, consumed, v.MoveTo, appendedPos, appendedCap, depth+1, epsilonSem)
 				if hasGoal {
 					return true
 				}
@@ -176,7 +181,7 @@ func search(
 				consumed, _ := input.Consumed(toConsume)
 				appendedPos := posMem.Appended(toConsume)
 				appendedCap := capMem.Appended(toConsume)
-				hasGoal := search(st, consumed, v.MoveTo, appendedPos, appendedCap, depth+1)
+				hasGoal := search(st, consumed, v.MoveTo, appendedPos, appendedCap, depth+1, epsilonSem)
 				if hasGoal {
 					return true
 				}

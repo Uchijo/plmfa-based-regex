@@ -3,13 +3,17 @@ package eval
 type CapMemoryList []CapMemory
 
 // epsilon semantics
-func (cml CapMemoryList) Content(index int) string {
+func (cml CapMemoryList) Content(index int, epsilonSem bool) string {
 	for _, v := range cml {
 		if v.Index == index {
 			return v.Content
 		}
 	}
-	return ""
+	if epsilonSem {
+		return ""
+	} else {
+		panic("unassigned reference was used.")
+	}
 }
 
 func (cml CapMemoryList) OpenedMem(index int) CapMemoryList {
