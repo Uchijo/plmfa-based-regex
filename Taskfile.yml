@@ -41,6 +41,7 @@ tasks:
       - go run main.go "aaa" "a{2,4}"
       - go run main.go "aaaa" "a{2,4}"
       - go run main.go "aaaaa" "a{2,4}"
+      - go run main.go "aaaaa" "a{2,10}"
   
   # internals
   antlr4-cmd:

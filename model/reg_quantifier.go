@@ -95,8 +95,14 @@ func mayRepeat(content RegExp, n int) RegUnion {
 		}
 	}
 
+	contents := []RegExp{}
+	for i := 0; i < n; i++ {
+		contents = append(contents, content)
+	}
 	return RegUnion{
-		Left:  mayRepeat(content, n-1),
-		Right: content,
+		Left: mayRepeat(content, n-1),
+		Right: RegApp{
+			Contents: contents,
+		},
 	}
 }
