@@ -98,6 +98,9 @@ func (rb *RegexBuilder) VisitAtom(ctx *gen.AtomContext) interface{} {
 	// if chc := ctx.Character_class(); chc != nil {
 	// 	return chc.Accept(rb).(model.RegExp)
 	// }
+	if ac := ctx.Anchor(); ac != nil {
+		return model.RegSkip{}
+	}
 	panic("parse error. cannot parse " + ctx.GetText())
 }
 
