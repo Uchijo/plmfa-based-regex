@@ -154,6 +154,18 @@ func TestSearch(t *testing.T) {
 			regex:  "a{2,4}",
 			output: false,
 		},
+		{
+			name:   "non-capture group success",
+			input:  "abb",
+			regex:  "(?:a)(b)\\1",
+			output: true,
+		},
+		{
+			name:   "non-capture group fail",
+			input:  "aba",
+			regex:  "(?:a)(b)\\1",
+			output: false,
+		},
 	}
 	for _, td := range tests {
 		td := td
