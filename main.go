@@ -25,12 +25,13 @@ type Args struct {
 }
 
 func main() {
+	var b = flag.Bool("e", false, "use epsilon semantics")
 	flag.Parse()
 	rawArgs := flag.Args()
 	args := Args{
 		input: rawArgs[0],
 		regex: rawArgs[1],
-		eSem:  *flag.Bool("epsilon", false, "use epsilon semantics"),
+		eSem:  *b,
 	}
 
 	is := antlr.NewInputStream(args.regex)
