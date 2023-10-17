@@ -13,6 +13,8 @@ type RegexBuilder struct {
 }
 
 func (rb *RegexBuilder) VisitPcre(ctx *gen.PcreContext) interface{} {
+	captureIndex = 1
+	memIndex = 0
 	result := ctx.Alternation().Accept(rb)
 	return result
 }

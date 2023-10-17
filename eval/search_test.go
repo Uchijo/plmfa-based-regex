@@ -27,10 +27,132 @@ func TestSearch(t *testing.T) {
 			output: true,
 		},
 		{
-			name:   "test lookahead and back-reference",
+			name:   "test lookahead and back-reference 1",
 			input:  "aaaaabaaaaa",
 			regex:  "(.*)b(?=aaaaa)\\1",
 			output: true,
+		},
+		{
+			name:   "test lookahead and back-reference 2",
+			input:  "aacaa",
+			regex:  "(?=(a*b*))aac\\1",
+			output: true,
+		},
+		{
+			name:          "unassigned ref with epsilon-semantics",
+			input:         "aaa",
+			regex:         "\\1aaa",
+			output:        true,
+			useEpsilonSem: true,
+		},
+		{
+			name:       "unassigned ref without epsilon-semantics",
+			input:      "aaa",
+			regex:      "\\1aaa",
+			output:     false,
+			shouldFail: true,
+		},
+		{
+			name:   "kleene with empty string",
+			input:  "",
+			regex:  "a*",
+			output: true,
+		},
+		{
+			name:   "kleene with single string",
+			input:  "a",
+			regex:  "a*",
+			output: true,
+		},
+		{
+			name:   "kleene with multiple string",
+			input:  "aaaa",
+			regex:  "a*",
+			output: true,
+		},
+		{
+			name:   "kleene with iregal string",
+			input:  "b",
+			regex:  "a*",
+			output: false,
+		},
+		{
+			name:   "{n} form quantifier success",
+			input:  "aaa",
+			regex:  "a{3}",
+			output: true,
+		},
+		{
+			name:   "{n} form quantifier too many",
+			input:  "aaaaa",
+			regex:  "a{3}",
+			output: false,
+		},
+		{
+			name:   "{n} form quantifier less",
+			input:  "aa",
+			regex:  "a{3}",
+			output: false,
+		},
+		{
+			name:   "{n,} form quantifier exact",
+			input:  "aaa",
+			regex:  "a{3,}",
+			output: true,
+		},
+		{
+			name:   "{n,} form quantifier many",
+			input:  "aaaa",
+			regex:  "a{3,}",
+			output: true,
+		},
+		{
+			name:   "{n,} form quantifier many 2",
+			input:  "aaaaaaa",
+			regex:  "a{3,}",
+			output: true,
+		},
+		{
+			name:   "{n,} form quantifier many 2",
+			input:  "aaaaaaa",
+			regex:  "a{3,}",
+			output: true,
+		},
+		{
+			name:   "{n,} form quantifier less",
+			input:  "aa",
+			regex:  "a{3,}",
+			output: false,
+		},
+		{
+			name:   "{n,m} form quantifier less",
+			input:  "a",
+			regex:  "a{2,4}",
+			output: false,
+		},
+		{
+			name:   "{n,m} form quantifier in range 1",
+			input:  "aa",
+			regex:  "a{2,4}",
+			output: true,
+		},
+		{
+			name:   "{n,m} form quantifier in range 2",
+			input:  "aaa",
+			regex:  "a{2,4}",
+			output: true,
+		},
+		{
+			name:   "{n,m} form quantifier in range 3",
+			input:  "aaaa",
+			regex:  "a{2,4}",
+			output: true,
+		},
+		{
+			name:   "{n,m} form quantifier too many",
+			input:  "aaaaa",
+			regex:  "a{2,4}",
+			output: false,
 		},
 	}
 	for _, td := range tests {
@@ -40,7 +162,7 @@ func TestSearch(t *testing.T) {
 			defer func() {
 				err := recover()
 				if err != nil && !td.shouldFail {
-					t.Errorf("should not get into panic")
+					t.Errorf("should not get into panic: %v", err)
 				}
 			}()
 
