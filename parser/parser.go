@@ -101,7 +101,7 @@ func (rb *RegexBuilder) VisitAtom(ctx *gen.AtomContext) interface{} {
 	if ac := ctx.Anchor(); ac != nil {
 		return model.RegSkip{}
 	}
-	panic("parse error. cannot parse " + ctx.GetText())
+	panic("parse error in VisitAtom. cannot parse " + ctx.GetText())
 }
 
 func (rb *RegexBuilder) VisitAtomic_group(ctx *gen.Atomic_groupContext) interface{} {

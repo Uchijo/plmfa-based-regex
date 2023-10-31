@@ -19,6 +19,9 @@ tasks:
       - rm -rf gen/*
   test:
     cmds:
+      - go test -v ./...
+  test-cmd:
+    cmds:
       - go run main.go "a" "a|b|c"
       - go run main.go "aaaaabaaaaa" "(.*)b(?=aaaaa)\1"
       - go run main.go "aacaa" "(?=(a*b*))aac\1"
