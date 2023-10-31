@@ -1,8 +1,6 @@
 package model
 
 import (
-	"fmt"
-
 	"github.com/google/uuid"
 )
 
@@ -47,8 +45,6 @@ type SingleChar struct {
 var _ CharContainer = (*SingleChar)(nil)
 
 func (sc SingleChar) WholeMatches(c string) bool {
-	fmt.Println("whole match debug print 1: " + string(sc.Char))
-	fmt.Println("whole match debug print 2: " + c)
 	return string(sc.Char) == c
 }
 

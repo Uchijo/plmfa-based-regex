@@ -27,8 +27,20 @@ type CharRange struct {
 	WhiteList bool
 }
 
-func (cr CharRange) Contains(c rune) bool {
-	return cr.Start <= c && c <= cr.End
+var _ CharContainer = (*CharRange)(nil)
+
+func (cr CharRange) WholeMatches(c string) bool {
+	r := []rune(c)
+
+	// 文字集合自体は1文字としかマッチしない
+	if len(r) != 1 {
+		return false
+	}
+	if cr.WhiteList {
+		return cr.Start <= r[0] && r[0] <= cr.End
+	} else {
+		return !(cr.Start <= r[0] && r[0] <= cr.End)
+	}
 }
 
 func (cr CharRange) Len() int { return 1 }
@@ -41,9 +53,18 @@ type CharList struct {
 	WhiteList bool
 }
 
-func (cl CharList) Contains(c rune) bool {
+var _ CharContainer = (*CharList)(nil)
+
+func (cl CharList) WholeMatches(c string) bool {
+	runed := []rune(c)
+
+	// 文字集合自体は1文字としかマッチしない
+	if len(runed) != 1 {
+		return false
+	}
+
 	for _, val := range cl.Chars {
-		if val == c {
+		if val == runed[0] {
 			return true
 		}
 	}
