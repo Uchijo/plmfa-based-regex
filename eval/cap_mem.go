@@ -1,24 +1,25 @@
 package eval
 
 import (
+	"errors"
 	"fmt"
 )
 
 type CapMemoryList []CapMemory
 
 // epsilon semantics
-func (cml CapMemoryList) Content(index int, epsilonSem bool) string {
+func (cml CapMemoryList) Content(index int, epsilonSem bool) (string, error) {
 	for _, v := range cml {
 		if v.Index == index {
-			return v.Content
+			return v.Content, nil
 		}
 	}
 	if epsilonSem {
-		return ""
+		return "", nil
 	} else {
 		// fixme: ここの動作おかしいので直す
 		message := fmt.Sprintf("unassigned reference was used; accessed %v memory but not found", index)
-		panic(message)
+		return "", errors.New(message)
 	}
 }
 

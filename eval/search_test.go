@@ -178,6 +178,18 @@ func TestSearch(t *testing.T) {
 			regex:  "(aba)(\\1)\\2",
 			output: true,
 		},
+		{
+			name:   "check nested ref index",
+			input:  "aabbbb",
+			regex:  "(aa(bb))\\2",
+			output: true,
+		},
+		{
+			name:   "条件によってはキャプチャされてないものに当たったとき",
+			input:  "aaaa",
+			regex:  "(a|(aa))\\2",
+			output: true,
+		},
 	}
 	for _, td := range tests {
 		td := td

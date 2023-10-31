@@ -71,13 +71,13 @@ var captureIndex = 1
 
 func (rb *RegexBuilder) VisitAtom(ctx *gen.AtomContext) interface{} {
 	if capture := ctx.Capture(); capture != nil {
-		inside := capture.Accept(rb).(model.RegExp)
 		// 非キャプチャの場合
 		if ctx.GetText()[:3] == "(?:" {
-			return inside
+			return capture.Accept(rb).(model.RegExp)
 		}
-		retval := model.RegCapture{Content: inside, MemoryIndex: captureIndex}
+		retval := model.RegCapture{MemoryIndex: captureIndex}
 		captureIndex++
+		retval.Content = capture.Accept(rb).(model.RegExp)
 		return retval
 	}
 	if lookaround := ctx.Lookaround(); lookaround != nil {

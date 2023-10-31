@@ -122,7 +122,11 @@ func search(
 			}
 
 		case model.Ref:
-			mem := capMem.Content(v.RefIndex, epsilonSem)
+			mem, err := capMem.Content(v.RefIndex, epsilonSem)
+			// エラーが返ってくるということはキャプチャを拾えなかったということ
+			if err != nil {
+				continue
+			}
 			memContainer := stringContainer(mem)
 			if ok, toConsume := input.CanConsume(memContainer); ok {
 				consumed, _ := input.Consumed(mem)
