@@ -166,6 +166,18 @@ func TestSearch(t *testing.T) {
 			regex:  "(?:a)(b)\\1",
 			output: false,
 		},
+		{
+			name:   "ref capture 1",
+			input:  "aaa",
+			regex:  "(a)(\\1)\\2",
+			output: true,
+		},
+		{
+			name:   "ref capture 2",
+			input:  "abaabaaba",
+			regex:  "(aba)(\\1)\\2",
+			output: true,
+		},
 	}
 	for _, td := range tests {
 		td := td

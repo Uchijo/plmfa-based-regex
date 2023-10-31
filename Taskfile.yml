@@ -19,7 +19,7 @@ tasks:
       - rm -rf gen/*
   test:
     cmds:
-      - go test -v ./...
+      - go test ./...
   test-cmd:
     cmds:
       - go run main.go "a" "a|b|c"

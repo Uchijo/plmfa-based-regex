@@ -127,8 +127,8 @@ func search(
 				consumed, _ := input.Consumed(mem)
 				// posMem, capMemはメモリの集合
 				// なので、refでアクセス中のメモリとか気にせず消費したものは記録する必要あり
-				appendedPos := posMem.Appended(v.Input)
-				appendedCap := capMem.Appended(v.Input)
+				appendedPos := posMem.Appended(mem)
+				appendedCap := capMem.Appended(mem)
 				hasGoal := search(st, consumed, v.MoveTo, appendedPos, appendedCap, depth+1, epsilonSem, showLog)
 				if hasGoal {
 					return true
