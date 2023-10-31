@@ -25,12 +25,12 @@ func (rs RegStar) States(startId string) ([]State, string, error) {
 		Moves: []Move{
 			{
 				MType:  Epsilon,
-				Input:  "",
+				Input:  nil,
 				MoveTo: contentStart.String(),
 			},
 			{
 				MType:  Epsilon,
-				Input:  "",
+				Input:  nil,
 				MoveTo: cout,
 			},
 		},
@@ -41,12 +41,12 @@ func (rs RegStar) States(startId string) ([]State, string, error) {
 		Moves: []Move{
 			{
 				MType:  Epsilon,
-				Input:  "",
+				Input:  nil,
 				MoveTo: contentStart.String(),
 			},
 			{
 				MType:  Epsilon,
-				Input:  "",
+				Input:  nil,
 				MoveTo: nextId.String(),
 			},
 		},

@@ -80,10 +80,10 @@ func search(
 			}
 
 		case model.Consumption:
-			if input.CanConsume(v.Input) {
-				consumed, _ := input.Consumed(v.Input)
-				appendedPos := posMem.Appended(v.Input)
-				appendedCap := capMem.Appended(v.Input)
+			if ok, toConsume := input.CanConsume(v.Input); ok {
+				consumed, _ := input.Consumed(toConsume)
+				appendedPos := posMem.Appended(toConsume)
+				appendedCap := capMem.Appended(toConsume)
 				hasGoal := search(st, consumed, v.MoveTo, appendedPos, appendedCap, depth+1, epsilonSem, showLog)
 				if hasGoal {
 					return true
@@ -123,12 +123,13 @@ func search(
 
 		case model.Ref:
 			mem := capMem.Content(v.RefIndex, epsilonSem)
-			if input.CanConsume(mem) {
+			memContainer := stringContainer(mem)
+			if ok, toConsume := input.CanConsume(memContainer); ok {
 				consumed, _ := input.Consumed(mem)
 				// posMem, capMemはメモリの集合
 				// なので、refでアクセス中のメモリとか気にせず消費したものは記録する必要あり
-				appendedPos := posMem.Appended(mem)
-				appendedCap := capMem.Appended(mem)
+				appendedPos := posMem.Appended(toConsume)
+				appendedCap := capMem.Appended(toConsume)
 				hasGoal := search(st, consumed, v.MoveTo, appendedPos, appendedCap, depth+1, epsilonSem, showLog)
 				if hasGoal {
 					return true

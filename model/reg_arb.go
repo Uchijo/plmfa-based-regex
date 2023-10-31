@@ -14,7 +14,7 @@ func (ra RegArb) States(startId string) ([]State, string, error) {
 		Moves: []Move{
 			{
 				MType:  ArbitraryConsumption,
-				Input:  "",
+				Input:  nil,
 				MoveTo: nextId.String(),
 			},
 		},

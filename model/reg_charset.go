@@ -11,8 +11,11 @@ func (rc RegCharSet) States(startId string) ([]State, string, error) {
 }
 
 type CharContainer interface {
-	// IsIn tests if [c] is in the specified character set or not.
-	Contains(c rune) bool
+	// 渡されたcが完全に一致する
+	WholeMatches(c string) bool
+
+	// CharContainerに含まれる文字を具体化したときの長さ
+	Len() int
 }
 
 // [a-z]タイプの文字集合
@@ -27,6 +30,8 @@ type CharRange struct {
 func (cr CharRange) Contains(c rune) bool {
 	return cr.Start <= c && c <= cr.End
 }
+
+func (cr CharRange) Len() int { return 1 }
 
 // [abc]タイプの文字集合
 type CharList struct {
@@ -45,11 +50,4 @@ func (cl CharList) Contains(c rune) bool {
 	return false
 }
 
-// 1文字だけ、[]なしでも使えるやつ
-type SingleChar struct {
-	Char rune
-}
-
-func (sc SingleChar) Contains(c rune) bool {
-	return sc.Char == c
-}
+func (cl CharList) Len() int { return 1 }

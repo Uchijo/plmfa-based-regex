@@ -1,6 +1,8 @@
 package eval
 
-import "fmt"
+import (
+	"fmt"
+)
 
 type CapMemoryList []CapMemory
 
@@ -14,6 +16,7 @@ func (cml CapMemoryList) Content(index int, epsilonSem bool) string {
 	if epsilonSem {
 		return ""
 	} else {
+		// fixme: ここの動作おかしいので直す
 		message := fmt.Sprintf("unassigned reference was used; accessed %v memory but not found", index)
 		panic(message)
 	}

@@ -15,7 +15,7 @@ func (rcr RegCapRef) States(startId string) ([]State, string, error) {
 				MType:    Ref,
 				RefIndex: rcr.MemIndex,
 				MoveTo:   exitId.String(),
-				Input:    "",
+				Input:    nil,
 			},
 		},
 	}

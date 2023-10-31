@@ -24,12 +24,12 @@ func (ru RegUnion) States(startId string) ([]State, string, error) {
 			{
 				MType:  Epsilon,
 				MoveTo: leftStart.String(),
-				Input:  "",
+				Input:  nil,
 			},
 			{
 				MType:  Epsilon,
 				MoveTo: rightStart.String(),
-				Input:  "",
+				Input:  nil,
 			},
 		},
 	}
@@ -49,7 +49,7 @@ func (ru RegUnion) States(startId string) ([]State, string, error) {
 		Moves: []Move{
 			{
 				MType:  Epsilon,
-				Input:  "",
+				Input:  nil,
 				MoveTo: goalUUID.String(),
 			},
 		},
@@ -60,7 +60,7 @@ func (ru RegUnion) States(startId string) ([]State, string, error) {
 		Moves: []Move{
 			{
 				MType:  Epsilon,
-				Input:  "",
+				Input:  nil,
 				MoveTo: leftGoal,
 			},
 		},

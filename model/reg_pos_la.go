@@ -15,7 +15,7 @@ func (rpl RegPosLa) States(startId string) ([]State, string, error) {
 		Moves: []Move{
 			{
 				MType:  PosMem,
-				Input:  "",
+				Input:  nil,
 				MoveTo: csId.String(),
 				PLInst: PosMemInstr{
 					Inst:     Open,
@@ -34,7 +34,7 @@ func (rpl RegPosLa) States(startId string) ([]State, string, error) {
 		Moves: []Move{
 			{
 				MType:  PosMem,
-				Input:  "",
+				Input:  nil,
 				MoveTo: exitId.String(),
 				PLInst: PosMemInstr{
 					Inst:     Close,

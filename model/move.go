@@ -3,7 +3,7 @@ package model
 // 各状態から行える操作を示す
 type Move struct {
 	MType    MoveType
-	Input    string
+	Input    CharContainer
 	MoveTo   string
 	CInst    CaptureInstr
 	PLInst   PosMemInstr

@@ -54,7 +54,7 @@ func TestRegStringToStates(t *testing.T) {
 
 			// Movesのinput確認
 			for i, c := range tt.input {
-				if states[i].Moves[0].Input != string(c) {
+				if !states[i].Moves[0].Input.WholeMatches(string(c)) {
 					t.Errorf("at %v state, input should be %v, but got %v\n", i, c, states[i].Moves[0].Input)
 				}
 			}
