@@ -125,6 +125,8 @@ func search(
 			mem := capMem.Content(v.RefIndex, epsilonSem)
 			if input.CanConsume(mem) {
 				consumed, _ := input.Consumed(mem)
+				// posMem, capMemはメモリの集合
+				// なので、refでアクセス中のメモリとか気にせず消費したものは記録する必要あり
 				appendedPos := posMem.Appended(v.Input)
 				appendedCap := capMem.Appended(v.Input)
 				hasGoal := search(st, consumed, v.MoveTo, appendedPos, appendedCap, depth+1, epsilonSem, showLog)
@@ -134,6 +136,7 @@ func search(
 			}
 
 		case model.ArbitraryConsumption:
+			// 1文字は残ってないと消費できない
 			if input.Len() >= 1 {
 				toConsume := input.Input[:1]
 				consumed, _ := input.Consumed(toConsume)
