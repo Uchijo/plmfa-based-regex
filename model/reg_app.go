@@ -1,7 +1,6 @@
 package model
 
 type RegApp struct {
-	RegExp
 	Contents []RegExp
 }
 

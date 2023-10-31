@@ -4,7 +4,6 @@ import "github.com/google/uuid"
 
 // "任意の1文字"に当たるもの
 type RegArb struct {
-	RegExp
 }
 
 func (ra RegArb) States(startId string) ([]State, string, error) {
@@ -14,8 +13,8 @@ func (ra RegArb) States(startId string) ([]State, string, error) {
 		IsEnd: false,
 		Moves: []Move{
 			{
-				MType: ArbitraryConsumption,
-				Input: "",
+				MType:  ArbitraryConsumption,
+				Input:  "",
 				MoveTo: nextId.String(),
 			},
 		},

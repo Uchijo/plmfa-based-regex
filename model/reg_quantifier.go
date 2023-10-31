@@ -3,7 +3,6 @@ package model
 import "fmt"
 
 type RegQuantifier struct {
-	RegExp
 	Content RegExp
 
 	// 最低繰り返し数

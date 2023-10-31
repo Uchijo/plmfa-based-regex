@@ -5,7 +5,6 @@ import (
 )
 
 type RegString struct {
-	RegExp
 	Content string
 }
 

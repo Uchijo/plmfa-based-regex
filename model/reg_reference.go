@@ -3,7 +3,6 @@ package model
 import "github.com/google/uuid"
 
 type RegCapRef struct {
-	RegExp
 	MemIndex int
 }
 

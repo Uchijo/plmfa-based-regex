@@ -3,7 +3,6 @@ package model
 import "github.com/google/uuid"
 
 type RegPosLa struct {
-	RegExp
 	Content  RegExp
 	MemIndex int
 }

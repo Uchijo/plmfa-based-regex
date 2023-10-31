@@ -3,7 +3,6 @@ package model
 import "github.com/google/uuid"
 
 type RegCapture struct {
-	RegExp
 	// captureする正規表現
 	Content RegExp
 	// メモリのindex
