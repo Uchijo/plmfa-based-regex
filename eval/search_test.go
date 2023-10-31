@@ -223,3 +223,107 @@ func TestSearch(t *testing.T) {
 		})
 	}
 }
+
+func TestSearchFromAst(t *testing.T) {
+	tests := []struct {
+		name    string
+		input   model.RegExp
+		matcher string
+		matches bool
+	}{
+		{
+			name: "[a-z]*, abc",
+			input: model.RegStar{
+				Content: model.RegCharSet{
+					Content: model.CharRange{
+						Start: 'a',
+						End:   'z',
+						WhiteList: true,
+					},
+				},
+			},
+			matcher: "abc",
+			matches: true,
+		},
+		{
+			name: "[a-z]*, abcaalskfjalskdfjslkfdja",
+			input: model.RegStar{
+				Content: model.RegCharSet{
+					Content: model.CharRange{
+						Start: 'a',
+						End:   'z',
+						WhiteList: true,
+					},
+				},
+			},
+			matcher: "abcaalskfjalskdfjslkfdja",
+			matches: true,
+		},
+		{
+			name: "[a-z]*, AAAA",
+			input: model.RegStar{
+				Content: model.RegCharSet{
+					Content: model.CharRange{
+						Start: 'a',
+						End:   'z',
+						WhiteList: true,
+					},
+				},
+			},
+			matcher: "AAAA",
+			matches: false,
+		},
+		{
+			name: "[^a-z]*, AAAA",
+			input: model.RegStar{
+				Content: model.RegCharSet{
+					Content: model.CharRange{
+						Start: 'a',
+						End:   'z',
+						WhiteList: false,
+					},
+				},
+			},
+			matcher: "AAAA",
+			matches: true,
+		},
+		{
+			name: "[az]*, aazzaaaazzzzzz",
+			input: model.RegStar{
+				Content: model.RegCharSet{
+					Content: model.CharList{
+						Chars: []rune{'a', 'z'},
+						WhiteList: true,
+					},
+				},
+			},
+			matcher: "aazzaaaazzzzzz",
+			matches: true,
+		},
+		{
+			name: "[az]*, bazzaaaazzzzzz",
+			input: model.RegStar{
+				Content: model.RegCharSet{
+					Content: model.CharList{
+						Chars: []rune{'a', 'z'},
+						WhiteList: true,
+					},
+				},
+			},
+			matcher: "bazzaaaazzzzzz",
+			matches: false,
+		},
+	}
+	for _, td := range tests {
+		t.Run(fmt.Sprintf("SearchFromAst: %s", td.name), func(t *testing.T) {
+			states, start, err := model.CreateCompleteStates(td.input)
+			if err != nil {
+				t.Error("unexpected error occurred.")
+			}
+			matched := Search(states, InputBuffer{Input: td.matcher}, start, false, true)
+			if matched != td.matches {
+				t.Errorf("expected %v, got %v\n", td.matches, matched)
+			}
+		})
+	}
+}

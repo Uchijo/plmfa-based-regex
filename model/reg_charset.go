@@ -1,5 +1,9 @@
 package model
 
+import (
+	"github.com/google/uuid"
+)
+
 // 文字集合を表す構造体
 type RegCharSet struct {
 	// 対象文字
@@ -7,7 +11,23 @@ type RegCharSet struct {
 }
 
 func (rc RegCharSet) States(startId string) ([]State, string, error) {
-	return []State{}, "", nil
+	nextId, err := uuid.NewRandom()
+	if err != nil {
+		return []State{}, "", err
+	}
+	return []State{
+		{
+			Id: startId,
+			IsEnd: false,
+			Moves: []Move{
+				{
+					MType: Consumption,
+					Input: rc.Content,
+					MoveTo: nextId.String(),
+				},
+			},
+		},
+	}, nextId.String(), nil
 }
 
 type CharContainer interface {
