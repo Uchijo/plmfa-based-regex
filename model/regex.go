@@ -22,6 +22,9 @@ func CreateCompleteStates(re RegExp) (StateList, string, error) {
 
 	states := []State{}
 	rawStates, outId, err := re.States(startUuid.String())
+	if err != nil {
+		panic("something went wrong when generating states.")
+	}
 	states = append(states, rawStates...)
 
 	endState := State{

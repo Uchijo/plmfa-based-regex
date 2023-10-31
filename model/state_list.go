@@ -4,7 +4,6 @@ import "errors"
 
 type StateList struct {
 	states  []State
-	entryId string
 }
 
 func (sl StateList) States() []State { return sl.states }
