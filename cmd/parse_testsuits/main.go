@@ -1,6 +1,7 @@
 package main
 
 import (
+	"encoding/json"
 	"fmt"
 	"os"
 	"regexp"
@@ -38,14 +39,15 @@ func main() {
 
 	fmt.Printf("tests length: %v\n", len(tests))
 
+	fmt.Println("[")
 	for _, v := range tests {
 		if !v.CanHandle {
 			continue
 		}
-		fmt.Println(v.StrippedPattern)
-		fmt.Println(v.PositiveExamples)
-		fmt.Println(v.NegativeExamples)
+		json, _ := json.Marshal(v)
+		fmt.Println(string(json) + ",")
 	}
+	fmt.Println("]")
 }
 
 func isTestCase(input string) bool {
