@@ -1,6 +1,8 @@
 package model
 
 import (
+	"fmt"
+
 	"github.com/google/uuid"
 )
 
@@ -68,4 +70,25 @@ func (ru RegUnion) States(startId string) ([]State, string, error) {
 	states = append(states, leftGoalState, rightGoalState)
 
 	return states, goalUUID.String(), nil
+}
+
+func NewUnionFromSlice(contents []RegExp) RegExp {
+	length := len(contents)
+	if length == 0 {
+		return RegSkip{}
+	}
+	if length == 1 {
+		return contents[0]
+	}
+	if length == 2 {
+		return RegUnion{
+			Right: contents[0],
+			Left:  contents[1],
+		}
+	}
+	fmt.Println(contents[1:])
+	return RegUnion{
+		Right: contents[0],
+		Left: NewUnionFromSlice(contents[1:]),
+	}
 }

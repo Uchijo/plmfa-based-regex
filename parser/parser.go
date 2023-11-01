@@ -1,8 +1,10 @@
 package parser
 
 import (
+	"fmt"
 	"strconv"
 	"strings"
+	"unicode/utf8"
 
 	"github.com/uchijo/plmfa-based-regex/model"
 	gen "github.com/uchijo/plmfa-based-regex/parser/gen"
@@ -95,9 +97,9 @@ func (rb *RegexBuilder) VisitAtom(ctx *gen.AtomContext) interface{} {
 	if dg := ctx.Digit(); dg != nil {
 		return dg.Accept(rb).(model.RegExp)
 	}
-	// if chc := ctx.Character_class(); chc != nil {
-	// 	return chc.Accept(rb).(model.RegExp)
-	// }
+	if chc := ctx.Character_class(); chc != nil {
+		return chc.Accept(rb).(model.RegExp)
+	}
 	if ac := ctx.Anchor(); ac != nil {
 		return model.RegSkip{}
 	}
@@ -151,8 +153,33 @@ func (rb *RegexBuilder) VisitCharacter(ctx *gen.CharacterContext) interface{} {
 	panic("cannot parse " + txt)
 }
 
+// fixme: []] []a] []-a] [^]] [^]a] [^]-a] などのパターンに特別に対応する必要があるが、できていない
 func (rb *RegexBuilder) VisitCharacter_class(ctx *gen.Character_classContext) interface{} {
-	return nil
+	negate := ctx.GetNegate() != nil
+	atoms := ctx.AllCharacter_class_atom()
+	regexes := []model.CharContainer{}
+	for _, v := range atoms {
+		if parsed := v.Character_class_range(); parsed != nil {
+			result := parsed.Accept(rb).(model.CharRange)
+			regexes = append(regexes, result)
+			continue
+		}
+		if parsed := v.Posix_character_class(); parsed != nil {
+			panic("Posix_character_class is not supported.")
+		}
+		if parsed := v.Character(); parsed != nil {
+			panic("Character in CharacterClass is not supported.")
+		}
+		if parsed := v.Character_type(); parsed != nil {
+			panic("Character_type in CharacterClass is not supported.")
+		}
+		// 1文字ずつ列挙した場合を拾う
+		t := v.GetText()
+		regexes = append(regexes, model.CharList{Chars: []rune(t), WhiteList: true})
+	}
+	container := model.CompositeContainer{Contents: regexes, WhiteList: !negate}
+	fmt.Printf("composite: %+v\n", container)
+	return model.RegCharSet{Content: container}
 }
 
 func (rb *RegexBuilder) VisitCharacter_class_atom(ctx *gen.Character_class_atomContext) interface{} {
@@ -160,11 +187,20 @@ func (rb *RegexBuilder) VisitCharacter_class_atom(ctx *gen.Character_class_atomC
 }
 
 func (rb *RegexBuilder) VisitCharacter_class_range(ctx *gen.Character_class_rangeContext) interface{} {
-	return nil
+	atoms := ctx.AllCharacter_class_range_atom()
+	first := atoms[0].Accept(rb).(rune)
+	second := atoms[1].Accept(rb).(rune)
+	return model.CharRange{
+		Start: first,
+		End:   second,
+		// 実際はCompositeContainerでwhitelist判定するので実質ここは常にtrue
+		WhiteList: true,
+	}
 }
 
 func (rb *RegexBuilder) VisitCharacter_class_range_atom(ctx *gen.Character_class_range_atomContext) interface{} {
-	return nil
+	r, _ := utf8.DecodeRuneInString(ctx.GetText())
+	return r
 }
 
 func (rb *RegexBuilder) VisitCharacter_type(ctx *gen.Character_typeContext) interface{} {

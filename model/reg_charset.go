@@ -17,12 +17,12 @@ func (rc RegCharSet) States(startId string) ([]State, string, error) {
 	}
 	return []State{
 		{
-			Id: startId,
+			Id:    startId,
 			IsEnd: false,
 			Moves: []Move{
 				{
-					MType: Consumption,
-					Input: rc.Content,
+					MType:  Consumption,
+					Input:  rc.Content,
 					MoveTo: nextId.String(),
 				},
 			},
@@ -65,6 +65,35 @@ func (cr CharRange) WholeMatches(c string) bool {
 
 func (cr CharRange) Len() int { return 1 }
 
+// [a-zABC]タイプに対応する用。 CharRange, CharList等の複合
+type CompositeContainer struct {
+	Contents  []CharContainer
+	WhiteList bool
+}
+
+var _ CharContainer = (*CompositeContainer)(nil)
+
+// fixme: ↓eval内にあるstringContainerとかと合わせて使うと死ぬ
+func (cc CompositeContainer) Len() int { return 1 }
+func (cc CompositeContainer) WholeMatches(c string) bool {
+	// 全体としてホワイトリストなら、どれかにマッチするなら進めてok
+	if cc.WhiteList {
+		for _, v := range cc.Contents {
+			if v.WholeMatches(c) {
+				return true
+			}
+		}
+		return false
+	} else { // ブラックリスト方式なら、Contentsのうち一個でもアウト(=マッチする)なら全体としてアウト
+		ok := true
+		for _, v := range cc.Contents {
+			// マッチしない -> ok
+			ok = ok && !v.WholeMatches(c)
+		}
+		return ok
+	}
+}
+
 // [abc]タイプの文字集合
 type CharList struct {
 	Chars []rune
@@ -83,12 +112,21 @@ func (cl CharList) WholeMatches(c string) bool {
 		return false
 	}
 
-	for _, val := range cl.Chars {
-		if val == runed[0] {
-			return true
+	if cl.WhiteList {
+		for _, val := range cl.Chars {
+			if val == runed[0] {
+				return true
+			}
 		}
+		return false
+	} else {
+		for _, val := range cl.Chars {
+			if val == runed[0] {
+				return false
+			}
+		}
+		return true
 	}
-	return false
 }
 
 func (cl CharList) Len() int { return 1 }
