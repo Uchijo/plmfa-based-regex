@@ -43,6 +43,8 @@ func main() {
 			continue
 		}
 		fmt.Println(v.StrippedPattern)
+		fmt.Println(v.PositiveExamples)
+		fmt.Println(v.NegativeExamples)
 	}
 }
 
@@ -58,12 +60,58 @@ func extractTest(input string) Test {
 	stripped := ""
 	if canHandle {
 		stripped = extractPattern(rawPattern)
+		canHandle = canHandle && canParsePattern(stripped)
 	}
+	positives := extractPositives(lines)
+	negatives := extractNegatives(lines)
 	return Test{
-		RawPattern:      rawPattern,
-		CanHandle:       canHandle,
-		StrippedPattern: stripped,
+		RawPattern:       rawPattern,
+		CanHandle:        canHandle,
+		StrippedPattern:  stripped,
+		PositiveExamples: positives,
+		NegativeExamples: negatives,
 	}
+}
+
+func extractPositives(input []string) []string {
+	var raw []string
+	for i, v := range input {
+		// 1行目はパターンなので無視
+		if i == 0 {
+			continue
+		}
+		if len(v) >= 9 && v[:9] == "\\= Expect" {
+			raw = input[1:i]
+		}
+	}
+	if len(raw) == 0 {
+		raw = input[1:]
+	}
+
+	positives := []string{}
+	for _, v := range raw {
+		positives = append(positives, strings.TrimSpace(v))
+	}
+	return positives
+}
+
+func extractNegatives(input []string) []string {
+	var raw []string
+	for i, v := range input {
+		// 1行目はパターンなので無視
+		if i == 0 {
+			continue
+		}
+		if len(v) >= 9 && v[:9] == "\\= Expect" {
+			raw = input[i+1:]
+		}
+	}
+
+	negs := []string{}
+	for _, v := range raw {
+		negs = append(negs, strings.TrimSpace(v))
+	}
+	return negs
 }
 
 var caret = regexp.QuoteMeta("^")
