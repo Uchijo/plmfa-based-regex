@@ -7,3 +7,8 @@
 ```bash
 go run main.go input pattern
 ```
+
+## 参考等
+
+- 文法ファイル
+  - [https://github.com/antlr/grammars-v4/blob/master/pcre/PCRE.g4](https://github.com/antlr/grammars-v4/blob/master/pcre/PCRE.g4)
