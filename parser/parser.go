@@ -1,7 +1,6 @@
 package parser
 
 import (
-	"fmt"
 	"strconv"
 	"strings"
 	"unicode/utf8"
@@ -178,7 +177,6 @@ func (rb *RegexBuilder) VisitCharacter_class(ctx *gen.Character_classContext) in
 		regexes = append(regexes, model.CharList{Chars: []rune(t), WhiteList: true})
 	}
 	container := model.CompositeContainer{Contents: regexes, WhiteList: !negate}
-	fmt.Printf("composite: %+v\n", container)
 	return model.RegCharSet{Content: container}
 }
 

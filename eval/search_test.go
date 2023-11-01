@@ -190,6 +190,84 @@ func TestSearch(t *testing.T) {
 			regex:  "(a|(aa))\\2",
 			output: true,
 		},
+		{
+			name:   "char group 1",
+			input:  "aaaa",
+			regex:  "[a]{4}",
+			output: true,
+		},
+		{
+			name:   "char group 2",
+			input:  "aaaa",
+			regex:  "[a]*",
+			output: true,
+		},
+		{
+			name:   "char group 3",
+			input:  "aaaa",
+			regex:  "[^b]*",
+			output: true,
+		},
+		{
+			name:   "char group 4",
+			input:  "aaaa",
+			regex:  "[^a]*",
+			output: false,
+		},
+		{
+			name:   "char group 5",
+			input:  "abcdefg",
+			regex:  "[a-z]*",
+			output: true,
+		},
+		{
+			name:   "char group 6",
+			input:  "abcdefg",
+			regex:  "[a-zABCD]*",
+			output: true,
+		},
+		{
+			name:   "char group 7",
+			input:  "abcdefgABCD",
+			regex:  "[a-zA-Z]*",
+			output: true,
+		},
+		{
+			name:   "char group 8",
+			input:  "abcdefgABC",
+			regex:  "[a-zABCD]*",
+			output: true,
+		},
+		{
+			name:   "char group 9",
+			input:  "ABCDF",
+			regex:  "[^a-z]*",
+			output: true,
+		},
+		{
+			name:   "char group 10",
+			input:  "ABcDF",
+			regex:  "[^a-z]*",
+			output: false,
+		},
+		{
+			name:   "char group 11",
+			input:  "DEF",
+			regex:  "[^a-zABC]*",
+			output: true,
+		},
+		{
+			name:   "char group 12",
+			input:  "a",
+			regex:  "[^a-zABC]*",
+			output: false,
+		},
+		{
+			name:   "char group 13",
+			input:  "aABcdef",
+			regex:  "[^a-zABC]*",
+			output: false,
+		},
 	}
 	for _, td := range tests {
 		td := td
