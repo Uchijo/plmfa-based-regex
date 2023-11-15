@@ -122,6 +122,16 @@ func TestCharRange(t *testing.T) {
 			matcher: "ABC",
 			matches: false,
 		},
+		{
+			name: "[0-9], 0",
+			input: CharRange{
+				Start:     '0',
+				End:       '9',
+				WhiteList: true,
+			},
+			matcher: "0",
+			matches: true,
+		},
 	}
 	for _, td := range tests {
 		t.Run(fmt.Sprintf("CharRange: %s", td.name), func(t *testing.T) {

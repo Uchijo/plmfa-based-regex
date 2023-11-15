@@ -206,6 +206,24 @@ func (rb *RegexBuilder) VisitCharacter_type(ctx *gen.Character_typeContext) inte
 	if txt == "." {
 		return model.RegArb{}
 	}
+	if txt == "\\d" {
+		return model.RegCharSet{
+			Content: model.CharRange{
+				Start: '0',
+				End:   '9',
+				WhiteList: true,
+			},
+		}
+	}
+	if txt == "\\D" {
+		return model.RegCharSet{
+			Content: model.CharRange{
+				Start: '0',
+				End:   '9',
+				WhiteList: false,
+			},
+		}
+	}
 	panic("cannot parse " + txt)
 }
 
