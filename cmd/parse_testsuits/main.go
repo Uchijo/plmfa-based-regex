@@ -14,14 +14,13 @@ import (
 )
 
 func main() {
-	hoge := canParsePattern("aaa")
-	fmt.Printf("hoge: %v\n", hoge)
-
 	b, err := os.ReadFile("tests/test1")
 	if err != nil {
 		panic("error" + err.Error())
 	}
 	rawContents := string(b)
+
+	// テストケースごとで区切る
 	unfilteredContents := strings.Split(rawContents, "\n\n")
 	filteredTests := []string{}
 	for _, v := range unfilteredContents {
@@ -59,10 +58,16 @@ func extractTest(input string) Test {
 	lines := strings.Split(input, "\n")
 	rawPattern := lines[0]
 	canHandle := canHandlePattern(rawPattern)
+	if rawPattern == "/^(\\d+)\\s+IN\\s+SOA\\s+(\\S+)\\s+(\\S+)\\s*\\(\\s*$/" {
+		fmt.Println("contains \\d")
+		fmt.Printf("can handle: %v\n", canHandle)
+		fmt.Printf("extracted: %v\n", extractPattern(rawPattern))
+		fmt.Printf("can parse: %v\n", canParsePattern(extractPattern(rawPattern), true))
+	}
 	stripped := ""
 	if canHandle {
 		stripped = extractPattern(rawPattern)
-		canHandle = canHandle && canParsePattern(stripped)
+		canHandle = canHandle && canParsePattern(stripped, false)
 	}
 	positives := extractPositives(lines)
 	negatives := extractNegatives(lines)
@@ -141,7 +146,10 @@ func canHandlePattern(input string) bool {
 
 // 途中でパニックが発生 -> パース不可 -> recoverでfalseが帰る
 // 参考: https://h3poteto.hatenablog.com/entry/2015/12/13/010000
-func canParsePattern(input string) bool {
+func canParsePattern(
+	input string,
+	report bool, // for debug
+	) bool {
 	if input == "" {
 		return false
 	}
@@ -149,6 +157,9 @@ func canParsePattern(input string) bool {
 	defer func() {
 		if r := recover(); r != nil {
 			// do nothing
+			if report {
+				fmt.Println(r)
+			}
 		}
 	}()
 

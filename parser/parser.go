@@ -102,6 +102,9 @@ func (rb *RegexBuilder) VisitAtom(ctx *gen.AtomContext) interface{} {
 	if ac := ctx.Anchor(); ac != nil {
 		return model.RegSkip{}
 	}
+	if qt := ctx.Quoting(); qt != nil {
+		return qt.Accept(rb).(model.RegExp)
+	}
 	panic("parse error in VisitAtom. cannot parse " + ctx.GetText())
 }
 
@@ -588,7 +591,11 @@ func (rb *RegexBuilder) VisitQuantifier(ctx *gen.QuantifierContext) interface{} 
 }
 
 func (rb *RegexBuilder) VisitQuoting(ctx *gen.QuotingContext) interface{} {
-	return nil
+	txt := ctx.GetText()
+	if txt == "\\." {
+		return model.RegString{Content: "."}
+	}
+	panic("unexpected input in quoting: " + txt)
 }
 
 func (rb *RegexBuilder) VisitSkip(ctx *gen.SkipContext) interface{} {
