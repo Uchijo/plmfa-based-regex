@@ -58,12 +58,12 @@ func extractTest(input string) Test {
 	lines := strings.Split(input, "\n")
 	rawPattern := lines[0]
 	canHandle := canHandlePattern(rawPattern)
-	if rawPattern == "/^(\\d+)\\s+IN\\s+SOA\\s+(\\S+)\\s+(\\S+)\\s*\\(\\s*$/" {
-		fmt.Println("contains \\d")
-		fmt.Printf("can handle: %v\n", canHandle)
-		fmt.Printf("extracted: %v\n", extractPattern(rawPattern))
-		fmt.Printf("can parse: %v\n", canParsePattern(extractPattern(rawPattern), true))
-	}
+	// if rawPattern == "/^(\\d+|\\((?1)([+*-])(?1)\\)|-(?1))$/" {
+	// 	fmt.Println("contains \\d")
+	// 	fmt.Printf("can handle: %v\n", canHandle)
+	// 	fmt.Printf("extracted: %v\n", extractPattern(rawPattern))
+	// 	fmt.Printf("can parse: %v\n", canParsePattern(extractPattern(rawPattern), true))
+	// }
 	stripped := ""
 	if canHandle {
 		stripped = extractPattern(rawPattern)
@@ -149,7 +149,7 @@ func canHandlePattern(input string) bool {
 func canParsePattern(
 	input string,
 	report bool, // for debug
-	) bool {
+) bool {
 	if input == "" {
 		return false
 	}

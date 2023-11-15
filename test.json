@@ -1,0 +1,241 @@
+[
+    {
+        "RawPattern": "/^[0-9]+$/",
+        "StrippedPattern": "[0-9]+",
+        "PositiveExamples": [
+            "0",
+            "1",
+            "2",
+            "3",
+            "4",
+            "5",
+            "6",
+            "7",
+            "8",
+            "9",
+            "10",
+            "100"
+        ],
+        "NegativeExamples": [
+            "abc"
+        ],
+        "CanHandle": true
+    },
+    {
+        "RawPattern": "/^xxx[0-9]+$/",
+        "StrippedPattern": "xxx[0-9]+",
+        "PositiveExamples": [
+            "xxx0",
+            "xxx1234"
+        ],
+        "NegativeExamples": [
+            "xxx"
+        ],
+        "CanHandle": true
+    },
+    {
+        "RawPattern": "/^.+[0-9][0-9][0-9]$/",
+        "StrippedPattern": ".+[0-9][0-9][0-9]",
+        "PositiveExamples": [
+            "x123",
+            "x1234",
+            "xx123",
+            "123456"
+        ],
+        "NegativeExamples": [
+            "123"
+        ],
+        "CanHandle": true
+    },
+    {
+        "RawPattern": "/^.*\\.(\\d{1,3})\\.(\\d{1,3})\\.(\\d{1,3})$/",
+        "StrippedPattern": ".*\\.(\\d{1,3})\\.(\\d{1,3})\\.(\\d{1,3})",
+        "PositiveExamples": [
+            ".1.2.3",
+            "A.12.123.0"
+        ],
+        "NegativeExamples": [
+            ".1.2.3333",
+            "1.2.3",
+            "1234.2.3"
+        ],
+        "CanHandle": true
+    },
+    {
+        "RawPattern": "/^(\\d+)\\s+IN\\s+SOA\\s+(\\S+)\\s+(\\S+)\\s*\\(\\s*$/",
+        "StrippedPattern": "(\\d+)\\s+IN\\s+SOA\\s+(\\S+)\\s+(\\S+)\\s*\\(\\s*",
+        "PositiveExamples": [
+            "1 IN SOA non-sp1 non-sp2(",
+            "1    IN    SOA    non-sp1    non-sp2   ("
+        ],
+        "NegativeExamples": [
+            "1IN SOA non-sp1 non-sp2("
+        ],
+        "CanHandle": true
+    },
+    {
+        "RawPattern": "/^(a(b(c)))(d(e(f)))(h(i(j)))(k(l(m)))$/",
+        "StrippedPattern": "(a(b(c)))(d(e(f)))(h(i(j)))(k(l(m)))",
+        "PositiveExamples": [
+            "abcdefhijklm"
+        ],
+        "NegativeExamples": [],
+        "CanHandle": true
+    },
+    {
+        "RawPattern": "/^(?:a(b(c)))(?:d(e(f)))(?:h(i(j)))(?:k(l(m)))$/",
+        "StrippedPattern": "(?:a(b(c)))(?:d(e(f)))(?:h(i(j)))(?:k(l(m)))",
+        "PositiveExamples": [
+            "abcdefhijklm"
+        ],
+        "NegativeExamples": [],
+        "CanHandle": true
+    },
+    {
+        "RawPattern": "/^[W-c]+$/",
+        "StrippedPattern": "[W-c]+",
+        "PositiveExamples": [
+            "WXY_^abc"
+        ],
+        "NegativeExamples": [
+            "wxy"
+        ],
+        "CanHandle": true
+    },
+    {
+        "RawPattern": "/^abc$/",
+        "StrippedPattern": "abc",
+        "PositiveExamples": [
+            "abc"
+        ],
+        "NegativeExamples": [
+            "qqq\\nabc",
+            "abc\\nzzz",
+            "qqq\\nabc\\nzzz"
+        ],
+        "CanHandle": true
+    },
+    {
+        "RawPattern": "/^(a\\1?){4}$/",
+        "StrippedPattern": "(a\\1?){4}",
+        "PositiveExamples": [
+            "aaaaa",
+            "aaaaaaa",
+            "aaaaaaaaaa"
+        ],
+        "NegativeExamples": [
+            "a",
+            "aa",
+            "aaa",
+            "aaaaaaaa",
+            "aaaaaaaaa",
+            "aaaaaaaaaaa",
+            "aaaaaaaaaaaa",
+            "aaaaaaaaaaaaa",
+            "aaaaaaaaaaaaaa",
+            "aaaaaaaaaaaaaaa",
+            "aaaaaaaaaaaaaaaa"
+        ],
+        "CanHandle": true
+    },
+    {
+        "RawPattern": "/^(a\\1?)(a\\1?)(a\\2?)(a\\3?)$/",
+        "StrippedPattern": "(a\\1?)(a\\1?)(a\\2?)(a\\3?)",
+        "PositiveExamples": [
+            "aaaa",
+            "aaaaa",
+            "aaaaaa",
+            "aaaaaaa",
+            "aaaaaaaaaa"
+        ],
+        "NegativeExamples": [
+            "a",
+            "aa",
+            "aaa",
+            "aaaaaaaa",
+            "aaaaaaaaa",
+            "aaaaaaaaaaa",
+            "aaaaaaaaaaaa",
+            "aaaaaaaaaaaaa",
+            "aaaaaaaaaaaaaa",
+            "aaaaaaaaaaaaaaa",
+            "aaaaaaaaaaaaaaaa"
+        ],
+        "CanHandle": true
+    },
+    {
+        "RawPattern": "/^abc$/",
+        "StrippedPattern": "abc",
+        "PositiveExamples": [
+            "abc"
+        ],
+        "NegativeExamples": [
+            "abbbbc",
+            "abcc"
+        ],
+        "CanHandle": true
+    },
+    {
+        "RawPattern": "/^abc$/",
+        "StrippedPattern": "abc",
+        "PositiveExamples": [],
+        "NegativeExamples": [],
+        "CanHandle": true
+    },
+    {
+        "RawPattern": "/^a(bc+|b[eh])g|.h$/",
+        "StrippedPattern": "a(bc+|b[eh])g|.h",
+        "PositiveExamples": [
+            "abh"
+        ],
+        "NegativeExamples": [],
+        "CanHandle": true
+    },
+    {
+        "RawPattern": "/^([^a-z])|(\\^)$/",
+        "StrippedPattern": "([^a-z])|(\\^)",
+        "PositiveExamples": [
+            "."
+        ],
+        "NegativeExamples": [],
+        "CanHandle": true
+    },
+    {
+        "RawPattern": "/^(a\\1?){4}$/",
+        "StrippedPattern": "(a\\1?){4}",
+        "PositiveExamples": [
+            "aaaaaaaaaa"
+        ],
+        "NegativeExamples": [
+            "AB",
+            "aaaaaaaaa",
+            "aaaaaaaaaaa"
+        ],
+        "CanHandle": true
+    },
+    {
+        "RawPattern": "/^(?:a?b?)*$/",
+        "StrippedPattern": "(?:a?b?)*",
+        "PositiveExamples": [
+            "\\",
+            "a",
+            "ab",
+            "aaa"
+        ],
+        "NegativeExamples": [
+            "dbcb",
+            "a--",
+            "aa--"
+        ],
+        "CanHandle": true
+    },
+    {
+        "RawPattern": "/^(\\d+)\\s+IN\\s+SOA\\s+(\\S+)\\s+(\\S+)\\s*\\(\\s*$/",
+        "StrippedPattern": "(\\d+)\\s+IN\\s+SOA\\s+(\\S+)\\s+(\\S+)\\s*\\(\\s*",
+        "PositiveExamples": [
+            "1 IN SOA non-sp1 non-sp2("
+        ],
+        "NegativeExamples": [],
+        "CanHandle": true
+    }
+]
