@@ -209,8 +209,8 @@ func (rb *RegexBuilder) VisitCharacter_type(ctx *gen.Character_typeContext) inte
 	if txt == "\\d" {
 		return model.RegCharSet{
 			Content: model.CharRange{
-				Start: '0',
-				End:   '9',
+				Start:     '0',
+				End:       '9',
 				WhiteList: true,
 			},
 		}
@@ -218,11 +218,84 @@ func (rb *RegexBuilder) VisitCharacter_type(ctx *gen.Character_typeContext) inte
 	if txt == "\\D" {
 		return model.RegCharSet{
 			Content: model.CharRange{
-				Start: '0',
-				End:   '9',
+				Start:     '0',
+				End:       '9',
 				WhiteList: false,
 			},
 		}
+	}
+	if txt == "\\w" {
+		return model.RegCharSet{
+			Content: model.CompositeContainer{
+				Contents: []model.CharContainer{
+					model.CharRange{
+						Start:     '0',
+						End:       '9',
+						WhiteList: true,
+					},
+					model.CharRange{
+						Start:     'a',
+						End:       'z',
+						WhiteList: true,
+					},
+					model.CharRange{
+						Start:     'A',
+						End:       'Z',
+						WhiteList: true,
+					},
+					model.CharList{
+						Chars: []rune{
+							'_',
+						},
+						WhiteList: true,
+					},
+				},
+				WhiteList: true,
+			},
+		}
+	}
+	if txt == "\\W" {
+		return model.RegCharSet{
+			Content: model.CompositeContainer{
+				Contents: []model.CharContainer{
+					model.CharRange{
+						Start:     '0',
+						End:       '9',
+						WhiteList: true,
+					},
+					model.CharRange{
+						Start:     'a',
+						End:       'z',
+						WhiteList: true,
+					},
+					model.CharRange{
+						Start:     'A',
+						End:       'Z',
+						WhiteList: true,
+					},
+					model.CharList{
+						Chars: []rune{
+							'_',
+						},
+						WhiteList: true,
+					},
+				},
+				WhiteList: false,
+			},
+		}
+	}
+	if txt == "\\R" {
+		return model.NewUnionFromSlice([]model.RegExp{
+			model.RegString{
+				Content: "\n",
+			},
+			model.RegString{
+				Content: "\r",
+			},
+			model.RegString{
+				Content: "\r\n",
+			},
+		})
 	}
 	panic("cannot parse " + txt)
 }
