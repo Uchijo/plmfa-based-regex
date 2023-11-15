@@ -310,6 +310,66 @@ func TestSearch(t *testing.T) {
 			regex:  "\\W*",
 			output: true,
 		},
+		{
+			name:   "\\s positive 1",
+			input:  " ",
+			regex:  "\\s",
+			output: true,
+		},
+		{
+			name:   "\\s positive 2",
+			input:  "\t",
+			regex:  "\\s",
+			output: true,
+		},
+		{
+			name:   "\\s positive 3",
+			input:  "\f",
+			regex:  "\\s",
+			output: true,
+		},
+		{
+			name:   "\\s positive 4",
+			input:  "\r",
+			regex:  "\\s",
+			output: true,
+		},
+		{
+			name:   "\\s positive 5",
+			input:  "\n",
+			regex:  "\\s",
+			output: true,
+		},
+		{
+			name:   "\\s positive 6",
+			input:  "\v",
+			regex:  "\\s",
+			output: true,
+		},
+		{
+			name:   "\\S negative",
+			input:  "\v",
+			regex:  "\\S",
+			output: false,
+		},
+		{
+			name:   "\\R positive 1",
+			input:  "\r",
+			regex:  "\\R",
+			output: false,
+		},
+		{
+			name:   "\\R positive 2",
+			input:  "\n",
+			regex:  "\\R",
+			output: false,
+		},
+		{
+			name:   "\\R positive 3",
+			input:  "\r\n",
+			regex:  "\\R",
+			output: false,
+		},
 	}
 	for _, td := range tests {
 		td := td

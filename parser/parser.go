@@ -285,17 +285,108 @@ func (rb *RegexBuilder) VisitCharacter_type(ctx *gen.Character_typeContext) inte
 		}
 	}
 	if txt == "\\R" {
-		return model.NewUnionFromSlice([]model.RegExp{
-			model.RegString{
-				Content: "\n",
+		return model.RegCharSet{
+			Content: model.CompositeContainer{
+				WhiteList: true,
+				Contents: []model.CharContainer{
+					model.CharList{
+						Chars: []rune{
+							'\n',
+							'\r',
+						},
+					},
+					model.CRLF{},
+				},
 			},
-			model.RegString{
-				Content: "\r",
+		}
+	}
+	if txt == "\\N" {
+		return model.RegCharSet{
+			Content: model.CompositeContainer{
+				WhiteList: false,
+				Contents: []model.CharContainer{
+					model.CharList{
+						Chars: []rune{
+							'\n',
+							'\r',
+						},
+					},
+					model.CRLF{},
+				},
 			},
-			model.RegString{
-				Content: "\r\n",
+		}
+	}
+	if txt == "\\s" {
+		return model.RegCharSet{
+			Content: model.CharList{
+				WhiteList: true,
+				Chars: []rune{
+					' ',
+					'\t',
+					'\f',
+					'\r',
+					'\n',
+					'\v',
+				},
 			},
-		})
+		}
+	}
+	if txt == "\\S" {
+		return model.RegCharSet{
+			Content: model.CharList{
+				WhiteList: false,
+				Chars: []rune{
+					' ',
+					'\t',
+					'\f',
+					'\r',
+					'\n',
+					'\v',
+				},
+			},
+		}
+	}
+	if txt == "\\h" {
+		return model.RegCharSet{
+			Content: model.CharList{
+				WhiteList: true,
+				Chars: []rune{
+					' ',
+					'\t',
+				},
+			},
+		}
+	}
+	if txt == "\\H" {
+		return model.RegCharSet{
+			Content: model.CharList{
+				WhiteList: false,
+				Chars: []rune{
+					' ',
+					'\t',
+				},
+			},
+		}
+	}
+	if txt == "\\v" {
+		return model.RegCharSet{
+			Content: model.CharList{
+				WhiteList: true,
+				Chars: []rune{
+					'\v',
+				},
+			},
+		}
+	}
+	if txt == "\\V" {
+		return model.RegCharSet{
+			Content: model.CharList{
+				WhiteList: false,
+				Chars: []rune{
+					'\v',
+				},
+			},
+		}
 	}
 	panic("cannot parse " + txt)
 }

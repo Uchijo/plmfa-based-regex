@@ -130,3 +130,22 @@ func (cl CharList) WholeMatches(c string) bool {
 }
 
 func (cl CharList) Len() int { return 1 }
+
+type CRLF struct{}
+
+var _ CharContainer = (*CRLF)(nil)
+
+func (crlf CRLF) Len() int { return 2 }
+
+// WholeMatches implements CharContainer
+func (crlf CRLF) WholeMatches(c string) bool {
+	runed := []rune(c)
+
+	// 2文字じゃなかったらダメ
+	if len(runed) != 2 {
+		return false
+	}
+
+	// 全部一致してなかったらダメ
+	return runed[0] == '\r' && runed[1] == '\n'
+}
