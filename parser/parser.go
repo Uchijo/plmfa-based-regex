@@ -592,8 +592,19 @@ func (rb *RegexBuilder) VisitQuantifier(ctx *gen.QuantifierContext) interface{} 
 
 func (rb *RegexBuilder) VisitQuoting(ctx *gen.QuotingContext) interface{} {
 	txt := ctx.GetText()
-	if txt == "\\." {
-		return model.RegString{Content: "."}
+	if txt == "\\." ||
+		txt == "\\^" ||
+		txt == "\\$" ||
+		txt == "\\*" ||
+		txt == "\\+" ||
+		txt == "\\?" ||
+		txt == "\\(" ||
+		txt == "\\)" ||
+		txt == "\\[" ||
+		txt == "\\{" ||
+		txt == "\\\\" ||
+		txt == "\\|" {
+		return model.RegString{Content: string(txt[1])}
 	}
 	panic("unexpected input in quoting: " + txt)
 }

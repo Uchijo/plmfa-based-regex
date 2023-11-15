@@ -8822,6 +8822,12 @@ type IQuotingContext interface {
 	// GetParser returns the parser.
 	GetParser() antlr.Parser
 
+	// GetInside returns the inside token.
+	GetInside() antlr.Token
+
+	// SetInside sets the inside token.
+	SetInside(antlr.Token)
+
 	// Getter signatures
 	AllBSlash() []antlr.TerminalNode
 	BSlash(i int) antlr.TerminalNode
@@ -8835,6 +8841,7 @@ type IQuotingContext interface {
 type QuotingContext struct {
 	antlr.BaseParserRuleContext
 	parser antlr.Parser
+	inside antlr.Token
 }
 
 func NewEmptyQuotingContext() *QuotingContext {
@@ -8863,6 +8870,10 @@ func NewQuotingContext(parser antlr.Parser, parent antlr.ParserRuleContext, invo
 }
 
 func (s *QuotingContext) GetParser() antlr.Parser { return s.parser }
+
+func (s *QuotingContext) GetInside() antlr.Token { return s.inside }
+
+func (s *QuotingContext) SetInside(v antlr.Token) { s.inside = v }
 
 func (s *QuotingContext) AllBSlash() []antlr.TerminalNode {
 	return s.GetTokens(PCREParserBSlash)
@@ -8952,7 +8963,10 @@ func (p *PCREParser) Quoting() (localctx IQuotingContext) {
 		for _alt != 1 && _alt != antlr.ATNInvalidAltNumber {
 			if _alt == 1+1 {
 				p.SetState(629)
-				p.MatchWildcard()
+
+				var _mwc = p.MatchWildcard()
+
+				localctx.(*QuotingContext).inside = _mwc
 
 			}
 			p.SetState(634)
