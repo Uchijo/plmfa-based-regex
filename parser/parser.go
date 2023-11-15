@@ -74,7 +74,7 @@ func (rb *RegexBuilder) VisitAtom(ctx *gen.AtomContext) interface{} {
 	if capture := ctx.Capture(); capture != nil {
 		// 非キャプチャの場合
 		if ctx.GetText()[:3] == "(?:" {
-			return capture.Accept(rb).(model.RegExp)
+			return capture.Alternation().Accept(rb).(model.RegExp)
 		}
 		retval := model.RegCapture{MemoryIndex: captureIndex}
 		captureIndex++

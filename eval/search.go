@@ -66,6 +66,7 @@ func search(
 	}
 
 	// 入力文字がない & イプシロンでたどり着けるゴールがある -> マッチ
+	searchEpsLog = []string{}
 	goalReachable := searchEps(st, currentId)
 	if goalReachable && input.Len() == 0 {
 		return true
@@ -164,8 +165,18 @@ func search(
 	return false
 }
 
+var searchEpsLog []string
 // searchEps returns true if goal state is reachable with only epsilon transitions
+// initialize searchEpsLog before call.
 func searchEps(st model.StateList, currentId string) bool {
+	// 既に探索済みidに当たったら無限ループ -> この枝は失敗
+	for _, v := range searchEpsLog {
+		if v == currentId {
+			return false
+		}
+	}
+	searchEpsLog = append(searchEpsLog, currentId)
+
 	curSt, _ := st.StateById(currentId)
 	if curSt.IsEnd {
 		return true
