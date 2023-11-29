@@ -222,8 +222,16 @@ func (rb *RegexBuilder) VisitCharacter(ctx *gen.CharacterContext) interface{} {
 		panic("parse error.")
 	}
 
-	return model.RegCapRef{
-		MemIndex: digits,
+	if captureIndex-1 >= digits {
+		return model.RegCapRef{
+			MemIndex: digits,
+		}
+	} else {
+		oct, err := strconv.ParseInt(txtDigits, 8, 64)
+		if err != nil {
+			panic("error occurred when converting txt to oct: " + err.Error() + ", txt=" + txtDigits)
+		}
+		return rune(oct)
 	}
 }
 
