@@ -20,8 +20,20 @@ func main() {
 	}
 	rawContents := string(b)
 
+	preprocess := strings.Split(rawContents, "\n")
+	pt := "^\x20+$"
+	re := regexp.MustCompile(pt)
+	preprocessed := []string{}
+	for _, v := range preprocess {
+		if re.MatchString(v) {
+			preprocessed = append(preprocessed, "")
+		} else {
+			preprocessed = append(preprocessed, v)
+		}
+	}
+
 	// テストケースごとで区切る
-	unfilteredContents := strings.Split(rawContents, "\n\n")
+	unfilteredContents := strings.Split(strings.Join(preprocessed, "\n"), "\n\n")
 	filteredTests := []string{}
 	for _, v := range unfilteredContents {
 		if !isTestCase(v) {
@@ -87,6 +99,10 @@ func extractTest(input string) Test {
 }
 
 func extractPositives(input []string) []string {
+	// 最初にnegativeしかない場合をさばく
+	if len(input) >= 2 && len(input[1]) >= 9 && input[1][:9] == "\\= Expect" {
+		return []string{}
+	}
 	var raw []string
 	for i, v := range input {
 		// 1行目はパターンなので無視
