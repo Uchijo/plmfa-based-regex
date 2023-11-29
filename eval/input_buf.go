@@ -20,16 +20,16 @@ func (ib InputBuffer) CanConsume(matcher model.CharContainer) (bool, string) {
 	if inputLen < prefixLen {
 		return false, ""
 	}
-	prefix := ib.Input[:prefixLen]
-	return matcher.WholeMatches(prefix), ib.Input[:matcher.Len()]
+	prefix := []rune(ib.Input)[:prefixLen]
+	return matcher.WholeMatches(string(prefix)), string([]rune(ib.Input)[:matcher.Len()])
 }
 
 func (ib InputBuffer) Consumed(rawMatcher string) (InputBuffer, error) {
 	matcher := stringContainer(rawMatcher)
 	if ok, _ := ib.CanConsume(matcher); !ok {
-		return InputBuffer{}, errors.New("cannot consume")
+		return InputBuffer{}, errors.New("cannot consume " + string(matcher) + " from " + ib.Input)
 	}
-	ib.Input = ib.Input[matcher.Len():]
+	ib.Input = string([]rune(ib.Input)[matcher.Len():])
 	return ib, nil
 }
 

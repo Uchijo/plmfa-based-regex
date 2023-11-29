@@ -9,7 +9,7 @@ type stringContainer string
 var _ model.CharContainer = (*stringContainer)(nil)
 
 func (cc stringContainer) Len() int {
-	return len(cc)
+	return len([]rune(cc))
 }
 func (cc stringContainer) WholeMatches(c string) bool {
 	return string(cc) == c

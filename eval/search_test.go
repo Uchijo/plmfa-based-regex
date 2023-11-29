@@ -370,6 +370,36 @@ func TestSearch(t *testing.T) {
 			regex:  "\\R",
 			output: false,
 		},
+		{
+			name:   "\\o{101} is A",
+			input:  "A",
+			regex:  "\\o{101}",
+			output: true,
+		},
+		{
+			name:   "\\x41 is A",
+			input:  "A",
+			regex:  "\\x41",
+			output: true,
+		},
+		{
+			name:   "\\x411 is A1",
+			input:  "A1",
+			regex:  "\\x411",
+			output: true,
+		},
+		{
+			name:   "\\x{41} has syntactic error",
+			input:  "A",
+			regex:  "\\x{41}",
+			shouldFail: true,
+		},
+		{
+			name:   "\\x{3042} is あ",
+			input:  "あ",
+			regex:  "\\x{3042}",
+			output: true,
+		},
 	}
 	for _, td := range tests {
 		td := td
@@ -493,6 +523,14 @@ func TestSearchFromAst(t *testing.T) {
 			matcher: "bazzaaaazzzzzz",
 			matches: false,
 		},
+		{
+			name: "あ",
+			input: model.RegString{
+				Content: string(rune(12354)),
+			},
+			matcher: "あ",
+			matches: true,
+		},
 	}
 	for _, td := range tests {
 		t.Run(fmt.Sprintf("SearchFromAst: %s", td.name), func(t *testing.T) {
@@ -500,7 +538,7 @@ func TestSearchFromAst(t *testing.T) {
 			if err != nil {
 				t.Error("unexpected error occurred.")
 			}
-			matched := Search(states, InputBuffer{Input: td.matcher}, start, false, true)
+			matched := Search(states, InputBuffer{Input: td.matcher}, start, false, false)
 			if matched != td.matches {
 				t.Errorf("expected %v, got %v\n", td.matches, matched)
 			}
