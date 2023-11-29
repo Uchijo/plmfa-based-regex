@@ -1,6 +1,7 @@
 package parser
 
 import (
+	"fmt"
 	"strconv"
 	"strings"
 	"unicode/utf8"
@@ -173,13 +174,42 @@ func (rb *RegexBuilder) VisitCharacter(ctx *gen.CharacterContext) interface{} {
 		// do nothing
 	}
 
-	// \ digit* の形への対応
-	// asciiコード指定とバックリファレンスの判定が必要
+	// 共通で使うものを処理
 	digitList := []string{}
 	for _, v := range ctx.AllDigit() {
 		digitList = append(digitList, v.GetText())
 	}
-	digits, err := strconv.Atoi(strings.Join(digitList, ""))
+	txtDigits := strings.Join(digitList, "")
+
+	hexList := []string{}
+	for _, v := range ctx.AllHex() {
+		hexList = append(hexList, v.GetText())
+	}
+	txtHex := strings.Join(hexList, "")
+
+	// \x hex hex, \x{hex hex hex+} に対応
+	if content[:1] == "x" {
+		digitAsHex, err := strconv.ParseInt(txtHex, 16, 32)
+		fmt.Println(digitAsHex)
+		if err != nil {
+			errMsg := err.Error() + ", txtDigits=" + txtHex
+			panic(errMsg)
+		}
+		return rune(digitAsHex)
+	}
+
+	// \o{1234} の形に対応
+	if content[:1] == "o" {
+		digitAsOct, err := strconv.ParseInt(txtDigits, 8, 32)
+		if err != nil {
+			panic(err)
+		}
+		return rune(digitAsOct)
+	}
+
+	// \ octal* の形への対応
+	// asciiコード指定とバックリファレンスの判定が必要
+	digits, err := strconv.Atoi(txtDigits)
 	if err != nil {
 		panic("parse error.")
 	}
