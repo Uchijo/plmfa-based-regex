@@ -85,7 +85,13 @@ func (rb *RegexBuilder) VisitAtom(ctx *gen.AtomContext) interface{} {
 		return lookaround.Accept(rb).(model.RegExp)
 	}
 	if ch := ctx.Character(); ch != nil {
-		return ch.Accept(rb).(model.RegExp)
+		val := ch.Accept(rb)
+		switch val := val.(type) {
+		case rune:
+			return model.RegString{Content: string(val)}
+		case model.RegExp:
+			return val
+		}
 	}
 	if cht := ctx.Character_type(); cht != nil {
 		return cht.Accept(rb).(model.RegExp)
