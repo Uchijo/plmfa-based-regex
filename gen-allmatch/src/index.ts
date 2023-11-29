@@ -15,7 +15,7 @@ type Test = {
     const onlyProcessible = allTests.filter((elem) => elem.CanProcess && !elem.CanHandle)
     const converted = onlyProcessible.map((elem) => {
         try {
-            const regexp = RegExp(elem.StrippedPattern)
+            const regexp = RegExp("^" + elem.StrippedPattern + "$")
             const positives = elem.PositiveExamples.map((phrase) => {
                 const matches = phrase.match(regexp)
                 const pos = matches?.filter((el) => regexp.test(el))
@@ -28,7 +28,5 @@ type Test = {
             return elem
         }
     })
-    console.dir(converted)
-    console.dir(onlyProcessible.length)
     console.log(JSON.stringify(converted))
 })()
