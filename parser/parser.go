@@ -1,7 +1,6 @@
 package parser
 
 import (
-	"fmt"
 	"strconv"
 	"strings"
 	"unicode/utf8"
@@ -190,7 +189,6 @@ func (rb *RegexBuilder) VisitCharacter(ctx *gen.CharacterContext) interface{} {
 	// \x hex hex, \x{hex hex hex+} に対応
 	if content[:1] == "x" {
 		digitAsHex, err := strconv.ParseInt(txtHex, 16, 32)
-		fmt.Println(digitAsHex)
 		if err != nil {
 			errMsg := err.Error() + ", txtDigits=" + txtHex
 			panic(errMsg)
@@ -205,6 +203,16 @@ func (rb *RegexBuilder) VisitCharacter(ctx *gen.CharacterContext) interface{} {
 			panic(err)
 		}
 		return rune(digitAsOct)
+	}
+
+	// \u hex hex... に対応
+	if content[:1] == "u" {
+		digitAsHex, err := strconv.ParseInt(txtHex, 16, 32)
+		if err != nil {
+			errMsg := err.Error() + ", txtDigits=" + txtHex
+			panic(errMsg)
+		}
+		return rune(digitAsHex)
 	}
 
 	// \ octal* の形への対応

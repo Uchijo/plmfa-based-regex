@@ -400,6 +400,12 @@ func TestSearch(t *testing.T) {
 			regex:  "\\x{3042}",
 			output: true,
 		},
+		{
+			name:   "\\u3042 is あ",
+			input:  "あ",
+			regex:  "\\u3042",
+			output: true,
+		},
 	}
 	for _, td := range tests {
 		td := td
