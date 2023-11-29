@@ -40,7 +40,7 @@ func main() {
 
 	fmt.Println("[")
 	for _, v := range tests {
-		if !v.CanHandle {
+		if !(v.CanHandle || v.CanProcess) {
 			continue
 		}
 		json, _ := json.Marshal(v)
@@ -69,11 +69,17 @@ func extractTest(input string) Test {
 		stripped = extractPattern(rawPattern)
 		canHandle = canHandle && canParsePattern(stripped, false)
 	}
+	canProcess := canProcessPattern(rawPattern)
+	if canProcess {
+		stripped = extractPattern(rawPattern)
+		canProcess = canProcess && canParsePattern(stripped, false)
+	}
 	positives := extractPositives(lines)
 	negatives := extractNegatives(lines)
 	return Test{
 		RawPattern:       rawPattern,
 		CanHandle:        canHandle,
+		CanProcess:       canProcess,
 		StrippedPattern:  stripped,
 		PositiveExamples: positives,
 		NegativeExamples: negatives,
@@ -123,7 +129,7 @@ func extractNegatives(input []string) []string {
 
 var caret = regexp.QuoteMeta("^")
 var dollar = regexp.QuoteMeta("$")
-var pattern = "/" + caret + "(.*)" + dollar + "/"
+var pattern = "/" + caret + "?(.*)" + dollar + "?/"
 var compiledRe, _ = regexp.Compile(pattern)
 
 func extractPattern(input string) string {
@@ -138,6 +144,17 @@ func canHandlePattern(input string) bool {
 	// ^$で囲まれているか確認
 	// match, err := regexp.Match("/^.*$/[dgimsuy]{0,6}", []byte(input))
 	match, err := regexp.Match("^/"+caret+".*"+dollar+"/g?$", []byte(input))
+	if err != nil {
+		panic("match failed")
+	}
+	return match
+}
+
+// 全体マッチに変更できるかどうか確認
+func canProcessPattern(input string) bool {
+	// ^$で囲まれているか確認
+	// match, err := regexp.Match("/^.*$/[dgimsuy]{0,6}", []byte(input))
+	match, err := regexp.Match("^/"+caret+"?.*"+dollar+"?/g?$", []byte(input))
 	if err != nil {
 		panic("match failed")
 	}
@@ -181,4 +198,5 @@ type Test struct {
 	PositiveExamples []string
 	NegativeExamples []string
 	CanHandle        bool
+	CanProcess       bool
 }
