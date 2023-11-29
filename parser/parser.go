@@ -137,22 +137,34 @@ func (rb *RegexBuilder) VisitCapture(ctx *gen.CaptureContext) interface{} {
 }
 
 func (rb *RegexBuilder) VisitCharacter(ctx *gen.CharacterContext) interface{} {
-	txt := ctx.GetText()
-	if txt[:1] == "\\" {
-		digitList := []string{}
-		for _, v := range ctx.AllDigit() {
-			digitList = append(digitList, v.GetText())
-		}
-		digits, err := strconv.Atoi(strings.Join(digitList, ""))
-		if err != nil {
-			panic("parse error.")
-		}
-
-		return model.RegCapRef{
-			MemIndex: digits,
-		}
+	rawTxt := ctx.GetText()
+	if rawTxt[:1] != "\\" {
+		panic("cannot parse " + rawTxt)
 	}
-	panic("cannot parse " + txt)
+	content := rawTxt[1:]
+
+	// \a \c. \e \f \n \r \tへの対応
+	if content[:1] == "c" {
+		panic("cannot parse " + rawTxt)
+	}
+	if content[:1] == "a" {
+		return 
+	}
+
+	// \ digit* の形への対応
+	// asciiコード指定とバックリファレンスの判定が必要
+	digitList := []string{}
+	for _, v := range ctx.AllDigit() {
+		digitList = append(digitList, v.GetText())
+	}
+	digits, err := strconv.Atoi(strings.Join(digitList, ""))
+	if err != nil {
+		panic("parse error.")
+	}
+
+	return model.RegCapRef{
+		MemIndex: digits,
+	}
 }
 
 // fixme: []] []a] []-a] [^]] [^]a] [^]-a] などのパターンに特別に対応する必要があるが、できていない
