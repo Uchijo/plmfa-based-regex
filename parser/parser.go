@@ -136,6 +136,7 @@ func (rb *RegexBuilder) VisitCapture(ctx *gen.CaptureContext) interface{} {
 	return ctx.Alternation().Accept(rb).(model.RegExp)
 }
 
+// RegCapRefもしくはruneを返す
 func (rb *RegexBuilder) VisitCharacter(ctx *gen.CharacterContext) interface{} {
 	rawTxt := ctx.GetText()
 	if rawTxt[:1] != "\\" {
@@ -147,8 +148,23 @@ func (rb *RegexBuilder) VisitCharacter(ctx *gen.CharacterContext) interface{} {
 	if content[:1] == "c" {
 		panic("cannot parse " + rawTxt)
 	}
-	if content[:1] == "a" {
-		return 
+	switch content[:1] {
+	case "a":
+		return rune(7)
+	case "c": // 対応が大変なのでこれだけエラー
+		panic("cannot parse " + rawTxt)
+	case "e":
+		return rune(27)
+	case "f":
+		return rune(12)
+	case "n":
+		return rune(10)
+	case "r":
+		return rune(13)
+	case "t":
+		return rune(9)
+	default:
+		// do nothing
 	}
 
 	// \ digit* の形への対応
