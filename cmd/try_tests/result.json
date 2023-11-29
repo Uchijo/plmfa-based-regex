@@ -1,0 +1,233 @@
+[
+    {
+        "RawPttern": "/^(cow|)\\1(bell)/",
+        "StrippedPattern": "(cow|)\\1(bell)",
+        "Input": "bell",
+        "Expected": true,
+        "Got": false
+    },
+    {
+        "RawPttern": "/^(cow|)\\1(bell)/",
+        "StrippedPattern": "(cow|)\\1(bell)",
+        "Input": "bell",
+        "Expected": true,
+        "Got": false
+    },
+    {
+        "RawPttern": "/^(cow|)\\1(bell)/",
+        "StrippedPattern": "(cow|)\\1(bell)",
+        "Input": "bell",
+        "Expected": true,
+        "Got": false
+    },
+    {
+        "RawPttern": "/^(a|)\\1*b/",
+        "StrippedPattern": "(a|)\\1*b",
+        "Input": "b",
+        "Expected": true,
+        "Got": false
+    },
+    {
+        "RawPttern": "/^(a|)\\1+b/",
+        "StrippedPattern": "(a|)\\1+b",
+        "Input": "b",
+        "Expected": true,
+        "Got": false
+    },
+    {
+        "RawPttern": "/^(a|)\\1?b/",
+        "StrippedPattern": "(a|)\\1?b",
+        "Input": "b",
+        "Expected": true,
+        "Got": false
+    },
+    {
+        "RawPttern": "/^(a|)\\1{2}b/",
+        "StrippedPattern": "(a|)\\1{2}b",
+        "Input": "b",
+        "Expected": true,
+        "Got": false
+    },
+    {
+        "RawPttern": "/^(a|)\\1{2,3}b/",
+        "StrippedPattern": "(a|)\\1{2,3}b",
+        "Input": "b",
+        "Expected": true,
+        "Got": false
+    },
+    {
+        "RawPttern": "/[a\\-z]+/",
+        "StrippedPattern": "[a\\-z]+",
+        "Input": "a-z",
+        "Expected": true,
+        "Got": false
+    },
+    {
+        "RawPttern": "/(?s:.*X|^B)/",
+        "StrippedPattern": "(?s:.*X|^B)",
+        "Input": "abcde\\n1234Xyz",
+        "Expected": true,
+        "Got": false
+    },
+    {
+        "RawPttern": "/(?s:.*X|^B)/",
+        "StrippedPattern": "(?s:.*X|^B)",
+        "Input": "BarFoo",
+        "Expected": true,
+        "Got": false
+    },
+    {
+        "RawPttern": "/a(?i:b)c/",
+        "StrippedPattern": "a(?i:b)c",
+        "Input": "aBc",
+        "Expected": true,
+        "Got": false
+    },
+    {
+        "RawPttern": "/a(?i:b)*c/",
+        "StrippedPattern": "a(?i:b)*c",
+        "Input": "aBc",
+        "Expected": true,
+        "Got": false
+    },
+    {
+        "RawPttern": "/a(?i:b)*c/",
+        "StrippedPattern": "a(?i:b)*c",
+        "Input": "aBBc",
+        "Expected": true,
+        "Got": false
+    },
+    {
+        "RawPttern": "/(?i:saturday|sunday)/",
+        "StrippedPattern": "(?i:saturday|sunday)",
+        "Input": "Saturday",
+        "Expected": true,
+        "Got": false
+    },
+    {
+        "RawPttern": "/(?i:saturday|sunday)/",
+        "StrippedPattern": "(?i:saturday|sunday)",
+        "Input": "Sunday",
+        "Expected": true,
+        "Got": false
+    },
+    {
+        "RawPttern": "/(?i:saturday|sunday)/",
+        "StrippedPattern": "(?i:saturday|sunday)",
+        "Input": "SATURDAY",
+        "Expected": true,
+        "Got": false
+    },
+    {
+        "RawPttern": "/(?i:saturday|sunday)/",
+        "StrippedPattern": "(?i:saturday|sunday)",
+        "Input": "SUNDAY",
+        "Expected": true,
+        "Got": false
+    },
+    {
+        "RawPttern": "/(?i:saturday|sunday)/",
+        "StrippedPattern": "(?i:saturday|sunday)",
+        "Input": "SunDay",
+        "Expected": true,
+        "Got": false
+    },
+    {
+        "RawPttern": "/(?i:a)b/",
+        "StrippedPattern": "(?i:a)b",
+        "Input": "Ab",
+        "Expected": true,
+        "Got": false
+    },
+    {
+        "RawPttern": "/((?i:a))b/",
+        "StrippedPattern": "((?i:a))b",
+        "Input": "Ab",
+        "Expected": true,
+        "Got": false
+    },
+    {
+        "RawPttern": "/^[a-\\Ec]/",
+        "StrippedPattern": "[a-\\Ec]",
+        "Input": "b",
+        "Expected": true,
+        "Got": false
+    },
+    {
+        "RawPttern": "/^[a-\\Ec]/",
+        "StrippedPattern": "[a-\\Ec]",
+        "Input": "E",
+        "Expected": false,
+        "Got": true
+    },
+    {
+        "RawPttern": "/^[a-\\Q\\E]/",
+        "StrippedPattern": "[a-\\Q\\E]",
+        "Input": "a",
+        "Expected": true,
+        "Got": false
+    },
+    {
+        "RawPttern": "/^[a-\\Q\\E]/",
+        "StrippedPattern": "[a-\\Q\\E]",
+        "Input": "-",
+        "Expected": true,
+        "Got": false
+    },
+    {
+        "RawPttern": "/((a|)+)+Z/",
+        "StrippedPattern": "((a|)+)+Z",
+        "Input": "Z",
+        "Expected": true,
+        "Got": false
+    },
+    {
+        "RawPttern": "/^(a{2,3}){2,}+a/",
+        "StrippedPattern": "(a{2,3}){2,}+a",
+        "Input": "aaaaaa",
+        "Expected": false,
+        "Got": true
+    },
+    {
+        "RawPttern": "/^(a{2,3}){2,}+a/",
+        "StrippedPattern": "(a{2,3}){2,}+a",
+        "Input": "aaaaaaaaa",
+        "Expected": false,
+        "Got": true
+    },
+    {
+        "RawPttern": "/^(a){2,}+(\\w)/",
+        "StrippedPattern": "(a){2,}+(\\w)",
+        "Input": "aaa",
+        "Expected": false,
+        "Got": true
+    },
+    {
+        "RawPttern": "/^(?:a){2,}+(\\w)/",
+        "StrippedPattern": "(?:a){2,}+(\\w)",
+        "Input": "aaa",
+        "Expected": false,
+        "Got": true
+    },
+    {
+        "RawPttern": "/(?|(aaa)|(b))/",
+        "StrippedPattern": "(?|(aaa)|(b))",
+        "Input": "xaaa",
+        "Expected": true,
+        "Got": false
+    },
+    {
+        "RawPttern": "/(?|(aaa)|(b))/",
+        "StrippedPattern": "(?|(aaa)|(b))",
+        "Input": "xbc",
+        "Expected": true,
+        "Got": false
+    },
+    {
+        "RawPttern": "/a+(?:|b)a/",
+        "StrippedPattern": "a+(?:|b)a",
+        "Input": "aaaa",
+        "Expected": true,
+        "Got": false
+    }
+]

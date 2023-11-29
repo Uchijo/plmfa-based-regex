@@ -41,6 +41,7 @@ func main() {
 
 	tests := []Test{}
 	json.Unmarshal(rawJson, &tests)
+	fmt.Println("tests length: ", len(tests))
 
 	// 変な結果を入れておく
 	reports := []Report{}
