@@ -20,6 +20,25 @@ tasks:
   test:
     cmds:
       - go test ./...
+  prepare-grun:
+    dir: parser/
+    cmds:
+      - task: antlr4-cmd
+        vars:
+          ARGS: PCRE.g4
+      - javac *.java
+  grun:
+    dir: parser/
+    cmds:
+      - task: grun-cmd
+        vars:
+          ARGS: PCRE pcre -tree
+    deps:
+      - task: prepare-grun
+  clean-grun:
+    dir: parser/
+    cmds:
+      - rm *.java *.class *.tokens *.interp
   test-cmd:
     cmds:
       - go run main.go "a" "a|b|c"
@@ -53,6 +72,7 @@ tasks:
     cmds:
       - java -Xmx500M -cp "/usr/local/lib/antlr-4.13.1-complete.jar:$CLASSPATH" org.antlr.v4.Tool {{.ARGS}}
   grun-cmd:
+    dir: parser
     internal: true
     cmds:
       - java -Xmx500M -cp "/usr/local/lib/antlr-4.13.1-complete.jar:$CLASSPATH" org.antlr.v4.gui.TestRig {{.ARGS}}

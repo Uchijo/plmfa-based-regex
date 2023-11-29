@@ -1,2 +1,6 @@
 .antlr
 node_modules
+*.java
+*.class
+*.tokens
+*.interp
