@@ -4,7 +4,7 @@
         "StrippedPattern": "abcd\\t\\n\\r\\f\\a\\e\\071\\x3b\\$\\\\\\?caxyz",
         "PositiveExamples": [],
         "NegativeExamples": [],
-        "CanHandle": false,
+        "CanHandle": true,
         "CanProcess": true
     },
     {
@@ -40,7 +40,7 @@
             "aaabcxyzpqrrrabbxyyyypABBzz"
         ],
         "NegativeExamples": [],
-        "CanHandle": false,
+        "CanHandle": true,
         "CanProcess": true
     },
     {
@@ -51,7 +51,7 @@
             "abcabczz"
         ],
         "NegativeExamples": [],
-        "CanHandle": false,
+        "CanHandle": true,
         "CanProcess": true
     },
     {
@@ -68,7 +68,7 @@
             "bbbbbbbbbbbac"
         ],
         "NegativeExamples": [],
-        "CanHandle": false,
+        "CanHandle": true,
         "CanProcess": true
     },
     {
@@ -80,7 +80,7 @@
             "bababc"
         ],
         "NegativeExamples": [],
-        "CanHandle": false,
+        "CanHandle": true,
         "CanProcess": true
     },
     {
@@ -88,7 +88,7 @@
         "StrippedPattern": "[ab\\]cde]",
         "PositiveExamples": [],
         "NegativeExamples": [],
-        "CanHandle": false,
+        "CanHandle": true,
         "CanProcess": true
     },
     {
@@ -96,7 +96,7 @@
         "StrippedPattern": "[]cde]",
         "PositiveExamples": [],
         "NegativeExamples": [],
-        "CanHandle": false,
+        "CanHandle": true,
         "CanProcess": true
     },
     {
@@ -104,7 +104,7 @@
         "StrippedPattern": "[^ab\\]cde]",
         "PositiveExamples": [],
         "NegativeExamples": [],
-        "CanHandle": false,
+        "CanHandle": true,
         "CanProcess": true
     },
     {
@@ -112,7 +112,7 @@
         "StrippedPattern": "[^]cde]",
         "PositiveExamples": [],
         "NegativeExamples": [],
-        "CanHandle": false,
+        "CanHandle": true,
         "CanProcess": true
     },
     {
@@ -124,7 +124,7 @@
             "uponter"
         ],
         "NegativeExamples": [],
-        "CanHandle": false,
+        "CanHandle": true,
         "CanProcess": true
     },
     {
@@ -134,7 +134,7 @@
             "abde"
         ],
         "NegativeExamples": [],
-        "CanHandle": false,
+        "CanHandle": true,
         "CanProcess": true
     },
     {
@@ -142,7 +142,7 @@
         "StrippedPattern": "(?=(ab(cd)))(ab)",
         "PositiveExamples": [],
         "NegativeExamples": [],
-        "CanHandle": false,
+        "CanHandle": true,
         "CanProcess": true
     },
     {
@@ -157,7 +157,7 @@
             "aaaa"
         ],
         "NegativeExamples": [],
-        "CanHandle": false,
+        "CanHandle": true,
         "CanProcess": true
     },
     {
@@ -170,7 +170,7 @@
             "aaaa"
         ],
         "NegativeExamples": [],
-        "CanHandle": false,
+        "CanHandle": true,
         "CanProcess": true
     },
     {
@@ -182,7 +182,7 @@
             "12345678__"
         ],
         "NegativeExamples": [],
-        "CanHandle": false,
+        "CanHandle": true,
         "CanProcess": true
     },
     {
@@ -190,7 +190,7 @@
         "StrippedPattern": "\\w+(?=\\t)",
         "PositiveExamples": [],
         "NegativeExamples": [],
-        "CanHandle": false,
+        "CanHandle": true,
         "CanProcess": true
     },
     {
@@ -201,7 +201,7 @@
             "aaaab"
         ],
         "NegativeExamples": [],
-        "CanHandle": false,
+        "CanHandle": true,
         "CanProcess": true
     },
     {
@@ -211,7 +211,7 @@
             "abc"
         ],
         "NegativeExamples": [],
-        "CanHandle": false,
+        "CanHandle": true,
         "CanProcess": true
     },
     {
@@ -221,7 +221,7 @@
             "aabbbbb"
         ],
         "NegativeExamples": [],
-        "CanHandle": false,
+        "CanHandle": true,
         "CanProcess": true
     },
     {
@@ -231,7 +231,7 @@
             "aabbbbb"
         ],
         "NegativeExamples": [],
-        "CanHandle": false,
+        "CanHandle": true,
         "CanProcess": true
     },
     {
@@ -239,7 +239,7 @@
         "StrippedPattern": "abc\\0def\\00pqr\\000xyz\\0000AB",
         "PositiveExamples": [],
         "NegativeExamples": [],
-        "CanHandle": false,
+        "CanHandle": true,
         "CanProcess": true
     },
     {
@@ -247,7 +247,7 @@
         "StrippedPattern": "abc\\x0def\\x00pqr\\x000xyz\\x0000AB",
         "PositiveExamples": [],
         "NegativeExamples": [],
-        "CanHandle": false,
+        "CanHandle": true,
         "CanProcess": true
     },
     {
@@ -255,7 +255,7 @@
         "StrippedPattern": "[\\000-\\037]",
         "PositiveExamples": [],
         "NegativeExamples": [],
-        "CanHandle": false,
+        "CanHandle": true,
         "CanProcess": true
     },
     {
@@ -263,7 +263,7 @@
         "StrippedPattern": "\\0*",
         "PositiveExamples": [],
         "NegativeExamples": [],
-        "CanHandle": false,
+        "CanHandle": true,
         "CanProcess": true
     },
     {
@@ -276,7 +276,7 @@
             "bell"
         ],
         "NegativeExamples": [],
-        "CanHandle": false,
+        "CanHandle": true,
         "CanProcess": true
     },
     {
@@ -284,7 +284,7 @@
         "StrippedPattern": "\\s",
         "PositiveExamples": [],
         "NegativeExamples": [],
-        "CanHandle": false,
+        "CanHandle": true,
         "CanProcess": true
     },
     {
@@ -296,7 +296,7 @@
             "b"
         ],
         "NegativeExamples": [],
-        "CanHandle": false,
+        "CanHandle": true,
         "CanProcess": true
     },
     {
@@ -308,7 +308,7 @@
             "b"
         ],
         "NegativeExamples": [],
-        "CanHandle": false,
+        "CanHandle": true,
         "CanProcess": true
     },
     {
@@ -320,7 +320,7 @@
             "b"
         ],
         "NegativeExamples": [],
-        "CanHandle": false,
+        "CanHandle": true,
         "CanProcess": true
     },
     {
@@ -331,7 +331,7 @@
             "b"
         ],
         "NegativeExamples": [],
-        "CanHandle": false,
+        "CanHandle": true,
         "CanProcess": true
     },
     {
@@ -343,7 +343,7 @@
             "b"
         ],
         "NegativeExamples": [],
-        "CanHandle": false,
+        "CanHandle": true,
         "CanProcess": true
     },
     {
@@ -355,7 +355,7 @@
             "abbc"
         ],
         "NegativeExamples": [],
-        "CanHandle": false,
+        "CanHandle": true,
         "CanProcess": true
     },
     {
@@ -365,7 +365,7 @@
             "az-"
         ],
         "NegativeExamples": [],
-        "CanHandle": false,
+        "CanHandle": true,
         "CanProcess": true
     },
     {
@@ -375,7 +375,7 @@
             "za-"
         ],
         "NegativeExamples": [],
-        "CanHandle": false,
+        "CanHandle": true,
         "CanProcess": true
     },
     {
@@ -385,7 +385,7 @@
             "a-z"
         ],
         "NegativeExamples": [],
-        "CanHandle": false,
+        "CanHandle": true,
         "CanProcess": true
     },
     {
@@ -395,7 +395,7 @@
             "abcdxyz"
         ],
         "NegativeExamples": [],
-        "CanHandle": false,
+        "CanHandle": true,
         "CanProcess": true
     },
     {
@@ -403,7 +403,7 @@
         "StrippedPattern": "\\x5c",
         "PositiveExamples": [],
         "NegativeExamples": [],
-        "CanHandle": false,
+        "CanHandle": true,
         "CanProcess": true
     },
     {
@@ -411,7 +411,7 @@
         "StrippedPattern": "\\x20Z",
         "PositiveExamples": [],
         "NegativeExamples": [],
-        "CanHandle": false,
+        "CanHandle": true,
         "CanProcess": true
     },
     {
@@ -421,7 +421,7 @@
             "abc"
         ],
         "NegativeExamples": [],
-        "CanHandle": false,
+        "CanHandle": true,
         "CanProcess": true
     },
     {
@@ -429,7 +429,7 @@
         "StrippedPattern": "(abc)\\123",
         "PositiveExamples": [],
         "NegativeExamples": [],
-        "CanHandle": false,
+        "CanHandle": true,
         "CanProcess": true
     },
     {
@@ -437,7 +437,7 @@
         "StrippedPattern": "(abc)\\223",
         "PositiveExamples": [],
         "NegativeExamples": [],
-        "CanHandle": false,
+        "CanHandle": true,
         "CanProcess": true
     },
     {
@@ -445,7 +445,7 @@
         "StrippedPattern": "(abc)\\323",
         "PositiveExamples": [],
         "NegativeExamples": [],
-        "CanHandle": false,
+        "CanHandle": true,
         "CanProcess": true
     },
     {
@@ -453,7 +453,7 @@
         "StrippedPattern": "(abc)\\100",
         "PositiveExamples": [],
         "NegativeExamples": [],
-        "CanHandle": false,
+        "CanHandle": true,
         "CanProcess": true
     },
     {
@@ -461,7 +461,7 @@
         "StrippedPattern": "(abc)\\1000",
         "PositiveExamples": [],
         "NegativeExamples": [],
-        "CanHandle": false,
+        "CanHandle": true,
         "CanProcess": true
     },
     {
@@ -471,7 +471,7 @@
             "abcdefghijkllS"
         ],
         "NegativeExamples": [],
-        "CanHandle": false,
+        "CanHandle": true,
         "CanProcess": true
     },
     {
@@ -479,7 +479,7 @@
         "StrippedPattern": "(a)(b)(c)(d)(e)(f)(g)(h)(i)(j)(k)\\12\\123",
         "PositiveExamples": [],
         "NegativeExamples": [],
-        "CanHandle": false,
+        "CanHandle": true,
         "CanProcess": true
     },
     {
@@ -489,7 +489,7 @@
             "bc"
         ],
         "NegativeExamples": [],
-        "CanHandle": false,
+        "CanHandle": true,
         "CanProcess": true
     },
     {
@@ -499,7 +499,7 @@
             "xyz"
         ],
         "NegativeExamples": [],
-        "CanHandle": false,
+        "CanHandle": true,
         "CanProcess": true
     },
     {
@@ -507,7 +507,7 @@
         "StrippedPattern": "([^a])([^\\b])([^c]*)([^d]{3,4})",
         "PositiveExamples": [],
         "NegativeExamples": [],
-        "CanHandle": false,
+        "CanHandle": true,
         "CanProcess": true
     },
     {
@@ -515,7 +515,7 @@
         "StrippedPattern": "[^a]",
         "PositiveExamples": [],
         "NegativeExamples": [],
-        "CanHandle": false,
+        "CanHandle": true,
         "CanProcess": true
     },
     {
@@ -523,7 +523,7 @@
         "StrippedPattern": "[^a]+",
         "PositiveExamples": [],
         "NegativeExamples": [],
-        "CanHandle": false,
+        "CanHandle": true,
         "CanProcess": true
     },
     {
@@ -533,7 +533,7 @@
             "bbb\\nccc"
         ],
         "NegativeExamples": [],
-        "CanHandle": false,
+        "CanHandle": true,
         "CanProcess": true
     },
     {
@@ -541,7 +541,7 @@
         "StrippedPattern": "[^k]$",
         "PositiveExamples": [],
         "NegativeExamples": [],
-        "CanHandle": false,
+        "CanHandle": true,
         "CanProcess": true
     },
     {
@@ -551,7 +551,7 @@
             "abc"
         ],
         "NegativeExamples": [],
-        "CanHandle": false,
+        "CanHandle": true,
         "CanProcess": true
     },
     {
@@ -562,7 +562,7 @@
             "aaaaaaaaaa"
         ],
         "NegativeExamples": [],
-        "CanHandle": false,
+        "CanHandle": true,
         "CanProcess": true
     },
     {
@@ -570,7 +570,7 @@
         "StrippedPattern": "[^a]",
         "PositiveExamples": [],
         "NegativeExamples": [],
-        "CanHandle": false,
+        "CanHandle": true,
         "CanProcess": true
     },
     {
@@ -578,7 +578,7 @@
         "StrippedPattern": "[^az]",
         "PositiveExamples": [],
         "NegativeExamples": [],
-        "CanHandle": false,
+        "CanHandle": true,
         "CanProcess": true
     },
     {
@@ -586,7 +586,7 @@
         "StrippedPattern": "\\000\\001\\002\\003\\004\\005\\006\\007\\010\\011\\012\\013\\014\\015\\016\\017\\020\\021\\022\\023\\024\\025\\026\\027\\030\\031\\032\\033\\034\\035\\036\\037\\040\\041\\042\\043\\044\\045\\046\\047\\050\\051\\052\\053\\054\\055\\056\\057\\060\\061\\062\\063\\064\\065\\066\\067\\070\\071\\072\\073\\074\\075\\076\\077\\100\\101\\102\\103\\104\\105\\106\\107\\110\\111\\112\\113\\114\\115\\116\\117\\120\\121\\122\\123\\124\\125\\126\\127\\130\\131\\132\\133\\134\\135\\136\\137\\140\\141\\142\\143\\144\\145\\146\\147\\150\\151\\152\\153\\154\\155\\156\\157\\160\\161\\162\\163\\164\\165\\166\\167\\170\\171\\172\\173\\174\\175\\176\\177\\200\\201\\202\\203\\204\\205\\206\\207\\210\\211\\212\\213\\214\\215\\216\\217\\220\\221\\222\\223\\224\\225\\226\\227\\230\\231\\232\\233\\234\\235\\236\\237\\240\\241\\242\\243\\244\\245\\246\\247\\250\\251\\252\\253\\254\\255\\256\\257\\260\\261\\262\\263\\264\\265\\266\\267\\270\\271\\272\\273\\274\\275\\276\\277\\300\\301\\302\\303\\304\\305\\306\\307\\310\\311\\312\\313\\314\\315\\316\\317\\320\\321\\322\\323\\324\\325\\326\\327\\330\\331\\332\\333\\334\\335\\336\\337\\340\\341\\342\\343\\344\\345\\346\\347\\350\\351\\352\\353\\354\\355\\356\\357\\360\\361\\362\\363\\364\\365\\366\\367\\370\\371\\372\\373\\374\\375\\376\\377",
         "PositiveExamples": [],
         "NegativeExamples": [],
-        "CanHandle": false,
+        "CanHandle": true,
         "CanProcess": true
     },
     {
@@ -594,7 +594,7 @@
         "StrippedPattern": "P[^*]TAIRE[^*]{1,6}?LL",
         "PositiveExamples": [],
         "NegativeExamples": [],
-        "CanHandle": false,
+        "CanHandle": true,
         "CanProcess": true
     },
     {
@@ -602,7 +602,7 @@
         "StrippedPattern": "P[^*]TAIRE[^*]{1,}?LL",
         "PositiveExamples": [],
         "NegativeExamples": [],
-        "CanHandle": false,
+        "CanHandle": true,
         "CanProcess": true
     },
     {
@@ -610,7 +610,7 @@
         "StrippedPattern": "(\\.\\d\\d[1-9]?)\\d+",
         "PositiveExamples": [],
         "NegativeExamples": [],
-        "CanHandle": false,
+        "CanHandle": true,
         "CanProcess": true
     },
     {
@@ -618,7 +618,7 @@
         "StrippedPattern": "(\\.\\d\\d((?=0)|\\d(?=\\d)))",
         "PositiveExamples": [],
         "NegativeExamples": [],
-        "CanHandle": false,
+        "CanHandle": true,
         "CanProcess": true
     },
     {
@@ -626,7 +626,7 @@
         "StrippedPattern": "foo(.*)bar",
         "PositiveExamples": [],
         "NegativeExamples": [],
-        "CanHandle": false,
+        "CanHandle": true,
         "CanProcess": true
     },
     {
@@ -638,7 +638,7 @@
             ""
         ],
         "NegativeExamples": [],
-        "CanHandle": false,
+        "CanHandle": true,
         "CanProcess": true
     },
     {
@@ -650,7 +650,7 @@
             "7"
         ],
         "NegativeExamples": [],
-        "CanHandle": false,
+        "CanHandle": true,
         "CanProcess": true
     },
     {
@@ -662,7 +662,7 @@
             "7"
         ],
         "NegativeExamples": [],
-        "CanHandle": false,
+        "CanHandle": true,
         "CanProcess": true
     },
     {
@@ -673,7 +673,7 @@
             "53147"
         ],
         "NegativeExamples": [],
-        "CanHandle": false,
+        "CanHandle": true,
         "CanProcess": true
     },
     {
@@ -683,7 +683,7 @@
             "I have 2 numbers: 53147"
         ],
         "NegativeExamples": [],
-        "CanHandle": false,
+        "CanHandle": true,
         "CanProcess": true
     },
     {
@@ -691,7 +691,7 @@
         "StrippedPattern": "(a){0,0}",
         "PositiveExamples": [],
         "NegativeExamples": [],
-        "CanHandle": false,
+        "CanHandle": true,
         "CanProcess": true
     },
     {
@@ -699,7 +699,7 @@
         "StrippedPattern": "(a){0,1}",
         "PositiveExamples": [],
         "NegativeExamples": [],
-        "CanHandle": false,
+        "CanHandle": true,
         "CanProcess": true
     },
     {
@@ -707,7 +707,7 @@
         "StrippedPattern": "(a){0,2}",
         "PositiveExamples": [],
         "NegativeExamples": [],
-        "CanHandle": false,
+        "CanHandle": true,
         "CanProcess": true
     },
     {
@@ -718,7 +718,7 @@
             "a"
         ],
         "NegativeExamples": [],
-        "CanHandle": false,
+        "CanHandle": true,
         "CanProcess": true
     },
     {
@@ -731,7 +731,7 @@
             "a"
         ],
         "NegativeExamples": [],
-        "CanHandle": false,
+        "CanHandle": true,
         "CanProcess": true
     },
     {
@@ -739,7 +739,7 @@
         "StrippedPattern": "(a){1,1}",
         "PositiveExamples": [],
         "NegativeExamples": [],
-        "CanHandle": false,
+        "CanHandle": true,
         "CanProcess": true
     },
     {
@@ -747,7 +747,7 @@
         "StrippedPattern": "(a){1,2}",
         "PositiveExamples": [],
         "NegativeExamples": [],
-        "CanHandle": false,
+        "CanHandle": true,
         "CanProcess": true
     },
     {
@@ -758,7 +758,7 @@
             "a"
         ],
         "NegativeExamples": [],
-        "CanHandle": false,
+        "CanHandle": true,
         "CanProcess": true
     },
     {
@@ -771,7 +771,7 @@
             "a"
         ],
         "NegativeExamples": [],
-        "CanHandle": false,
+        "CanHandle": true,
         "CanProcess": true
     },
     {
@@ -779,7 +779,7 @@
         "StrippedPattern": ".*\\.gif",
         "PositiveExamples": [],
         "NegativeExamples": [],
-        "CanHandle": false,
+        "CanHandle": true,
         "CanProcess": true
     },
     {
@@ -787,7 +787,7 @@
         "StrippedPattern": ".{0,}\\.gif",
         "PositiveExamples": [],
         "NegativeExamples": [],
-        "CanHandle": false,
+        "CanHandle": true,
         "CanProcess": true
     },
     {
@@ -797,7 +797,7 @@
             "borfle\\nbib.gif\\nno"
         ],
         "NegativeExamples": [],
-        "CanHandle": false,
+        "CanHandle": true,
         "CanProcess": true
     },
     {
@@ -807,7 +807,7 @@
             "borfle\\nbib.gif\\nno\\n"
         ],
         "NegativeExamples": [],
-        "CanHandle": false,
+        "CanHandle": true,
         "CanProcess": true
     },
     {
@@ -815,7 +815,7 @@
         "StrippedPattern": "(.*X|^B)",
         "PositiveExamples": [],
         "NegativeExamples": [],
-        "CanHandle": false,
+        "CanHandle": true,
         "CanProcess": true
     },
     {
@@ -836,7 +836,7 @@
         "StrippedPattern": ".*B",
         "PositiveExamples": [],
         "NegativeExamples": [],
-        "CanHandle": false,
+        "CanHandle": true,
         "CanProcess": true
     },
     {
@@ -846,7 +846,7 @@
             "123456654321"
         ],
         "NegativeExamples": [],
-        "CanHandle": false,
+        "CanHandle": true,
         "CanProcess": true
     },
     {
@@ -856,7 +856,7 @@
             "123456654321"
         ],
         "NegativeExamples": [],
-        "CanHandle": false,
+        "CanHandle": true,
         "CanProcess": true
     },
     {
@@ -866,7 +866,7 @@
             "abcabcabcabc"
         ],
         "NegativeExamples": [],
-        "CanHandle": false,
+        "CanHandle": true,
         "CanProcess": true
     },
     {
@@ -876,7 +876,7 @@
             "abcabcabcabc"
         ],
         "NegativeExamples": [],
-        "CanHandle": false,
+        "CanHandle": true,
         "CanProcess": true
     },
     {
@@ -886,7 +886,7 @@
             "abcabcabcabc"
         ],
         "NegativeExamples": [],
-        "CanHandle": false,
+        "CanHandle": true,
         "CanProcess": true
     },
     {
@@ -896,7 +896,7 @@
             "n"
         ],
         "NegativeExamples": [],
-        "CanHandle": false,
+        "CanHandle": true,
         "CanProcess": true
     },
     {
@@ -906,7 +906,7 @@
             "abcd"
         ],
         "NegativeExamples": [],
-        "CanHandle": false,
+        "CanHandle": true,
         "CanProcess": true
     },
     {
@@ -916,7 +916,7 @@
             "abe"
         ],
         "NegativeExamples": [],
-        "CanHandle": false,
+        "CanHandle": true,
         "CanProcess": true
     },
     {
@@ -926,7 +926,7 @@
             "abd"
         ],
         "NegativeExamples": [],
-        "CanHandle": false,
+        "CanHandle": true,
         "CanProcess": true
     },
     {
@@ -938,7 +938,7 @@
             "abbbb"
         ],
         "NegativeExamples": [],
-        "CanHandle": false,
+        "CanHandle": true,
         "CanProcess": true
     },
     {
@@ -948,7 +948,7 @@
             "abe"
         ],
         "NegativeExamples": [],
-        "CanHandle": false,
+        "CanHandle": true,
         "CanProcess": true
     },
     {
@@ -958,7 +958,7 @@
             "acb"
         ],
         "NegativeExamples": [],
-        "CanHandle": false,
+        "CanHandle": true,
         "CanProcess": true
     },
     {
@@ -968,7 +968,7 @@
             "acb"
         ],
         "NegativeExamples": [],
-        "CanHandle": false,
+        "CanHandle": true,
         "CanProcess": true
     },
     {
@@ -982,7 +982,7 @@
             "bbbbbac"
         ],
         "NegativeExamples": [],
-        "CanHandle": false,
+        "CanHandle": true,
         "CanProcess": true
     },
     {
@@ -992,7 +992,7 @@
             "CD"
         ],
         "NegativeExamples": [],
-        "CanHandle": false,
+        "CanHandle": true,
         "CanProcess": true
     },
     {
@@ -1002,7 +1002,7 @@
             "ABABAB"
         ],
         "NegativeExamples": [],
-        "CanHandle": false,
+        "CanHandle": true,
         "CanProcess": true
     },
     {
@@ -1013,7 +1013,7 @@
             "12345"
         ],
         "NegativeExamples": [],
-        "CanHandle": false,
+        "CanHandle": true,
         "CanProcess": true
     },
     {
@@ -1057,7 +1057,7 @@
             "abc"
         ],
         "NegativeExamples": [],
-        "CanHandle": false,
+        "CanHandle": true,
         "CanProcess": true
     },
     {
@@ -1070,7 +1070,7 @@
             "aaaaa"
         ],
         "NegativeExamples": [],
-        "CanHandle": false,
+        "CanHandle": true,
         "CanProcess": true
     },
     {
@@ -1087,7 +1087,7 @@
             "bbbb"
         ],
         "NegativeExamples": [],
-        "CanHandle": false,
+        "CanHandle": true,
         "CanProcess": true
     },
     {
@@ -1100,7 +1100,7 @@
             "bbbb"
         ],
         "NegativeExamples": [],
-        "CanHandle": false,
+        "CanHandle": true,
         "CanProcess": true
     },
     {
@@ -1111,7 +1111,7 @@
             "cccc"
         ],
         "NegativeExamples": [],
-        "CanHandle": false,
+        "CanHandle": true,
         "CanProcess": true
     },
     {
@@ -1137,7 +1137,7 @@
             "abc"
         ],
         "NegativeExamples": [],
-        "CanHandle": false,
+        "CanHandle": true,
         "CanProcess": true
     },
     {
@@ -1147,7 +1147,7 @@
             "abc"
         ],
         "NegativeExamples": [],
-        "CanHandle": false,
+        "CanHandle": true,
         "CanProcess": true
     },
     {
@@ -1159,7 +1159,7 @@
             "abbbbc"
         ],
         "NegativeExamples": [],
-        "CanHandle": false,
+        "CanHandle": true,
         "CanProcess": true
     },
     {
@@ -1167,7 +1167,7 @@
         "StrippedPattern": ".{1}",
         "PositiveExamples": [],
         "NegativeExamples": [],
-        "CanHandle": false,
+        "CanHandle": true,
         "CanProcess": true
     },
     {
@@ -1175,7 +1175,7 @@
         "StrippedPattern": ".{3,4}",
         "PositiveExamples": [],
         "NegativeExamples": [],
-        "CanHandle": false,
+        "CanHandle": true,
         "CanProcess": true
     },
     {
@@ -1185,7 +1185,7 @@
             "abbbbc"
         ],
         "NegativeExamples": [],
-        "CanHandle": false,
+        "CanHandle": true,
         "CanProcess": true
     },
     {
@@ -1195,7 +1195,7 @@
             "abbc"
         ],
         "NegativeExamples": [],
-        "CanHandle": false,
+        "CanHandle": true,
         "CanProcess": true
     },
     {
@@ -1203,7 +1203,7 @@
         "StrippedPattern": "ab{1,}bc",
         "PositiveExamples": [],
         "NegativeExamples": [],
-        "CanHandle": false,
+        "CanHandle": true,
         "CanProcess": true
     },
     {
@@ -1213,7 +1213,7 @@
             "abbbbc"
         ],
         "NegativeExamples": [],
-        "CanHandle": false,
+        "CanHandle": true,
         "CanProcess": true
     },
     {
@@ -1223,7 +1223,7 @@
             "abbbbc"
         ],
         "NegativeExamples": [],
-        "CanHandle": false,
+        "CanHandle": true,
         "CanProcess": true
     },
     {
@@ -1233,7 +1233,7 @@
             "abbbbc"
         ],
         "NegativeExamples": [],
-        "CanHandle": false,
+        "CanHandle": true,
         "CanProcess": true
     },
     {
@@ -1243,7 +1243,7 @@
             "abbbbc"
         ],
         "NegativeExamples": [],
-        "CanHandle": false,
+        "CanHandle": true,
         "CanProcess": true
     },
     {
@@ -1251,7 +1251,7 @@
         "StrippedPattern": "ab{4,5}bc",
         "PositiveExamples": [],
         "NegativeExamples": [],
-        "CanHandle": false,
+        "CanHandle": true,
         "CanProcess": true
     },
     {
@@ -1262,7 +1262,7 @@
             "abc"
         ],
         "NegativeExamples": [],
-        "CanHandle": false,
+        "CanHandle": true,
         "CanProcess": true
     },
     {
@@ -1272,7 +1272,7 @@
             "abc"
         ],
         "NegativeExamples": [],
-        "CanHandle": false,
+        "CanHandle": true,
         "CanProcess": true
     },
     {
@@ -1280,7 +1280,7 @@
         "StrippedPattern": "ab?bc",
         "PositiveExamples": [],
         "NegativeExamples": [],
-        "CanHandle": false,
+        "CanHandle": true,
         "CanProcess": true
     },
     {
@@ -1290,7 +1290,7 @@
             "abc"
         ],
         "NegativeExamples": [],
-        "CanHandle": false,
+        "CanHandle": true,
         "CanProcess": true
     },
     {
@@ -1300,7 +1300,7 @@
             "abc"
         ],
         "NegativeExamples": [],
-        "CanHandle": false,
+        "CanHandle": true,
         "CanProcess": true
     },
     {
@@ -1308,7 +1308,7 @@
         "StrippedPattern": "abc",
         "PositiveExamples": [],
         "NegativeExamples": [],
-        "CanHandle": false,
+        "CanHandle": true,
         "CanProcess": true
     },
     {
@@ -1316,7 +1316,7 @@
         "StrippedPattern": "abc$",
         "PositiveExamples": [],
         "NegativeExamples": [],
-        "CanHandle": false,
+        "CanHandle": true,
         "CanProcess": true
     },
     {
@@ -1324,7 +1324,7 @@
         "StrippedPattern": "$",
         "PositiveExamples": [],
         "NegativeExamples": [],
-        "CanHandle": false,
+        "CanHandle": true,
         "CanProcess": true
     },
     {
@@ -1335,7 +1335,7 @@
             "axc"
         ],
         "NegativeExamples": [],
-        "CanHandle": false,
+        "CanHandle": true,
         "CanProcess": true
     },
     {
@@ -1345,7 +1345,7 @@
             "axyzc"
         ],
         "NegativeExamples": [],
-        "CanHandle": false,
+        "CanHandle": true,
         "CanProcess": true
     },
     {
@@ -1355,7 +1355,7 @@
             "abd"
         ],
         "NegativeExamples": [],
-        "CanHandle": false,
+        "CanHandle": true,
         "CanProcess": true
     },
     {
@@ -1365,7 +1365,7 @@
             "ace"
         ],
         "NegativeExamples": [],
-        "CanHandle": false,
+        "CanHandle": true,
         "CanProcess": true
     },
     {
@@ -1373,7 +1373,7 @@
         "StrippedPattern": "a[b-d]",
         "PositiveExamples": [],
         "NegativeExamples": [],
-        "CanHandle": false,
+        "CanHandle": true,
         "CanProcess": true
     },
     {
@@ -1383,7 +1383,7 @@
             "a-"
         ],
         "NegativeExamples": [],
-        "CanHandle": false,
+        "CanHandle": true,
         "CanProcess": true
     },
     {
@@ -1393,7 +1393,7 @@
             "a-"
         ],
         "NegativeExamples": [],
-        "CanHandle": false,
+        "CanHandle": true,
         "CanProcess": true
     },
     {
@@ -1401,7 +1401,7 @@
         "StrippedPattern": "a[]]b",
         "PositiveExamples": [],
         "NegativeExamples": [],
-        "CanHandle": false,
+        "CanHandle": true,
         "CanProcess": true
     },
     {
@@ -1411,7 +1411,7 @@
             "aed"
         ],
         "NegativeExamples": [],
-        "CanHandle": false,
+        "CanHandle": true,
         "CanProcess": true
     },
     {
@@ -1421,7 +1421,7 @@
             "adc"
         ],
         "NegativeExamples": [],
-        "CanHandle": false,
+        "CanHandle": true,
         "CanProcess": true
     },
     {
@@ -1429,7 +1429,7 @@
         "StrippedPattern": "a[^]b]c",
         "PositiveExamples": [],
         "NegativeExamples": [],
-        "CanHandle": false,
+        "CanHandle": true,
         "CanProcess": true
     },
     {
@@ -1437,7 +1437,7 @@
         "StrippedPattern": "\\ba\\b",
         "PositiveExamples": [],
         "NegativeExamples": [],
-        "CanHandle": false,
+        "CanHandle": true,
         "CanProcess": true
     },
     {
@@ -1445,7 +1445,7 @@
         "StrippedPattern": "\\by\\b",
         "PositiveExamples": [],
         "NegativeExamples": [],
-        "CanHandle": false,
+        "CanHandle": true,
         "CanProcess": true
     },
     {
@@ -1453,7 +1453,7 @@
         "StrippedPattern": "\\Ba\\B",
         "PositiveExamples": [],
         "NegativeExamples": [],
-        "CanHandle": false,
+        "CanHandle": true,
         "CanProcess": true
     },
     {
@@ -1461,7 +1461,7 @@
         "StrippedPattern": "\\By\\b",
         "PositiveExamples": [],
         "NegativeExamples": [],
-        "CanHandle": false,
+        "CanHandle": true,
         "CanProcess": true
     },
     {
@@ -1469,7 +1469,7 @@
         "StrippedPattern": "\\by\\B",
         "PositiveExamples": [],
         "NegativeExamples": [],
-        "CanHandle": false,
+        "CanHandle": true,
         "CanProcess": true
     },
     {
@@ -1477,7 +1477,7 @@
         "StrippedPattern": "\\By\\B",
         "PositiveExamples": [],
         "NegativeExamples": [],
-        "CanHandle": false,
+        "CanHandle": true,
         "CanProcess": true
     },
     {
@@ -1487,7 +1487,7 @@
             "a"
         ],
         "NegativeExamples": [],
-        "CanHandle": false,
+        "CanHandle": true,
         "CanProcess": true
     },
     {
@@ -1497,7 +1497,7 @@
             "-"
         ],
         "NegativeExamples": [],
-        "CanHandle": false,
+        "CanHandle": true,
         "CanProcess": true
     },
     {
@@ -1507,7 +1507,7 @@
             "a b"
         ],
         "NegativeExamples": [],
-        "CanHandle": false,
+        "CanHandle": true,
         "CanProcess": true
     },
     {
@@ -1517,7 +1517,7 @@
             "a-b"
         ],
         "NegativeExamples": [],
-        "CanHandle": false,
+        "CanHandle": true,
         "CanProcess": true
     },
     {
@@ -1527,7 +1527,7 @@
             "1"
         ],
         "NegativeExamples": [],
-        "CanHandle": false,
+        "CanHandle": true,
         "CanProcess": true
     },
     {
@@ -1537,7 +1537,7 @@
             "-"
         ],
         "NegativeExamples": [],
-        "CanHandle": false,
+        "CanHandle": true,
         "CanProcess": true
     },
     {
@@ -1548,7 +1548,7 @@
             "ab"
         ],
         "NegativeExamples": [],
-        "CanHandle": false,
+        "CanHandle": true,
         "CanProcess": true
     },
     {
@@ -1556,7 +1556,7 @@
         "StrippedPattern": "$b",
         "PositiveExamples": [],
         "NegativeExamples": [],
-        "CanHandle": false,
+        "CanHandle": true,
         "CanProcess": true
     },
     {
@@ -1566,7 +1566,7 @@
             "a(b"
         ],
         "NegativeExamples": [],
-        "CanHandle": false,
+        "CanHandle": true,
         "CanProcess": true
     },
     {
@@ -1577,7 +1577,7 @@
             "a((b"
         ],
         "NegativeExamples": [],
-        "CanHandle": false,
+        "CanHandle": true,
         "CanProcess": true
     },
     {
@@ -1585,7 +1585,7 @@
         "StrippedPattern": "a\\\\b",
         "PositiveExamples": [],
         "NegativeExamples": [],
-        "CanHandle": false,
+        "CanHandle": true,
         "CanProcess": true
     },
     {
@@ -1593,7 +1593,7 @@
         "StrippedPattern": "((a))",
         "PositiveExamples": [],
         "NegativeExamples": [],
-        "CanHandle": false,
+        "CanHandle": true,
         "CanProcess": true
     },
     {
@@ -1603,7 +1603,7 @@
             "abc"
         ],
         "NegativeExamples": [],
-        "CanHandle": false,
+        "CanHandle": true,
         "CanProcess": true
     },
     {
@@ -1611,7 +1611,7 @@
         "StrippedPattern": "a+b+c",
         "PositiveExamples": [],
         "NegativeExamples": [],
-        "CanHandle": false,
+        "CanHandle": true,
         "CanProcess": true
     },
     {
@@ -1619,7 +1619,7 @@
         "StrippedPattern": "a{1,}b{1,}c",
         "PositiveExamples": [],
         "NegativeExamples": [],
-        "CanHandle": false,
+        "CanHandle": true,
         "CanProcess": true
     },
     {
@@ -1630,7 +1630,7 @@
             "b"
         ],
         "NegativeExamples": [],
-        "CanHandle": false,
+        "CanHandle": true,
         "CanProcess": true
     },
     {
@@ -1641,7 +1641,7 @@
             "b"
         ],
         "NegativeExamples": [],
-        "CanHandle": false,
+        "CanHandle": true,
         "CanProcess": true
     },
     {
@@ -1652,7 +1652,7 @@
             "b"
         ],
         "NegativeExamples": [],
-        "CanHandle": false,
+        "CanHandle": true,
         "CanProcess": true
     },
     {
@@ -1663,7 +1663,7 @@
             "b"
         ],
         "NegativeExamples": [],
-        "CanHandle": false,
+        "CanHandle": true,
         "CanProcess": true
     },
     {
@@ -1671,7 +1671,7 @@
         "StrippedPattern": "(a+|b)?",
         "PositiveExamples": [],
         "NegativeExamples": [],
-        "CanHandle": false,
+        "CanHandle": true,
         "CanProcess": true
     },
     {
@@ -1679,7 +1679,7 @@
         "StrippedPattern": "(a+|b){0,1}",
         "PositiveExamples": [],
         "NegativeExamples": [],
-        "CanHandle": false,
+        "CanHandle": true,
         "CanProcess": true
     },
     {
@@ -1689,7 +1689,7 @@
             "cde"
         ],
         "NegativeExamples": [],
-        "CanHandle": false,
+        "CanHandle": true,
         "CanProcess": true
     },
     {
@@ -1697,7 +1697,7 @@
         "StrippedPattern": "abc",
         "PositiveExamples": [],
         "NegativeExamples": [],
-        "CanHandle": false,
+        "CanHandle": true,
         "CanProcess": true
     },
     {
@@ -1705,7 +1705,7 @@
         "StrippedPattern": "a*",
         "PositiveExamples": [],
         "NegativeExamples": [],
-        "CanHandle": false,
+        "CanHandle": true,
         "CanProcess": true
     },
     {
@@ -1715,7 +1715,7 @@
             "abbbcd"
         ],
         "NegativeExamples": [],
-        "CanHandle": false,
+        "CanHandle": true,
         "CanProcess": true
     },
     {
@@ -1725,7 +1725,7 @@
             "abcd"
         ],
         "NegativeExamples": [],
-        "CanHandle": false,
+        "CanHandle": true,
         "CanProcess": true
     },
     {
@@ -1735,7 +1735,7 @@
             "e"
         ],
         "NegativeExamples": [],
-        "CanHandle": false,
+        "CanHandle": true,
         "CanProcess": true
     },
     {
@@ -1745,7 +1745,7 @@
             "ef"
         ],
         "NegativeExamples": [],
-        "CanHandle": false,
+        "CanHandle": true,
         "CanProcess": true
     },
     {
@@ -1755,7 +1755,7 @@
             "abcdefg"
         ],
         "NegativeExamples": [],
-        "CanHandle": false,
+        "CanHandle": true,
         "CanProcess": true
     },
     {
@@ -1763,7 +1763,7 @@
         "StrippedPattern": "ab*",
         "PositiveExamples": [],
         "NegativeExamples": [],
-        "CanHandle": false,
+        "CanHandle": true,
         "CanProcess": true
     },
     {
@@ -1771,7 +1771,7 @@
         "StrippedPattern": "(ab|cd)e",
         "PositiveExamples": [],
         "NegativeExamples": [],
-        "CanHandle": false,
+        "CanHandle": true,
         "CanProcess": true
     },
     {
@@ -1781,7 +1781,7 @@
             "hij"
         ],
         "NegativeExamples": [],
-        "CanHandle": false,
+        "CanHandle": true,
         "CanProcess": true
     },
     {
@@ -1789,7 +1789,7 @@
         "StrippedPattern": "(ab|cd)e",
         "PositiveExamples": [],
         "NegativeExamples": [],
-        "CanHandle": false,
+        "CanHandle": true,
         "CanProcess": true
     },
     {
@@ -1797,7 +1797,7 @@
         "StrippedPattern": "(abc|)ef",
         "PositiveExamples": [],
         "NegativeExamples": [],
-        "CanHandle": false,
+        "CanHandle": true,
         "CanProcess": true
     },
     {
@@ -1805,7 +1805,7 @@
         "StrippedPattern": "(a|b)c*d",
         "PositiveExamples": [],
         "NegativeExamples": [],
-        "CanHandle": false,
+        "CanHandle": true,
         "CanProcess": true
     },
     {
@@ -1815,7 +1815,7 @@
             "abc"
         ],
         "NegativeExamples": [],
-        "CanHandle": false,
+        "CanHandle": true,
         "CanProcess": true
     },
     {
@@ -1825,7 +1825,7 @@
             "abc"
         ],
         "NegativeExamples": [],
-        "CanHandle": false,
+        "CanHandle": true,
         "CanProcess": true
     },
     {
@@ -1835,7 +1835,7 @@
             "abcd"
         ],
         "NegativeExamples": [],
-        "CanHandle": false,
+        "CanHandle": true,
         "CanProcess": true
     },
     {
@@ -1845,7 +1845,7 @@
             "abcd"
         ],
         "NegativeExamples": [],
-        "CanHandle": false,
+        "CanHandle": true,
         "CanProcess": true
     },
     {
@@ -1855,7 +1855,7 @@
             "abcd"
         ],
         "NegativeExamples": [],
-        "CanHandle": false,
+        "CanHandle": true,
         "CanProcess": true
     },
     {
@@ -1865,7 +1865,7 @@
             "adcdcde"
         ],
         "NegativeExamples": [],
-        "CanHandle": false,
+        "CanHandle": true,
         "CanProcess": true
     },
     {
@@ -1873,7 +1873,7 @@
         "StrippedPattern": "a[bcd]+dcdcde",
         "PositiveExamples": [],
         "NegativeExamples": [],
-        "CanHandle": false,
+        "CanHandle": true,
         "CanProcess": true
     },
     {
@@ -1883,7 +1883,7 @@
             "abc"
         ],
         "NegativeExamples": [],
-        "CanHandle": false,
+        "CanHandle": true,
         "CanProcess": true
     },
     {
@@ -1893,7 +1893,7 @@
             "abcd"
         ],
         "NegativeExamples": [],
-        "CanHandle": false,
+        "CanHandle": true,
         "CanProcess": true
     },
     {
@@ -1903,7 +1903,7 @@
             "alpha"
         ],
         "NegativeExamples": [],
-        "CanHandle": false,
+        "CanHandle": true,
         "CanProcess": true
     },
     {
@@ -1916,7 +1916,7 @@
             "ij"
         ],
         "NegativeExamples": [],
-        "CanHandle": false,
+        "CanHandle": true,
         "CanProcess": true
     },
     {
@@ -1936,7 +1936,7 @@
             "a"
         ],
         "NegativeExamples": [],
-        "CanHandle": false,
+        "CanHandle": true,
         "CanProcess": true
     },
     {
@@ -1946,7 +1946,7 @@
             "aa"
         ],
         "NegativeExamples": [],
-        "CanHandle": false,
+        "CanHandle": true,
         "CanProcess": true
     },
     {
@@ -1965,7 +1965,7 @@
             "a"
         ],
         "NegativeExamples": [],
-        "CanHandle": false,
+        "CanHandle": true,
         "CanProcess": true
     },
     {
@@ -1975,7 +1975,7 @@
             "abcde"
         ],
         "NegativeExamples": [],
-        "CanHandle": false,
+        "CanHandle": true,
         "CanProcess": true
     },
     {
@@ -1983,7 +1983,7 @@
         "StrippedPattern": "[k]",
         "PositiveExamples": [],
         "NegativeExamples": [],
-        "CanHandle": false,
+        "CanHandle": true,
         "CanProcess": true
     },
     {
@@ -1993,7 +1993,7 @@
             "abcd"
         ],
         "NegativeExamples": [],
-        "CanHandle": false,
+        "CanHandle": true,
         "CanProcess": true
     },
     {
@@ -2003,7 +2003,7 @@
             "abcd"
         ],
         "NegativeExamples": [],
-        "CanHandle": false,
+        "CanHandle": true,
         "CanProcess": true
     },
     {
@@ -2013,7 +2013,7 @@
             "ac"
         ],
         "NegativeExamples": [],
-        "CanHandle": false,
+        "CanHandle": true,
         "CanProcess": true
     },
     {
@@ -2023,7 +2023,7 @@
             "abcabc"
         ],
         "NegativeExamples": [],
-        "CanHandle": false,
+        "CanHandle": true,
         "CanProcess": true
     },
     {
@@ -2033,7 +2033,7 @@
             "abcabc"
         ],
         "NegativeExamples": [],
-        "CanHandle": false,
+        "CanHandle": true,
         "CanProcess": true
     },
     {
@@ -2046,7 +2046,7 @@
             "a"
         ],
         "NegativeExamples": [],
-        "CanHandle": false,
+        "CanHandle": true,
         "CanProcess": true
     },
     {
@@ -2054,7 +2054,7 @@
         "StrippedPattern": "((\\3|b)\\2(a)x)+",
         "PositiveExamples": [],
         "NegativeExamples": [],
-        "CanHandle": false,
+        "CanHandle": true,
         "CanProcess": true
     },
     {
@@ -2062,7 +2062,7 @@
         "StrippedPattern": "((\\3|b)\\2(a)){2,}",
         "PositiveExamples": [],
         "NegativeExamples": [],
-        "CanHandle": false,
+        "CanHandle": true,
         "CanProcess": true
     },
     {
@@ -2070,7 +2070,7 @@
         "StrippedPattern": "a(?=d).",
         "PositiveExamples": [],
         "NegativeExamples": [],
-        "CanHandle": false,
+        "CanHandle": true,
         "CanProcess": true
     },
     {
@@ -2078,7 +2078,7 @@
         "StrippedPattern": "a(?=c|d).",
         "PositiveExamples": [],
         "NegativeExamples": [],
-        "CanHandle": false,
+        "CanHandle": true,
         "CanProcess": true
     },
     {
@@ -2088,7 +2088,7 @@
             "ace"
         ],
         "NegativeExamples": [],
-        "CanHandle": false,
+        "CanHandle": true,
         "CanProcess": true
     },
     {
@@ -2098,7 +2098,7 @@
             "ace"
         ],
         "NegativeExamples": [],
-        "CanHandle": false,
+        "CanHandle": true,
         "CanProcess": true
     },
     {
@@ -2108,7 +2108,7 @@
             "acdbcdbe"
         ],
         "NegativeExamples": [],
-        "CanHandle": false,
+        "CanHandle": true,
         "CanProcess": true
     },
     {
@@ -2116,7 +2116,7 @@
         "StrippedPattern": "a(?:b|c|d){2}(.)",
         "PositiveExamples": [],
         "NegativeExamples": [],
-        "CanHandle": false,
+        "CanHandle": true,
         "CanProcess": true
     },
     {
@@ -2124,7 +2124,7 @@
         "StrippedPattern": "a(?:b|c|d){4,5}(.)",
         "PositiveExamples": [],
         "NegativeExamples": [],
-        "CanHandle": false,
+        "CanHandle": true,
         "CanProcess": true
     },
     {
@@ -2132,7 +2132,7 @@
         "StrippedPattern": "a(?:b|c|d){4,5}?(.)",
         "PositiveExamples": [],
         "NegativeExamples": [],
-        "CanHandle": false,
+        "CanHandle": true,
         "CanProcess": true
     },
     {
@@ -2144,7 +2144,7 @@
             "bar"
         ],
         "NegativeExamples": [],
-        "CanHandle": false,
+        "CanHandle": true,
         "CanProcess": true
     },
     {
@@ -2154,7 +2154,7 @@
             "acdbcdbe"
         ],
         "NegativeExamples": [],
-        "CanHandle": false,
+        "CanHandle": true,
         "CanProcess": true
     },
     {
@@ -2164,7 +2164,7 @@
             "acdbcdbe"
         ],
         "NegativeExamples": [],
-        "CanHandle": false,
+        "CanHandle": true,
         "CanProcess": true
     },
     {
@@ -2174,7 +2174,7 @@
             "acdbcdbe"
         ],
         "NegativeExamples": [],
-        "CanHandle": false,
+        "CanHandle": true,
         "CanProcess": true
     },
     {
@@ -2184,7 +2184,7 @@
             "acdbcdbe"
         ],
         "NegativeExamples": [],
-        "CanHandle": false,
+        "CanHandle": true,
         "CanProcess": true
     },
     {
@@ -2194,7 +2194,7 @@
             "acdbcdbe"
         ],
         "NegativeExamples": [],
-        "CanHandle": false,
+        "CanHandle": true,
         "CanProcess": true
     },
     {
@@ -2204,7 +2204,7 @@
             "acdbcdbe"
         ],
         "NegativeExamples": [],
-        "CanHandle": false,
+        "CanHandle": true,
         "CanProcess": true
     },
     {
@@ -2214,7 +2214,7 @@
             "AB"
         ],
         "NegativeExamples": [],
-        "CanHandle": false,
+        "CanHandle": true,
         "CanProcess": true
     },
     {
@@ -2224,7 +2224,7 @@
             "foobar"
         ],
         "NegativeExamples": [],
-        "CanHandle": false,
+        "CanHandle": true,
         "CanProcess": true
     },
     {
@@ -2234,7 +2234,7 @@
             "aba"
         ],
         "NegativeExamples": [],
-        "CanHandle": false,
+        "CanHandle": true,
         "CanProcess": true
     },
     {
@@ -2242,7 +2242,7 @@
         "StrippedPattern": "(?:b|a(?=(.)))*\\1",
         "PositiveExamples": [],
         "NegativeExamples": [],
-        "CanHandle": false,
+        "CanHandle": true,
         "CanProcess": true
     },
     {
@@ -2252,7 +2252,7 @@
             "aax"
         ],
         "NegativeExamples": [],
-        "CanHandle": false,
+        "CanHandle": true,
         "CanProcess": true
     },
     {
@@ -2262,7 +2262,7 @@
             "aax"
         ],
         "NegativeExamples": [],
-        "CanHandle": false,
+        "CanHandle": true,
         "CanProcess": true
     },
     {
@@ -2272,7 +2272,7 @@
             "aax"
         ],
         "NegativeExamples": [],
-        "CanHandle": false,
+        "CanHandle": true,
         "CanProcess": true
     },
     {
@@ -2280,7 +2280,7 @@
         "StrippedPattern": "(a|x)*ab",
         "PositiveExamples": [],
         "NegativeExamples": [],
-        "CanHandle": false,
+        "CanHandle": true,
         "CanProcess": true
     },
     {
@@ -2288,7 +2288,7 @@
         "StrippedPattern": "(a)*ab",
         "PositiveExamples": [],
         "NegativeExamples": [],
-        "CanHandle": false,
+        "CanHandle": true,
         "CanProcess": true
     },
     {
@@ -2357,7 +2357,7 @@
             "cabbbb"
         ],
         "NegativeExamples": [],
-        "CanHandle": false,
+        "CanHandle": true,
         "CanProcess": true
     },
     {
@@ -2367,7 +2367,7 @@
             "caaaaaaaabbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
         ],
         "NegativeExamples": [],
-        "CanHandle": false,
+        "CanHandle": true,
         "CanProcess": true
     },
     {
@@ -2377,7 +2377,7 @@
             "foobar1234baz"
         ],
         "NegativeExamples": [],
-        "CanHandle": false,
+        "CanHandle": true,
         "CanProcess": true
     },
     {
@@ -2385,7 +2385,7 @@
         "StrippedPattern": "b",
         "PositiveExamples": [],
         "NegativeExamples": [],
-        "CanHandle": false,
+        "CanHandle": true,
         "CanProcess": true
     },
     {
@@ -2393,7 +2393,7 @@
         "StrippedPattern": "[^bcd]*(c+)",
         "PositiveExamples": [],
         "NegativeExamples": [],
-        "CanHandle": false,
+        "CanHandle": true,
         "CanProcess": true
     },
     {
@@ -2401,7 +2401,7 @@
         "StrippedPattern": "(a*)b+",
         "PositiveExamples": [],
         "NegativeExamples": [],
-        "CanHandle": false,
+        "CanHandle": true,
         "CanProcess": true
     },
     {
@@ -2409,7 +2409,7 @@
         "StrippedPattern": "[^bcd]*(c+)",
         "PositiveExamples": [],
         "NegativeExamples": [],
-        "CanHandle": false,
+        "CanHandle": true,
         "CanProcess": true
     },
     {
@@ -2417,7 +2417,7 @@
         "StrippedPattern": "([[:]+)",
         "PositiveExamples": [],
         "NegativeExamples": [],
-        "CanHandle": false,
+        "CanHandle": true,
         "CanProcess": true
     },
     {
@@ -2425,7 +2425,7 @@
         "StrippedPattern": "([[=]+)",
         "PositiveExamples": [],
         "NegativeExamples": [],
-        "CanHandle": false,
+        "CanHandle": true,
         "CanProcess": true
     },
     {
@@ -2433,7 +2433,7 @@
         "StrippedPattern": "a\\Z",
         "PositiveExamples": [],
         "NegativeExamples": [],
-        "CanHandle": false,
+        "CanHandle": true,
         "CanProcess": true
     },
     {
@@ -2441,7 +2441,7 @@
         "StrippedPattern": "b\\Z",
         "PositiveExamples": [],
         "NegativeExamples": [],
-        "CanHandle": false,
+        "CanHandle": true,
         "CanProcess": true
     },
     {
@@ -2449,7 +2449,7 @@
         "StrippedPattern": "b\\z",
         "PositiveExamples": [],
         "NegativeExamples": [],
-        "CanHandle": false,
+        "CanHandle": true,
         "CanProcess": true
     },
     {
@@ -2457,7 +2457,7 @@
         "StrippedPattern": "b\\Z",
         "PositiveExamples": [],
         "NegativeExamples": [],
-        "CanHandle": false,
+        "CanHandle": true,
         "CanProcess": true
     },
     {
@@ -2465,7 +2465,7 @@
         "StrippedPattern": "b\\z",
         "PositiveExamples": [],
         "NegativeExamples": [],
-        "CanHandle": false,
+        "CanHandle": true,
         "CanProcess": true
     },
     {
@@ -2473,7 +2473,7 @@
         "StrippedPattern": "((Z)+|A)*",
         "PositiveExamples": [],
         "NegativeExamples": [],
-        "CanHandle": false,
+        "CanHandle": true,
         "CanProcess": true
     },
     {
@@ -2481,7 +2481,7 @@
         "StrippedPattern": "a*",
         "PositiveExamples": [],
         "NegativeExamples": [],
-        "CanHandle": false,
+        "CanHandle": true,
         "CanProcess": true
     },
     {
@@ -2489,7 +2489,7 @@
         "StrippedPattern": "\\s+",
         "PositiveExamples": [],
         "NegativeExamples": [],
-        "CanHandle": false,
+        "CanHandle": true,
         "CanProcess": true
     },
     {
@@ -2497,7 +2497,7 @@
         "StrippedPattern": "\\Gabc",
         "PositiveExamples": [],
         "NegativeExamples": [],
-        "CanHandle": false,
+        "CanHandle": true,
         "CanProcess": true
     },
     {
@@ -2505,7 +2505,7 @@
         "StrippedPattern": "\\Gabc.",
         "PositiveExamples": [],
         "NegativeExamples": [],
-        "CanHandle": false,
+        "CanHandle": true,
         "CanProcess": true
     },
     {
@@ -2513,7 +2513,7 @@
         "StrippedPattern": "abc.",
         "PositiveExamples": [],
         "NegativeExamples": [],
-        "CanHandle": false,
+        "CanHandle": true,
         "CanProcess": true
     },
     {
@@ -2523,7 +2523,7 @@
             "abc123abc"
         ],
         "NegativeExamples": [],
-        "CanHandle": false,
+        "CanHandle": true,
         "CanProcess": true
     },
     {
@@ -2533,7 +2533,7 @@
             "abc123abc"
         ],
         "NegativeExamples": [],
-        "CanHandle": false,
+        "CanHandle": true,
         "CanProcess": true
     },
     {
@@ -2541,7 +2541,7 @@
         "StrippedPattern": "(a+)*b",
         "PositiveExamples": [],
         "NegativeExamples": [],
-        "CanHandle": false,
+        "CanHandle": true,
         "CanProcess": true
     },
     {
@@ -2553,7 +2553,7 @@
             "a"
         ],
         "NegativeExamples": [],
-        "CanHandle": false,
+        "CanHandle": true,
         "CanProcess": true
     },
     {
@@ -2564,7 +2564,7 @@
             "a"
         ],
         "NegativeExamples": [],
-        "CanHandle": false,
+        "CanHandle": true,
         "CanProcess": true
     },
     {
@@ -2576,7 +2576,7 @@
             "a"
         ],
         "NegativeExamples": [],
-        "CanHandle": false,
+        "CanHandle": true,
         "CanProcess": true
     },
     {
@@ -2588,7 +2588,7 @@
             "a"
         ],
         "NegativeExamples": [],
-        "CanHandle": false,
+        "CanHandle": true,
         "CanProcess": true
     },
     {
@@ -2599,7 +2599,7 @@
             "a"
         ],
         "NegativeExamples": [],
-        "CanHandle": false,
+        "CanHandle": true,
         "CanProcess": true
     },
     {
@@ -2609,7 +2609,7 @@
             "a"
         ],
         "NegativeExamples": [],
-        "CanHandle": false,
+        "CanHandle": true,
         "CanProcess": true
     },
     {
@@ -2630,7 +2630,7 @@
         "StrippedPattern": "[a\\E\\E-\\Ec]",
         "PositiveExamples": [],
         "NegativeExamples": [],
-        "CanHandle": false,
+        "CanHandle": true,
         "CanProcess": true
     },
     {
@@ -2638,7 +2638,7 @@
         "StrippedPattern": "[\\E\\Qa\\E-\\Qz\\E]+",
         "PositiveExamples": [],
         "NegativeExamples": [],
-        "CanHandle": false,
+        "CanHandle": true,
         "CanProcess": true
     },
     {
@@ -2659,7 +2659,7 @@
             "aaaa"
         ],
         "NegativeExamples": [],
-        "CanHandle": false,
+        "CanHandle": true,
         "CanProcess": true
     },
     {
@@ -2669,7 +2669,7 @@
             "aaaa"
         ],
         "NegativeExamples": [],
-        "CanHandle": false,
+        "CanHandle": true,
         "CanProcess": true
     },
     {
@@ -2679,7 +2679,7 @@
             "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa4"
         ],
         "NegativeExamples": [],
-        "CanHandle": false,
+        "CanHandle": true,
         "CanProcess": true
     },
     {
@@ -2689,7 +2689,7 @@
             "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa4"
         ],
         "NegativeExamples": [],
-        "CanHandle": false,
+        "CanHandle": true,
         "CanProcess": true
     },
     {
@@ -2697,7 +2697,7 @@
         "StrippedPattern": "\\Z",
         "PositiveExamples": [],
         "NegativeExamples": [],
-        "CanHandle": false,
+        "CanHandle": true,
         "CanProcess": true
     },
     {
@@ -2709,7 +2709,7 @@
             null
         ],
         "NegativeExamples": [],
-        "CanHandle": false,
+        "CanHandle": true,
         "CanProcess": true
     },
     {
@@ -2723,7 +2723,7 @@
             "p"
         ],
         "NegativeExamples": [],
-        "CanHandle": false,
+        "CanHandle": true,
         "CanProcess": true
     },
     {
@@ -2731,7 +2731,7 @@
         "StrippedPattern": ".*[op][xyz]",
         "PositiveExamples": [],
         "NegativeExamples": [],
-        "CanHandle": false,
+        "CanHandle": true,
         "CanProcess": true
     },
     {
@@ -2739,7 +2739,7 @@
         "StrippedPattern": "(abc)\\1",
         "PositiveExamples": [],
         "NegativeExamples": [],
-        "CanHandle": false,
+        "CanHandle": true,
         "CanProcess": true
     },
     {
@@ -2749,7 +2749,7 @@
             "Z"
         ],
         "NegativeExamples": [],
-        "CanHandle": false,
+        "CanHandle": true,
         "CanProcess": true
     },
     {
@@ -2759,7 +2759,7 @@
             "ac"
         ],
         "NegativeExamples": [],
-        "CanHandle": false,
+        "CanHandle": true,
         "CanProcess": true
     },
     {
@@ -2769,7 +2769,7 @@
             "ac"
         ],
         "NegativeExamples": [],
-        "CanHandle": false,
+        "CanHandle": true,
         "CanProcess": true
     },
     {
@@ -2779,7 +2779,7 @@
             "aabc"
         ],
         "NegativeExamples": [],
-        "CanHandle": false,
+        "CanHandle": true,
         "CanProcess": true
     },
     {
@@ -2789,7 +2789,7 @@
             "aaaabc"
         ],
         "NegativeExamples": [],
-        "CanHandle": false,
+        "CanHandle": true,
         "CanProcess": true
     },
     {
@@ -2799,7 +2799,7 @@
             "xyz"
         ],
         "NegativeExamples": [],
-        "CanHandle": false,
+        "CanHandle": true,
         "CanProcess": true
     },
     {
@@ -2807,7 +2807,7 @@
         "StrippedPattern": "(?=abc){1}xyz",
         "PositiveExamples": [],
         "NegativeExamples": [],
-        "CanHandle": false,
+        "CanHandle": true,
         "CanProcess": true
     },
     {
@@ -2815,7 +2815,7 @@
         "StrippedPattern": "(?=(a))?.",
         "PositiveExamples": [],
         "NegativeExamples": [],
-        "CanHandle": false,
+        "CanHandle": true,
         "CanProcess": true
     },
     {
@@ -2825,7 +2825,7 @@
             "ggg<<<aaa>>>"
         ],
         "NegativeExamples": [],
-        "CanHandle": false,
+        "CanHandle": true,
         "CanProcess": true
     },
     {
@@ -2833,7 +2833,7 @@
         "StrippedPattern": "[\\ga]+",
         "PositiveExamples": [],
         "NegativeExamples": [],
-        "CanHandle": false,
+        "CanHandle": true,
         "CanProcess": true
     },
     {
@@ -2854,7 +2854,7 @@
         "StrippedPattern": "\\H\\h\\V\\v",
         "PositiveExamples": [],
         "NegativeExamples": [],
-        "CanHandle": false,
+        "CanHandle": true,
         "CanProcess": true
     },
     {
@@ -2862,7 +2862,7 @@
         "StrippedPattern": "\\H*\\h+\\V?\\v{3,4}",
         "PositiveExamples": [],
         "NegativeExamples": [],
-        "CanHandle": false,
+        "CanHandle": true,
         "CanProcess": true
     },
     {
@@ -2870,7 +2870,7 @@
         "StrippedPattern": "\\H{3,4}",
         "PositiveExamples": [],
         "NegativeExamples": [],
-        "CanHandle": false,
+        "CanHandle": true,
         "CanProcess": true
     },
     {
@@ -2878,7 +2878,7 @@
         "StrippedPattern": ".\\h{3,4}.",
         "PositiveExamples": [],
         "NegativeExamples": [],
-        "CanHandle": false,
+        "CanHandle": true,
         "CanProcess": true
     },
     {
@@ -2886,7 +2886,7 @@
         "StrippedPattern": "\\h*X\\h?\\H+Y\\H?Z",
         "PositiveExamples": [],
         "NegativeExamples": [],
-        "CanHandle": false,
+        "CanHandle": true,
         "CanProcess": true
     },
     {
@@ -2894,7 +2894,7 @@
         "StrippedPattern": "\\v*X\\v?Y\\v+Z\\V*\\x0a\\V+\\x0b\\V{2,3}\\x0c",
         "PositiveExamples": [],
         "NegativeExamples": [],
-        "CanHandle": false,
+        "CanHandle": true,
         "CanProcess": true
     },
     {
@@ -2956,7 +2956,7 @@
         "StrippedPattern": "\\N+",
         "PositiveExamples": [],
         "NegativeExamples": [],
-        "CanHandle": false,
+        "CanHandle": true,
         "CanProcess": true
     },
     {
@@ -2964,7 +2964,7 @@
         "StrippedPattern": "\\N{1,}",
         "PositiveExamples": [],
         "NegativeExamples": [],
-        "CanHandle": false,
+        "CanHandle": true,
         "CanProcess": true
     },
     {
@@ -2972,7 +2972,7 @@
         "StrippedPattern": "(another)?(\\1?)test",
         "PositiveExamples": [],
         "NegativeExamples": [],
-        "CanHandle": false,
+        "CanHandle": true,
         "CanProcess": true
     },
     {
@@ -2980,7 +2980,7 @@
         "StrippedPattern": "(another)?(\\1+)test",
         "PositiveExamples": [],
         "NegativeExamples": [],
-        "CanHandle": false,
+        "CanHandle": true,
         "CanProcess": true
     },
     {
@@ -2990,7 +2990,7 @@
             "aac"
         ],
         "NegativeExamples": [],
-        "CanHandle": false,
+        "CanHandle": true,
         "CanProcess": true
     },
     {
@@ -3000,7 +3000,7 @@
             "abd"
         ],
         "NegativeExamples": [],
-        "CanHandle": false,
+        "CanHandle": true,
         "CanProcess": true
     },
     {
@@ -3010,7 +3010,7 @@
             "1234"
         ],
         "NegativeExamples": [],
-        "CanHandle": false,
+        "CanHandle": true,
         "CanProcess": true
     },
     {
@@ -3020,7 +3020,7 @@
             "aaaa"
         ],
         "NegativeExamples": [],
-        "CanHandle": false,
+        "CanHandle": true,
         "CanProcess": true
     },
     {
@@ -3030,7 +3030,7 @@
             "aaaa"
         ],
         "NegativeExamples": [],
-        "CanHandle": false,
+        "CanHandle": true,
         "CanProcess": true
     },
     {
@@ -3038,7 +3038,7 @@
         "StrippedPattern": "A\\o{123}B",
         "PositiveExamples": [],
         "NegativeExamples": [],
-        "CanHandle": false,
+        "CanHandle": true,
         "CanProcess": true
     },
     {
@@ -3046,7 +3046,7 @@
         "StrippedPattern": "(?:x|(?:(xx|yy)+|x|x|x|x|x)|a|a|a)bc",
         "PositiveExamples": [],
         "NegativeExamples": [],
-        "CanHandle": false,
+        "CanHandle": true,
         "CanProcess": true
     },
     {
@@ -3054,7 +3054,7 @@
         "StrippedPattern": "\\sabc",
         "PositiveExamples": [],
         "NegativeExamples": [],
-        "CanHandle": false,
+        "CanHandle": true,
         "CanProcess": true
     },
     {
@@ -3062,7 +3062,7 @@
         "StrippedPattern": "(\\2|a)(\\1)",
         "PositiveExamples": [],
         "NegativeExamples": [],
-        "CanHandle": false,
+        "CanHandle": true,
         "CanProcess": true
     },
     {
@@ -3070,7 +3070,7 @@
         "StrippedPattern": "(\\2)(\\1)",
         "PositiveExamples": [],
         "NegativeExamples": [],
-        "CanHandle": false,
+        "CanHandle": true,
         "CanProcess": true
     },
     {
@@ -3080,7 +3080,7 @@
             "xx"
         ],
         "NegativeExamples": [],
-        "CanHandle": false,
+        "CanHandle": true,
         "CanProcess": true
     },
     {
@@ -3109,7 +3109,7 @@
             "aaaa"
         ],
         "NegativeExamples": [],
-        "CanHandle": false,
+        "CanHandle": true,
         "CanProcess": true
     },
     {
@@ -3117,7 +3117,7 @@
         "StrippedPattern": "X?(R||){3335}",
         "PositiveExamples": [],
         "NegativeExamples": [],
-        "CanHandle": false,
+        "CanHandle": true,
         "CanProcess": true
     },
     {
@@ -3127,7 +3127,7 @@
             "c"
         ],
         "NegativeExamples": [],
-        "CanHandle": false,
+        "CanHandle": true,
         "CanProcess": true
     },
     {
@@ -3139,7 +3139,7 @@
             "aaab"
         ],
         "NegativeExamples": [],
-        "CanHandle": false,
+        "CanHandle": true,
         "CanProcess": true
     }
 ]

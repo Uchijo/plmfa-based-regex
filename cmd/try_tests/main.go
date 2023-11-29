@@ -47,6 +47,10 @@ func main() {
 	reports := []Report{}
 
 	for _, test := range tests {
+		if !test.CanHandle {
+			continue
+		}
+
 		is := antlr.NewInputStream(test.StrippedPattern)
 		lexer := gen.NewPCRELexer(is)
 		stream := antlr.NewCommonTokenStream(lexer, antlr.TokenDefaultChannel)

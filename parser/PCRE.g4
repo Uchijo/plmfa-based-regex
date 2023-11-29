@@ -232,11 +232,11 @@ character_class
  ;
 
 character_class_atom
- : character_class_range
+ : '\\' .
+ | character_class_range
  | posix_character_class
  | character
  | character_type
- | '\\' .
  | ~( '\\' | ']' )
  ;
 

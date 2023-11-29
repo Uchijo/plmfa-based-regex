@@ -23,10 +23,14 @@ type Test = {
             }).flat()
             elem.PositiveExamples = positives
             elem.NegativeExamples = []
+            elem.CanHandle = true
             return elem
         } catch (e) {
             return elem
         }
     })
     console.log(JSON.stringify(converted))
+    // const origin = "(?s:.*X|^B)"
+    // const tester = RegExp("^" + origin + "$")
+    // console.dir(tester.test(origin))
 })()

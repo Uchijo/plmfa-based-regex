@@ -371,11 +371,11 @@ func pcreParserInit() {
 		587, 3, 42, 21, 0, 586, 585, 1, 0, 0, 0, 587, 588, 1, 0, 0, 0, 588, 586,
 		1, 0, 0, 0, 588, 589, 1, 0, 0, 0, 589, 590, 1, 0, 0, 0, 590, 591, 5, 14,
 		0, 0, 591, 593, 1, 0, 0, 0, 592, 569, 1, 0, 0, 0, 592, 581, 1, 0, 0, 0,
-		593, 41, 1, 0, 0, 0, 594, 602, 3, 44, 22, 0, 595, 602, 3, 48, 24, 0, 596,
-		602, 3, 36, 18, 0, 597, 602, 3, 38, 19, 0, 598, 599, 5, 1, 0, 0, 599, 602,
-		9, 0, 0, 0, 600, 602, 8, 4, 0, 0, 601, 594, 1, 0, 0, 0, 601, 595, 1, 0,
-		0, 0, 601, 596, 1, 0, 0, 0, 601, 597, 1, 0, 0, 0, 601, 598, 1, 0, 0, 0,
-		601, 600, 1, 0, 0, 0, 602, 43, 1, 0, 0, 0, 603, 604, 3, 46, 23, 0, 604,
+		593, 41, 1, 0, 0, 0, 594, 595, 5, 1, 0, 0, 595, 602, 9, 0, 0, 0, 596, 602,
+		3, 44, 22, 0, 597, 602, 3, 48, 24, 0, 598, 602, 3, 36, 18, 0, 599, 602,
+		3, 38, 19, 0, 600, 602, 8, 4, 0, 0, 601, 594, 1, 0, 0, 0, 601, 596, 1,
+		0, 0, 0, 601, 597, 1, 0, 0, 0, 601, 598, 1, 0, 0, 0, 601, 599, 1, 0, 0,
+		0, 601, 600, 1, 0, 0, 0, 602, 43, 1, 0, 0, 0, 603, 604, 3, 46, 23, 0, 604,
 		605, 5, 18, 0, 0, 605, 606, 3, 46, 23, 0, 606, 45, 1, 0, 0, 0, 607, 610,
 		3, 36, 18, 0, 608, 610, 8, 5, 0, 0, 609, 607, 1, 0, 0, 0, 609, 608, 1,
 		0, 0, 0, 610, 47, 1, 0, 0, 0, 611, 613, 5, 15, 0, 0, 612, 614, 5, 5, 0,
@@ -7790,11 +7790,11 @@ type ICharacter_class_atomContext interface {
 	GetParser() antlr.Parser
 
 	// Getter signatures
+	BSlash() antlr.TerminalNode
 	Character_class_range() ICharacter_class_rangeContext
 	Posix_character_class() IPosix_character_classContext
 	Character() ICharacterContext
 	Character_type() ICharacter_typeContext
-	BSlash() antlr.TerminalNode
 	CBrack() antlr.TerminalNode
 
 	// IsCharacter_class_atomContext differentiates from other interfaces.
@@ -7832,6 +7832,10 @@ func NewCharacter_class_atomContext(parser antlr.Parser, parent antlr.ParserRule
 }
 
 func (s *Character_class_atomContext) GetParser() antlr.Parser { return s.parser }
+
+func (s *Character_class_atomContext) BSlash() antlr.TerminalNode {
+	return s.GetToken(PCREParserBSlash, 0)
+}
 
 func (s *Character_class_atomContext) Character_class_range() ICharacter_class_rangeContext {
 	var t antlr.RuleContext
@@ -7897,10 +7901,6 @@ func (s *Character_class_atomContext) Character_type() ICharacter_typeContext {
 	return t.(ICharacter_typeContext)
 }
 
-func (s *Character_class_atomContext) BSlash() antlr.TerminalNode {
-	return s.GetToken(PCREParserBSlash, 0)
-}
-
 func (s *Character_class_atomContext) CBrack() antlr.TerminalNode {
 	return s.GetToken(PCREParserCBrack, 0)
 }
@@ -7951,42 +7951,42 @@ func (p *PCREParser) Character_class_atom() (localctx ICharacter_class_atomConte
 		p.EnterOuterAlt(localctx, 1)
 		{
 			p.SetState(594)
-			p.Character_class_range()
-		}
-
-	case 2:
-		p.EnterOuterAlt(localctx, 2)
-		{
-			p.SetState(595)
-			p.Posix_character_class()
-		}
-
-	case 3:
-		p.EnterOuterAlt(localctx, 3)
-		{
-			p.SetState(596)
-			p.Character()
-		}
-
-	case 4:
-		p.EnterOuterAlt(localctx, 4)
-		{
-			p.SetState(597)
-			p.Character_type()
-		}
-
-	case 5:
-		p.EnterOuterAlt(localctx, 5)
-		{
-			p.SetState(598)
 			p.Match(PCREParserBSlash)
 			if p.HasError() {
 				// Recognition error - abort rule
 				goto errorExit
 			}
 		}
-		p.SetState(599)
+		p.SetState(595)
 		p.MatchWildcard()
+
+	case 2:
+		p.EnterOuterAlt(localctx, 2)
+		{
+			p.SetState(596)
+			p.Character_class_range()
+		}
+
+	case 3:
+		p.EnterOuterAlt(localctx, 3)
+		{
+			p.SetState(597)
+			p.Posix_character_class()
+		}
+
+	case 4:
+		p.EnterOuterAlt(localctx, 4)
+		{
+			p.SetState(598)
+			p.Character()
+		}
+
+	case 5:
+		p.EnterOuterAlt(localctx, 5)
+		{
+			p.SetState(599)
+			p.Character_type()
+		}
 
 	case 6:
 		p.EnterOuterAlt(localctx, 6)
@@ -8822,12 +8822,6 @@ type IQuotingContext interface {
 	// GetParser returns the parser.
 	GetParser() antlr.Parser
 
-	// GetInside returns the inside token.
-	GetInside() antlr.Token
-
-	// SetInside sets the inside token.
-	SetInside(antlr.Token)
-
 	// Getter signatures
 	AllBSlash() []antlr.TerminalNode
 	BSlash(i int) antlr.TerminalNode
@@ -8841,7 +8835,6 @@ type IQuotingContext interface {
 type QuotingContext struct {
 	antlr.BaseParserRuleContext
 	parser antlr.Parser
-	inside antlr.Token
 }
 
 func NewEmptyQuotingContext() *QuotingContext {
@@ -8870,10 +8863,6 @@ func NewQuotingContext(parser antlr.Parser, parent antlr.ParserRuleContext, invo
 }
 
 func (s *QuotingContext) GetParser() antlr.Parser { return s.parser }
-
-func (s *QuotingContext) GetInside() antlr.Token { return s.inside }
-
-func (s *QuotingContext) SetInside(v antlr.Token) { s.inside = v }
 
 func (s *QuotingContext) AllBSlash() []antlr.TerminalNode {
 	return s.GetTokens(PCREParserBSlash)
@@ -8963,10 +8952,7 @@ func (p *PCREParser) Quoting() (localctx IQuotingContext) {
 		for _alt != 1 && _alt != antlr.ATNInvalidAltNumber {
 			if _alt == 1+1 {
 				p.SetState(629)
-
-				var _mwc = p.MatchWildcard()
-
-				localctx.(*QuotingContext).inside = _mwc
+				p.MatchWildcard()
 
 			}
 			p.SetState(634)
