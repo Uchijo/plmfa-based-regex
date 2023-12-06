@@ -5,11 +5,9 @@ import (
 	"flag"
 	"fmt"
 
-	"github.com/antlr4-go/antlr/v4"
 	"github.com/uchijo/plmfa-based-regex/eval"
 	"github.com/uchijo/plmfa-based-regex/model"
 	"github.com/uchijo/plmfa-based-regex/parser"
-	gen "github.com/uchijo/plmfa-based-regex/parser/gen"
 )
 
 type Output struct {
@@ -45,6 +43,7 @@ func init() {
 }
 
 func main() {
+	// エラーで死ぬか、エラーがあったことをjsonで通知するかの分岐
 	defer func() {
 		if args.noRecover {
 			return
@@ -58,14 +57,7 @@ func main() {
 		}
 	}()
 
-	is := antlr.NewInputStream(args.regex)
-	lexer := gen.NewPCRELexer(is)
-	stream := antlr.NewCommonTokenStream(lexer, antlr.TokenDefaultChannel)
-
-	p := gen.NewPCREParser(stream)
-	p.BuildParseTrees = true
-	tree := p.Pcre()
-	regex := tree.Accept(&parser.RegexBuilder{}).(model.RegExp)
+	regex := parser.GenAst(args.regex)
 
 	states, start, _ := model.CreateCompleteStates(regex)
 	input := eval.InputBuffer{
