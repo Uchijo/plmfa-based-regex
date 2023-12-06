@@ -27,20 +27,24 @@ type Args struct {
 	showLog   bool
 }
 
-func main() {
+var args Args
+
+func init() {
 	var epsilonSemantics = flag.Bool("e", false, "use epsilon semantics")
 	var noRecover = flag.Bool("noRecover", false, "doesnt recover from panic when true")
 	var showLog = flag.Bool("showLog", false, "show log on matching")
 	flag.Parse()
 	rawArgs := flag.Args()
-	args := Args{
+	args = Args{
 		input:     rawArgs[0],
 		regex:     rawArgs[1],
 		eSem:      *epsilonSemantics,
 		noRecover: *noRecover,
 		showLog:   *showLog,
 	}
+}
 
+func main() {
 	defer func() {
 		if args.noRecover {
 			return
