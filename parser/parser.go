@@ -28,9 +28,25 @@ func (rb *RegexBuilder) VisitAlternation(ctx *gen.AlternationContext) interface{
 	exprs := ctx.AllExpr()
 	exprsLen := len(exprs)
 
+	txt := ctx.GetText()
+	var last string
+	if len(txt) <= 0 {
+		last = "something but not |"
+	} else {
+		last = txt[len(txt)-1:]
+	}
+
 	// ブランチなし
 	if exprsLen == 1 {
-		return exprs[0].Accept(rb)
+		if last != "|" {
+			return exprs[0].Accept(rb)
+		} else {
+			return model.RegUnion{
+				Left:  exprs[0].Accept(rb).(model.RegExp),
+				Right: model.RegString{Content: ""},
+			}
+
+		}
 	}
 
 	root := model.RegUnion{
@@ -53,7 +69,15 @@ func (rb *RegexBuilder) VisitAlternation(ctx *gen.AlternationContext) interface{
 			Left: root,
 		}
 	}
-	return root
+	if last != "|" {
+		return root
+	} else {
+		return model.RegUnion{
+			Left:  root,
+			Right: model.RegString{Content: ""},
+		}
+
+	}
 }
 
 func (rb *RegexBuilder) VisitAnchor(ctx *gen.AnchorContext) interface{} {
