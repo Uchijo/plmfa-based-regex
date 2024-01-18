@@ -10,7 +10,7 @@ type CapMemoryList []CapMemory
 // epsilon semantics
 func (cml CapMemoryList) Content(index int, epsilonSem bool) (string, error) {
 	for _, v := range cml {
-		if v.Index == index {
+		if v.Index == index && !v.IsOpen {
 			return v.Content, nil
 		}
 	}
