@@ -4,8 +4,29 @@
 
 ## 使い方
 
-```bash
-go run main.go input pattern
+正規表現と入力を与え、文字列全体がマッチするか確認する
+
+```shell-session
+$ go run main.go input pattern
+```
+
+PCRE2におけるテストケースをパースし、json形式で保存し直す
+
+```shell-session
+$ cd cmd/parse_testsuits/
+
+# main.go内で対象とする入力ファイル名を書き換える
+$ vim main.go
+
+$ go run main.go > output.json
+```
+
+json形式で保存されているテストを実施する
+
+```shell-session
+$ cd cmd/try_tests/
+
+$ go run main.go path/to/input.json > result.json
 ```
 
 ## 参考等
