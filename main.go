@@ -5,11 +5,9 @@ import (
 	"flag"
 	"fmt"
 
-	"github.com/antlr4-go/antlr/v4"
 	"github.com/uchijo/plmfa-based-regex/eval"
 	"github.com/uchijo/plmfa-based-regex/model"
 	"github.com/uchijo/plmfa-based-regex/parser"
-	gen "github.com/uchijo/plmfa-based-regex/parser/gen"
 )
 
 type Output struct {
@@ -27,20 +25,25 @@ type Args struct {
 	showLog   bool
 }
 
-func main() {
+var args Args
+
+func init() {
 	var epsilonSemantics = flag.Bool("e", false, "use epsilon semantics")
 	var noRecover = flag.Bool("noRecover", false, "doesnt recover from panic when true")
 	var showLog = flag.Bool("showLog", false, "show log on matching")
 	flag.Parse()
 	rawArgs := flag.Args()
-	args := Args{
+	args = Args{
 		input:     rawArgs[0],
 		regex:     rawArgs[1],
 		eSem:      *epsilonSemantics,
 		noRecover: *noRecover,
 		showLog:   *showLog,
 	}
+}
 
+func main() {
+	// エラーで死ぬか、エラーがあったことをjsonで通知するかの分岐
 	defer func() {
 		if args.noRecover {
 			return
@@ -54,14 +57,7 @@ func main() {
 		}
 	}()
 
-	is := antlr.NewInputStream(args.regex)
-	lexer := gen.NewPCRELexer(is)
-	stream := antlr.NewCommonTokenStream(lexer, antlr.TokenDefaultChannel)
-
-	p := gen.NewPCREParser(stream)
-	p.BuildParseTrees = true
-	tree := p.Pcre()
-	regex := tree.Accept(&parser.RegexBuilder{}).(model.RegExp)
+	regex := parser.GenAst(args.regex)
 
 	states, start, _ := model.CreateCompleteStates(regex)
 	input := eval.InputBuffer{
